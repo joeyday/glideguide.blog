@@ -49,14 +49,21 @@ pre, code, tt {
 /////// Syntax highlighting ///////
 
 pre.highlight {
-  background-color: #282923;
+  background-color: #263238;
   padding: 7px 7px 7px 10px;
-  border: 20px solid yellowgreen;
+  // border: 20px solid yellowgreen;
   -moz-box-shadow: 3px 3px rgba(0,0,0,0.1);
   -webkit-box-shadow: 3px 3px rgba(0,0,0,0.1);
   box-shadow: 3px 3px rgba(0,0,0,0.1);
+  border-radius: 3px;
   margin: 20px 0 20px 0;
   overflow: auto;
+}
+
+code {
+  color:#C9D1D9;
+  background-color: #263238;
+  border-radius: 1px;
 }
 
 .highlight .c { color: #586E75 } /* Comment */
