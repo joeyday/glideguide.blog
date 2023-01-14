@@ -33,6 +33,17 @@ var incidents = new GlideQuery('incident')
     .reduce(function (incidents, incident) {
         return incidents.concat(incident.sys_id);
     }, []);
+
+var c = a + b;
+
+/hello/g.test('hello world!');
+
+var array = [ 'a', 'b', 'c' ];
+
+var object = {
+    hello: 'snickers',
+    goodbye: 'oreos'
+};
 ```
 
 #### Header 4
