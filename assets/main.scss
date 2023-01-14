@@ -73,7 +73,7 @@ $syntax-purple:		#ab9df2 !default;
   .c     { color: $syntax-dark-grey; font-style: italic } // Comment
   .err   { color: $syntax-pink; background-color: $syntax-black } // Error
   .k     { color: $syntax-pink; font-weight: normal; } // Keyword
-  .o     { font-weight: bold } // Operator
+  .o     { color: $syntax-pink; font-weight: normal; } // Operator
   .cm    { color: $syntax-dark-grey; font-style: italic } // Comment.Multiline
   .cp    { color: $syntax-dark-grey; font-weight: bold } // Comment.Preproc
   .c1    { color: $syntax-dark-grey; font-style: italic } // Comment.Single
@@ -90,7 +90,7 @@ $syntax-purple:		#ab9df2 !default;
   .gs    { font-weight: bold } // Generic.Strong
   .gu    { color: $syntax-white } // Generic.Subheading
   .gt    { color: $syntax-white } // Generic.Traceback
-  .kc    { font-weight: bold } // Keyword.Constant
+  .kc    { color: $syntax-purple; font-weight: normal } // Keyword.Constant
   .kd    { color: $syntax-blue; font-weight: normal; } // Keyword.Declaration
   .kp    { font-weight: bold } // Keyword.Pseudo
   .kr    { font-weight: bold } // Keyword.Reserved
@@ -122,7 +122,7 @@ $syntax-purple:		#ab9df2 !default;
   .si    { color: $syntax-white } // Literal.String.Interpol
   .sx    { color: $syntax-white } // Literal.String.Other
   .sr    { color: $syntax-white } // Literal.String.Regex
-  .s1    { color: $syntax-white } // Literal.String.Single
+  .s1    { color: $syntax-yellow } // Literal.String.Single
   .ss    { color: $syntax-white } // Literal.String.Symbol
   .bp    { color: $syntax-dark-grey } // Name.Builtin.Pseudo
   .vc    { color: $syntax-white } // Name.Variable.Class
