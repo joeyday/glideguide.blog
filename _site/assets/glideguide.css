@@ -646,6 +646,12 @@ table td {
   color: #099;
 }
 
-/* Hello World */
+body {
+  font-family: open-sans, sans-serif;
+}
+
+pre, code, tt {
+  font-family: source-code-pro, monospace;
+}
 
 /*# sourceMappingURL=glideguide.css.map */
