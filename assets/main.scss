@@ -41,11 +41,6 @@ $syntax-purple:		#ab9df2 !default;
 
 @import "{{ site.theme }}";
 
-
-pre, code, tt {
-	font-family: source-code-pro, monospace;
-}
-
 .site-title {
 	font-family: source-code-pro, monospace;
 	word-spacing: -0.5ch;
@@ -117,6 +112,14 @@ table {
   td {
     border: 1px solid $grey-color-dark;
   }
+}
+
+pre, code, tt {
+	font-family: source-code-pro, monospace;
+	@include relative-font-size(0.9375);
+	border: 1px solid $grey-color-dark;
+	border-radius: 3px;
+	background-color: $syntax-black;
 }
 
 
