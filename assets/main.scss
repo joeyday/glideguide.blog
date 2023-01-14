@@ -37,5 +37,10 @@ pre, code, tt {
 .site-title {
 	font-family: source-code-pro, monospace;
 	word-spacing: -0.5ch;
+	
+	&,
+	&:visited {
+		color: $grey-color-light;
+	}
 }
 
