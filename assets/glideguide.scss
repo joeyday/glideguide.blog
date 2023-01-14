@@ -3,4 +3,10 @@
 
 @import "{{ site.theme }}";
 
-/* Hello World */
+body {
+	font-family: open-sans, sans-serif;
+}
+
+pre, code, tt {
+	font-family: source-code-pro, monospace;
+}
