@@ -55,6 +55,10 @@ pre, code, tt {
 		color: $grey-color-light;
 	}
 	
+	&:hover {
+			background: linear-gradient(to bottom, transparent 0%, transparent 50%, $brand-color-trans 50%, $brand-color-trans 80%, transparent 80%, transparent 100%);
+	}
+	
 	span:nth-child(1) {
 		color: $syntax-blue;
 	}
