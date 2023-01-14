@@ -13,7 +13,7 @@ $spacing-unit:		30px !default;
 $text-color:		#fcfcfa !default;
 $background-color:	darken(#2d2a2e, 10%) !default;
 $brand-color:		#a9dc76 !default;
-$brand-color-trans:	rgba(#a9dc76, 0.5) !default;
+$brand-color-trans:	rgba(#a9dc76, 0.25) !default;
 
 $grey-color:		#797979 !default;
 $grey-color-light:	lighten($grey-color, 40%) !default;
@@ -110,9 +110,9 @@ a {
   .k     { color: $syntax-pink; font-weight: normal; } // Keyword
   .o     { color: $syntax-pink; font-weight: normal; } // Operator
   .cm    { color: $syntax-dark-grey; font-style: italic } // Comment.Multiline
-  .cp    { color: $syntax-dark-grey; font-weight: bold } // Comment.Preproc
+  .cp    { color: $syntax-dark-grey; font-weight: normal } // Comment.Preproc
   .c1    { color: $syntax-dark-grey; font-style: italic } // Comment.Single
-  .cs    { color: $syntax-dark-grey; font-weight: bold; font-style: italic } // Comment.Special
+  .cs    { color: $syntax-dark-grey; font-weight: normal; font-style: italic } // Comment.Special
   .gd    { color: $syntax-white; background-color: $syntax-black } // Generic.Deleted
   .gd .x { color: $syntax-white; background-color: $syntax-black } // Generic.Deleted.Specific
   .ge    { font-style: italic } // Generic.Emph
@@ -129,16 +129,16 @@ a {
   .kd    { color: $syntax-blue; font-weight: normal; } // Keyword.Declaration
   .kp    { font-weight: bold } // Keyword.Pseudo
   .kr    { font-weight: bold } // Keyword.Reserved
-  .kt    { color: $syntax-white; font-weight: bold } // Keyword.Type
+  .kt    { color: $syntax-white; font-weight: normal } // Keyword.Type
   .m     { color: $syntax-purple } // Literal.Number
   .s     { color: $syntax-yellow } // Literal.String
   .na    { color: $syntax-white } // Name.Attribute
   .nb    { color: $syntax-white } // Name.Builtin
-  .nc    { color: $syntax-white; font-weight: bold } // Name.Class
+  .nc    { color: $syntax-white; font-weight: normal } // Name.Class
   .no    { color: $syntax-white } // Name.Constant
   .ni    { color: $syntax-white } // Name.Entity
-  .ne    { color: $syntax-white; font-weight: bold } // Name.Exception
-  .nf    { color: $syntax-white; font-weight: bold } // Name.Function
+  .ne    { color: $syntax-white; font-weight: normal } // Name.Exception
+  .nf    { color: $syntax-white; font-weight: normal } // Name.Function
   .nn    { color: $syntax-white } // Name.Namespace
   .nt    { color: $syntax-white } // Name.Tag
   .nv    { color: $syntax-white } // Name.Variable
@@ -148,17 +148,17 @@ a {
   .mh    { color: $syntax-purple } // Literal.Number.Hex
   .mi    { color: $syntax-purple } // Literal.Number.Integer
   .mo    { color: $syntax-purple } // Literal.Number.Oct
-  .sb    { color: $syntax-white } // Literal.String.Backtick
-  .sc    { color: $syntax-white } // Literal.String.Char
-  .sd    { color: $syntax-white } // Literal.String.Doc
-  .s2    { color: $syntax-white } // Literal.String.Double
-  .se    { color: $syntax-white } // Literal.String.Escape
-  .sh    { color: $syntax-white } // Literal.String.Heredoc
-  .si    { color: $syntax-white } // Literal.String.Interpol
-  .sx    { color: $syntax-white } // Literal.String.Other
-  .sr    { color: $syntax-white } // Literal.String.Regex
+  .sb    { color: $syntax-yellow } // Literal.String.Backtick
+  .sc    { color: $syntax-yellow } // Literal.String.Char
+  .sd    { color: $syntax-yellow } // Literal.String.Doc
+  .s2    { color: $syntax-yellow } // Literal.String.Double
+  .se    { color: $syntax-yellow } // Literal.String.Escape
+  .sh    { color: $syntax-yellow } // Literal.String.Heredoc
+  .si    { color: $syntax-yellow } // Literal.String.Interpol
+  .sx    { color: $syntax-yellow } // Literal.String.Other
+  .sr    { color: $syntax-yellow } // Literal.String.Regex
   .s1    { color: $syntax-yellow } // Literal.String.Single
-  .ss    { color: $syntax-white } // Literal.String.Symbol
+  .ss    { color: $syntax-yellow } // Literal.String.Symbol
   .bp    { color: $syntax-dark-grey } // Name.Builtin.Pseudo
   .vc    { color: $syntax-white } // Name.Variable.Class
   .vg    { color: $syntax-white } // Name.Variable.Global
