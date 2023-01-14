@@ -55,7 +55,7 @@ $syntax-pink: 		#ff6188 !default;
 $syntax-orange:		#fc9867 !default;
 $syntax-yellow:		#ffd866 !default;
 $syntax-green:		#a9dc76 !default;
-$syntax-blue:		#a9dc76 !default;
+$syntax-blue:		#78dce8 !default;
 $syntax-purple:		#ab9df2 !default;
 
 .highlight {
@@ -72,7 +72,7 @@ $syntax-purple:		#ab9df2 !default;
 
   .c     { color: $syntax-dark-grey; font-style: italic } // Comment
   .err   { color: $syntax-pink; background-color: $syntax-black } // Error
-  .k     { color: $syntax-blue; } // Keyword
+  .k     { color: $syntax-pink; } // Keyword
   .o     { font-weight: bold } // Operator
   .cm    { color: $syntax-dark-grey; font-style: italic } // Comment.Multiline
   .cp    { color: $syntax-dark-grey; font-weight: bold } // Comment.Preproc
@@ -91,7 +91,7 @@ $syntax-purple:		#ab9df2 !default;
   .gu    { color: $syntax-white } // Generic.Subheading
   .gt    { color: $syntax-white } // Generic.Traceback
   .kc    { font-weight: bold } // Keyword.Constant
-  .kd    { font-weight: bold } // Keyword.Declaration
+  .kd    { color: $syntax-blue } // Keyword.Declaration
   .kp    { font-weight: bold } // Keyword.Pseudo
   .kr    { font-weight: bold } // Keyword.Reserved
   .kt    { color: $syntax-white; font-weight: bold } // Keyword.Type
