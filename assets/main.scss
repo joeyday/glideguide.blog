@@ -48,15 +48,16 @@ pre, code, tt {
 
 /////// Syntax highlighting ///////
 
+$syntax-black:		#171717 !default;
 $syntax-dark-grey:	#797979 !default;
 $syntax-pink: 		#ff6188 !default;
 
 .highlight {
-  background: #fff;
+  background: $syntax-black;
   @extend %vertical-rhythm;
 
   .highlighter-rouge & {
-    background: #eef;
+    background: $syntax-black;
   }
 
   .c     { color: $syntax-dark-grey; font-style: italic } // Comment
