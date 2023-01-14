@@ -647,10 +647,14 @@ table td {
 }
 
 body {
-  font-family: open-sans, sans-serif;
+  font-family: source-sans-3, sans-serif;
 }
 
 pre, code, tt {
+  font-family: source-code-pro, monospace;
+}
+
+.site-title {
   font-family: source-code-pro, monospace;
 }
 
