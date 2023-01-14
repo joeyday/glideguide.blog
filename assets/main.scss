@@ -67,10 +67,28 @@ pre, code, tt {
 	}
 }
 
-a:hover {
-	background: linear-gradient(to bottom, transparent 0%, transparent 50%, $brand-color-light 50%, $brand-color-light 100%);
-}
+a {
+  color: $brand-color;
+  text-decoration: none;
 
+  &:visited {
+    color: darken($brand-color, 15%);
+  }
+
+  &:hover {
+    color: $brand-color;
+	text-decoration: none;
+	background: linear-gradient(to bottom, transparent 0%, transparent 50%, $brand-color-light 50%, $brand-color-light 80%, transparent 80%, transparent 100%);
+  }
+
+  .social-media-list &:hover {
+    text-decoration: none;
+
+    .username {
+      text-decoration: underline;
+    }
+  }
+}
 
 
 /////// Syntax highlighting ///////
