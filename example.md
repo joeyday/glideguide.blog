@@ -25,6 +25,7 @@ This is a normal paragraph following a header. GitHub is a code hosting platform
 ```js
 var gg = new GlideGuide();
 
+// Sample GlideQuery script
 var incidents = new GlideQuery('incident')
     .where('active', true)
     .where('sys_created_on', '>', '2023-01-01 00:00:00')
