@@ -2,7 +2,7 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-@import "{{ site-theme }}";
+@import "{{ site.theme }}";
 
 body {
 	font-family: source-sans-3, sans-serif;
