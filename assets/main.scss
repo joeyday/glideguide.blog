@@ -49,7 +49,7 @@ pre, code, tt {
 /////// Syntax highlighting ///////
 
 $syntax-white:		#d6d6d6 !default;
-$syntax-black:		#171717 !default;
+$syntax-black:		#2d2a2e !default;
 $syntax-dark-grey:	#797979 !default;
 $syntax-pink: 		#ff6188 !default;
 $syntax-purple:		#ab9df2 !default;
@@ -97,7 +97,7 @@ $syntax-purple:		#ab9df2 !default;
   .ne    { color: #900; font-weight: bold } // Name.Exception
   .nf    { color: #900; font-weight: bold } // Name.Function
   .nn    { color: #555 } // Name.Namespace
-  .nt    { color: $syntax-white080 } // Name.Tag
+  .nt    { color: #000080 } // Name.Tag
   .nv    { color: #008080 } // Name.Variable
   .ow    { font-weight: bold } // Operator.Word
   .w     { color: #bbb } // Text.Whitespace
