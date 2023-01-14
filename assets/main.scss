@@ -13,7 +13,7 @@ $spacing-unit:		30px !default;
 $text-color:		#fcfcfa !default;
 $background-color:	darken(#2d2a2e, 10%) !default;
 $brand-color:		#a9dc76 !default;
-$brand-color-trans:	rgba(#a9dc76, 0.25) !default;
+$brand-color-trans:	rgba(#a9dc76, 0.33) !default;
 
 $grey-color:		#797979 !default;
 $grey-color-light:	lighten($grey-color, 40%) !default;
@@ -78,7 +78,7 @@ a {
   &:hover {
     color: $brand-color;
 	text-decoration: none;
-	background: linear-gradient(to bottom, transparent 0%, transparent 50%, $brand-color-trans 50%, $brand-color-trans 80%, transparent 80%, transparent 100%);
+	background: linear-gradient(to bottom, transparent 0%, transparent 55%, $brand-color-trans 55%, $brand-color-trans 95%, transparent 95%, transparent 100%);
   }
 
   .social-media-list &:hover {
