@@ -38,7 +38,7 @@ var c = a + b;
 
 /hello/g.test('hello world!');
 
-var array = [ 'a', 'b', 'c' ];
+var array = [ 'a', 2, 'c' ];
 
 var object = {
     hello: 'snickers',
