@@ -82,7 +82,7 @@ a {
   &:hover {
     color: $brand-color;
 	text-decoration: none;
-	background: linear-gradient(to bottom, transparent 0%, transparent 55%, $brand-color-trans 55%, $brand-color-trans 95%, transparent 95%, transparent 100%);
+	background: linear-gradient(to bottom, transparent 0%, transparent 54%, $brand-color-trans 54%, $brand-color-trans 95%, transparent 95%, transparent 100%);
   }
 
   .social-media-list &:hover {
