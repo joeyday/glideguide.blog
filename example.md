@@ -23,18 +23,15 @@ This is a normal paragraph following a header. GitHub is a code hosting platform
 ### Header 3
 
 ```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
-```
+var gg = new GlideGuide();
 
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
+var incidents = new GlideQuery('incident')
+    .where('active', true)
+    .where('sys_created_on', '>', '2023-01-01 00:00:00')
+    .select()
+    .reduce(function (incidents, incident) {
+        return incidents.concat(incident.sys_id);
+    }, []);
 ```
 
 #### Header 4
