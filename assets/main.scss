@@ -2,9 +2,7 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-@import "{{ site.theme }}";
-
-$base-font-family: source-sans-3, sans-serif;
+$base-font-family: source-sans-3, sans-serif !default;
 $base-font-size:   16px !default;
 $base-font-weight: 400 !default;
 $small-font-size:  $base-font-size * 0.875 !default;
@@ -12,9 +10,9 @@ $base-line-height: 1.5 !default;
 
 $spacing-unit:     30px !default;
 
-$text-color:       #111 !default;
+$text-color:       #d6d6d6 !default;
 $background-color: #797979 !default;
-$brand-color:      #2a7ae2 !default;
+$brand-color:      #b4d273 !default;
 
 $grey-color:       #828282 !default;
 $grey-color-light: lighten($grey-color, 40%) !default;
@@ -27,6 +25,9 @@ $content-width:    700px !default;
 
 $on-palm:          600px !default;
 $on-laptop:        700px !default;
+
+
+@import "{{ site.theme }}";
 
 
 pre, code, tt {
