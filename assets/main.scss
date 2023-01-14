@@ -60,6 +60,12 @@ pre.highlight {
   overflow: auto;
 }
 
+.highlight {
+  .highlighter-rouge & {
+    background: inherit;
+  }
+}
+
 code {
   color:#C9D1D9;
   background-color: #263238;
