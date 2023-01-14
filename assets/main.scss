@@ -11,7 +11,7 @@ $base-line-height: 1.5 !default;
 $spacing-unit:     30px !default;
 
 $text-color:       #d6d6d6 !default;
-$background-color: darken(#2d2a2e, 50%) !default;
+$background-color: darken(#2d2a2e, 25%) !default;
 $brand-color:      #b4d273 !default;
 
 $grey-color:       #797979 !default;
@@ -52,6 +52,10 @@ $syntax-white:		#d6d6d6 !default;
 $syntax-black:		#2d2a2e !default;
 $syntax-dark-grey:	#797979 !default;
 $syntax-pink: 		#ff6188 !default;
+$syntax-orange:		#fc9867 !default;
+$syntax-yellow:		#ffd866 !default;
+$syntax-green:		#a9dc76 !default;
+$syntax-blue:		#a9dc76 !default;
 $syntax-purple:		#ab9df2 !default;
 
 .highlight {
@@ -68,7 +72,7 @@ $syntax-purple:		#ab9df2 !default;
 
   .c     { color: $syntax-dark-grey; font-style: italic } // Comment
   .err   { color: $syntax-pink; background-color: $syntax-black } // Error
-  .k     { font-weight: bold } // Keyword
+  .k     { color: $syntax-blue; } // Keyword
   .o     { font-weight: bold } // Operator
   .cm    { color: $syntax-dark-grey; font-style: italic } // Comment.Multiline
   .cp    { color: $syntax-dark-grey; font-weight: bold } // Comment.Preproc
