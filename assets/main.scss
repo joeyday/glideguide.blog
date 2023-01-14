@@ -2,29 +2,30 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-$base-font-family: source-sans-3, sans-serif !default;
-$base-font-size:   16px !default;
-$base-font-weight: 400 !default;
-$small-font-size:  $base-font-size * 0.875 !default;
-$base-line-height: 1.5 !default;
+$base-font-family:	source-sans-3, sans-serif !default;
+$base-font-size:	16px !default;
+$base-font-weight:	400 !default;
+$small-font-size:	$base-font-size * 0.875 !default;
+$base-line-height:	1.5 !default;
 
-$spacing-unit:     30px !default;
+$spacing-unit:		30px !default;
 
-$text-color:       #fcfcfa !default;
-$background-color: darken(#2d2a2e, 25%) !default;
-$brand-color:      #b4d273 !default;
+$text-color:		#fcfcfa !default;
+$background-color:	darken(#2d2a2e, 25%) !default;
+$brand-color:		#a9dc76 !default;
+$brand-color-light:	lighten(#a9dc76, 50%) !default;
 
-$grey-color:       #797979 !default;
-$grey-color-light: lighten($grey-color, 40%) !default;
-$grey-color-dark:  darken($grey-color, 25%) !default;
+$grey-color:		#797979 !default;
+$grey-color-light:	lighten($grey-color, 40%) !default;
+$grey-color-dark:	darken($grey-color, 25%) !default;
 
-$table-text-align: left !default;
+$table-text-align:	left !default;
 
 // Width of the content area
-$content-width:    700px !default;
+$content-width:		700px !default;
 
-$on-palm:          600px !default;
-$on-laptop:        700px !default;
+$on-palm:			600px !default;
+$on-laptop:			700px !default;
 
 // Syntax highlighting
 $syntax-white:		#fcfcfa !default;
@@ -64,6 +65,10 @@ pre, code, tt {
 	span:nth-child(5) {
 		color: $syntax-green;
 	}
+}
+
+a:hover {
+	background: linear-gradient(to bottom, transparent 0%, transparent 50%, $brand-color-light 50%, $brand-color-light 100%);
 }
 
 
