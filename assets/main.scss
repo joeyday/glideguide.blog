@@ -2,4 +2,18 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-@import "minima";
+@import "{{ site-theme }}";
+
+body {
+	font-family: source-sans-3, sans-serif;
+}
+
+pre, code, tt {
+	font-family: source-code-pro, monospace;
+}
+
+.site-title {
+	font-family: source-code-pro, monospace;
+	word-spacing: -0.5ch;
+}
+
