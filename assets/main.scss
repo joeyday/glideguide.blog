@@ -61,6 +61,10 @@ $syntax-purple:		#ab9df2 !default;
   .highlighter-rouge & {
     background: $syntax-black;
   }
+  
+  pre, code, tt {
+  	background: inherit;
+  }
 
   .c     { color: $syntax-dark-grey; font-style: italic } // Comment
   .err   { color: $syntax-pink; background-color: #e3d2d2 } // Error
