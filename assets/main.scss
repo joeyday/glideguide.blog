@@ -26,6 +26,17 @@ $content-width:    700px !default;
 $on-palm:          600px !default;
 $on-laptop:        700px !default;
 
+// Syntax highlighting
+$syntax-white:		#fcfcfa !default;
+$syntax-black:		#2d2a2e !default;
+$syntax-dark-grey:	#797979 !default;
+$syntax-pink: 		#ff6188 !default;
+$syntax-orange:		#fc9867 !default;
+$syntax-yellow:		#ffd866 !default;
+$syntax-green:		#a9dc76 !default;
+$syntax-blue:		#78dce8 !default;
+$syntax-purple:		#ab9df2 !default;
+
 
 @import "{{ site.theme }}";
 
@@ -42,21 +53,22 @@ pre, code, tt {
 	&:visited {
 		color: $grey-color-light;
 	}
+	
+	span:nth-child(1) {
+		color: $syntax-blue;
+	}
+	span:nth-child(3),
+	span:nth-child(4) {
+		color: $syntax-pink;
+	}
+	span:nth-child(5) {
+		color: $syntax-green;
+	}
 }
 
 
 
 /////// Syntax highlighting ///////
-
-$syntax-white:		#fcfcfa !default;
-$syntax-black:		#2d2a2e !default;
-$syntax-dark-grey:	#797979 !default;
-$syntax-pink: 		#ff6188 !default;
-$syntax-orange:		#fc9867 !default;
-$syntax-yellow:		#ffd866 !default;
-$syntax-green:		#a9dc76 !default;
-$syntax-blue:		#78dce8 !default;
-$syntax-purple:		#ab9df2 !default;
 
 .highlight {
   background: $syntax-black;
