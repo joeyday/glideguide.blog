@@ -46,11 +46,7 @@ body {
 	background-color: $syntax-black;
 }
 
-header {
-	background-color: $syntax-black;
-}
-
-main, footer {
+.page-content, .site-footer {
 	background-color: $background-color;
 }
 
