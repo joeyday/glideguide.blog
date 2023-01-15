@@ -182,7 +182,7 @@ abbr {
   @include media-query($on-palm) {
     position: absolute;
     top: 9px;
-    right: $spacing-unit / 2;
+    right: calc($spacing-unit / 2);
     background-color: $background-color;
     border: 1px solid $grey-color;
     border-radius: 5px;
@@ -240,6 +240,13 @@ abbr {
 .post-link {
   display: inline;
 }
+
+img.endmark {
+	width: 0.7em;
+	vertical-align: -0.0625em;
+	border-radius: 100%;
+}
+
 
 /////// Syntax highlighting ///////
 
