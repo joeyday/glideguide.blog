@@ -41,6 +41,10 @@ $syntax-purple:		#ab9df2 !default;
 
 @import "{{ site.theme }}";
 
+body {
+	font-variant-numeric: oldstyle-nums;
+}
+
 a {
   color: $brand-color;
   text-decoration: none;
