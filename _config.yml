@@ -20,12 +20,15 @@
 
 title: GlideGuide
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Hi, we're Dan and Joey. Together we've got 20+ years of experience engineering solutions
+  on the ServiceNow platform and coaching and mentoring junior devs to do the same. Follow
+  us for tips & tricks, tutorials, and best practices to take your skills to the next
+  level.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://glideguide.blog" # the base hostname & protocol for your site, e.g. http://example.com
-twitter: _danostler_
+twitter_username:
+- "_danostler_"
+- "joeyday"
 mastodon:
 - username: joeyday
   instance: mastodon.social
@@ -35,6 +38,7 @@ theme: minima
 plugins:
   - jekyll-feed
   
+rss: "Subscribe via RSS"
 show_excerpts: true
 
 # Exclude from processing.
