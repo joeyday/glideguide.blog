@@ -167,13 +167,13 @@ pre, code, tt {
   .gi .x { color: $syntax-white; background-color: $syntax-black } // Generic.Inserted.Specific
   .go    { color: $syntax-white } // Generic.Output
   .gp    { color: $syntax-white } // Generic.Prompt
-  .gs    { font-weight: bold } // Generic.Strong
+  .gs    { font-weight: normal } // Generic.Strong
   .gu    { color: $syntax-white } // Generic.Subheading
   .gt    { color: $syntax-white } // Generic.Traceback
   .kc    { color: $syntax-purple; font-weight: normal } // Keyword.Constant
   .kd    { color: $syntax-blue; font-weight: normal; } // Keyword.Declaration
-  .kp    { font-weight: bold } // Keyword.Pseudo
-  .kr    { font-weight: bold } // Keyword.Reserved
+  .kp    { font-weight: normal } // Keyword.Pseudo
+  .kr    { font-weight: normal } // Keyword.Reserved
   .kt    { color: $syntax-white; font-weight: normal } // Keyword.Type
   .m     { color: $syntax-purple } // Literal.Number
   .s     { color: $syntax-yellow } // Literal.String
@@ -187,7 +187,8 @@ pre, code, tt {
   .nn    { color: $syntax-white } // Name.Namespace
   .nt    { color: $syntax-white } // Name.Tag
   .nv    { color: $syntax-white } // Name.Variable
-  .ow    { font-weight: bold } // Operator.Word
+  .nx    { color: $syntax-green } // ??
+  .ow    { font-weight: normal } // Operator.Word
   .w     { color: $syntax-white } // Text.Whitespace
   .mf    { color: $syntax-purple } // Literal.Number.Float
   .mh    { color: $syntax-purple } // Literal.Number.Hex
@@ -201,7 +202,7 @@ pre, code, tt {
   .sh    { color: $syntax-yellow } // Literal.String.Heredoc
   .si    { color: $syntax-yellow } // Literal.String.Interpol
   .sx    { color: $syntax-yellow } // Literal.String.Other
-  .sr    { color: $syntax-yellow } // Literal.String.Regex
+  .sr    { color: $syntax-pink } // Literal.String.Regex
   .s1    { color: $syntax-yellow } // Literal.String.Single
   .ss    { color: $syntax-yellow } // Literal.String.Symbol
   .bp    { color: $syntax-dark-grey } // Name.Builtin.Pseudo
