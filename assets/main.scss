@@ -114,6 +114,11 @@ pre, code, tt {
 	background-color: $syntax-black;
 }
 
+abbr {
+	text-transform: lowercase;
+	font-variant-caps: small-caps;
+}
+
 .site-header {
 	border-top: none;
 	border-bottom: 1px solid $grey-color;
