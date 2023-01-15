@@ -176,9 +176,13 @@ pre, code, tt {
     top: 9px;
     right: $spacing-unit / 2;
     background-color: $background-color;
-    border: none; // 1px solid $grey-color-dark;
+    border: 1px solid $grey-color-dark;
     border-radius: 5px;
     text-align: right;
+    
+    .nav-trigger {
+    	border: none;
+    }
 
     label[for="nav-trigger"] {
       display: block;
