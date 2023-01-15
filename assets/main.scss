@@ -111,7 +111,8 @@ pre, code, tt {
 }
 
 .site-header {
-	border: none;
+	border-top: none;
+	border-bottom: 1px solid $grey-color-dark;
 	background: linear-gradient(to bottom, $background-color 0%, $syntax-black 100%);
 }
 
