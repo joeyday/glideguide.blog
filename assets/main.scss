@@ -42,6 +42,9 @@ $syntax-purple:		#ab9df2 !default;
 @import "{{ site.theme }}";
 
 .site-title {
+	@include relative-font-size(1.625);
+	font-weight: 400;
+	
 	font-family: source-code-pro, monospace;
 	word-spacing: -0.5ch;
 	
@@ -64,6 +67,10 @@ $syntax-purple:		#ab9df2 !default;
 	span:nth-child(2),
 	span:nth-child(5) {
 		color: $syntax-green;
+	}
+	
+	include media-query($on-palm) {
+		@include relative-font-size(1.4);
 	}
 }
 
