@@ -43,6 +43,15 @@ $syntax-purple:		#ab9df2 !default;
 
 body {
 	font-variant-numeric: oldstyle-nums;
+	background-color: $syntax-black;
+}
+
+header {
+	background-color: $syntax-black;
+}
+
+main, footer {
+	background-color: $background-color;
 }
 
 a {
