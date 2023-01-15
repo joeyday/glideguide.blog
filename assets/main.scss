@@ -117,6 +117,9 @@ pre, code, tt {
 	font-family: source-code-pro, monospace;
 	word-spacing: -0.5ch;
 	
+	border: none;
+	background: linear-gradient(to bottom, $background-color 0%, $syntax-black 100%);
+	
 	&,
 	&:visited {
 		color: $grey-color-light;
@@ -170,7 +173,7 @@ pre, code, tt {
     top: 9px;
     right: $spacing-unit / 2;
     background-color: $background-color;
-    // border: 1px solid $grey-color-dark;
+    border: none; // 1px solid $grey-color-dark;
     border-radius: 5px;
     text-align: right;
 
