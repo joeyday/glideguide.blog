@@ -112,8 +112,8 @@ pre, code, tt {
 
 .site-header {
 	border-top: none;
-	border-bottom: 1px solid $grey-color-dark;
-	background: linear-gradient(to bottom, $background-color 0%, $syntax-black 100%);
+	border-bottom: 1px solid $grey-color;
+	background: $syntax-black;
 }
 
 .site-title {
@@ -180,10 +180,6 @@ pre, code, tt {
     border-radius: 5px;
     text-align: right;
     
-    .nav-trigger {
-    	border: none;
-    }
-
     label[for="nav-trigger"] {
       display: block;
       float: right;
