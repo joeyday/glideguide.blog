@@ -6,7 +6,7 @@ permalink: /colophon/
 
 {% assign year = site.time | date: '%y' %}
 
-GlideGuide is copyright &copy; 2023{% unless year == '23' %}–{{ year }}{% endunless %} by Dan Ostler and Joey Day. Of course code samples are fair to copy and use, but we strongly recommend using them for inspiration only and always refactoring according to your specific needs. We appreciate attribution so far as it makes sense in your context. Republishing whole pages or posts is prohibited without prior permission. All rights reserved.
+GlideGuide is copyright &copy; 2023{% unless year == '23' %}–{{ year }}{% endunless %} by Dan Ostler and Joey Day. Of course code samples are fair to copy, but we strongly recommend using them for inspiration only and always refactoring according to your specific needs. We appreciate attribution so far as it makes sense in your context. Republishing whole pages or posts is prohibited without prior permission. All rights reserved.
 
 Posts and pages for the site are lovingly handcrafted using the [Jekyll](https://jekyllrb.com/) static site generator and hosted on [GitHub Pages](https://pages.github.com/).
 
