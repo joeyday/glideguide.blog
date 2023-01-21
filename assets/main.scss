@@ -123,6 +123,10 @@ abbr {
 	font-variant-caps: all-small-caps;
 }
 
+.svg-icon {
+    fill: #{$syntax-pink};
+}
+
 .site-header {
 	border-top: none;
 	border-bottom: 1px solid $grey-color;
@@ -142,7 +146,7 @@ abbr {
 	}
 	
 	&:hover {
-			background: linear-gradient(to bottom, transparent 0%, transparent 52%, $brand-color-trans 52%, $brand-color-trans 80%, transparent 80%, transparent 100%);
+		background: linear-gradient(to bottom, transparent 0%, transparent 52%, $brand-color-trans 52%, $brand-color-trans 80%, transparent 80%, transparent 100%);
 	}
 	
 	span:nth-child(1) {
@@ -240,6 +244,72 @@ abbr {
 
 .site-footer {
   border-top: 1px solid $grey-color;
+  
+  a {
+  	color: $grey-color-light;
+  	
+  	&:visited {
+  		color: $grey-color-light;
+  	}
+  	
+  	&:hover {
+  		color: $grey-color-light;
+  	}
+  }
+  
+  .footer-col-1 {
+	width: -webkit-calc(25% - (#{$spacing-unit} / 2));
+	width:         calc(25% - (#{$spacing-unit} / 2));
+
+    ul {
+	  list-style: none;
+	  margin-left: 0;
+		
+	  li + li {
+		padding-top: 5px;
+	  }
+    }
+  }
+  
+  .footer-col-2 {	
+	width: -webkit-calc(25% - (#{$spacing-unit} / 2));
+	width:         calc(25% - (#{$spacing-unit} / 2));
+  }
+
+  .footer-col-3 {
+	width: -webkit-calc(50% - (#{$spacing-unit} / 2));
+	width:         calc(50% - (#{$spacing-unit} / 2));
+  }
+  
+  @include media-query($on-laptop) {
+    .footer-col-1,
+    .footer-col-2 {
+      width: -webkit-calc(50% - (#{$spacing-unit} / 2));
+      width:         calc(50% - (#{$spacing-unit} / 2));
+    }
+
+    .footer-col-3 {
+      width: -webkit-calc(100% - (#{$spacing-unit} / 2));
+      width:         calc(100% - (#{$spacing-unit} / 2));
+    }
+  }
+  
+  @include media-query($on-palm) {
+  	.footer-col {
+  		float: left;
+  	}
+  	
+    .footer-col-1,
+    .footer-col-2 {
+      width: -webkit-calc(50% - (#{$spacing-unit} / 2));
+      width:         calc(50% - (#{$spacing-unit} / 2));
+    }
+
+    .footer-col-3 {
+      width: -webkit-calc(100% - (#{$spacing-unit} / 2));
+      width:         calc(100% - (#{$spacing-unit} / 2));
+    }
+  }
 }
 
 .post-link {
