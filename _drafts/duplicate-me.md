@@ -9,9 +9,10 @@ categories:
 
 
 
-{% highlight javascript %}
-
-{% endhighlight %}
+~~~ javascript
+// code goes here
+// ...
+~~~
 
 
 

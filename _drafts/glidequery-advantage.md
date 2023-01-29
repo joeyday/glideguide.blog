@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 
+title: "GlideQuery Advantages, Part 1: Helpful Errors"
 author: Joey
 date: 2023-01-01
 categories: 
