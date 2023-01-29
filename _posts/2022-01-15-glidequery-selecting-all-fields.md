@@ -10,17 +10,17 @@ I love how GlideQuery's select method takes a list of column names and returns a
 
 It'd be great if GlideQuery had some equivalent of `SELECT *`, but it doesn't, so I asked the creator of GlideQuery, Peter Bell, and he shared with me a simple way to get all the columns for a given table using the Schema <abbr>API</abbr>.
 
-{% highlight javascript %}
+~~~ javascript
 var schema = Schema.of('incident', ['*']);
 var columns = Object.keys(schema.incident);
-{% endhighlight %}
+~~~
 
 And now you've got the complete list of column names ready to be passed directly into the select method.
 
-{% highlight javascript %}
+~~~ javascript
 var GlideQuery('incident')
   .select(columns);
-{% endhighlight %}
+~~~
 
 A few notes though:
 
