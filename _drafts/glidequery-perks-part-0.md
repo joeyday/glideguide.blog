@@ -14,18 +14,15 @@ Before I talk about GlideQuery, though, I want to start the series out with a pr
 
 ## GlideRecord isn't <abbr>SQL</abbr>
 
-Some common complaints I've seen around the interwebtubes are that GlideRecord can't do [stored procedures](https://en.wikipedia.org/wiki/Stored_procedure), [atomic transactions](https://en.wikipedia.org/wiki/Atomicity_(database_systems)), or [set operations](https://en.wikipedia.org/wiki/Set_operations_(SQL)). Amazingly, GlideRecord can't even select specific columns, instead always selecting all the columns in a given table. These are core features of nearly all <abbr>SQL</abbr>-like languages, and, comparatively, GlideRecord just doesn't cut the mustard.
+Some common complaints I've seen around the interwebtubes are that GlideRecord can't do [stored procedures](https://en.wikipedia.org/wiki/Stored_procedure), [atomic transactions](https://en.wikipedia.org/wiki/Atomicity_(database_systems)), or [set operations](https://en.wikipedia.org/wiki/Set_operations_(SQL)). GlideRecord can't even select for specific columns; instead it always returns all the columns in a given table.
 
-It's always annoyed me that in GlideRecord queries logical <abbr>OR</abbr> takes precedence over logical <abbr>and</abbr>, which is backward from every other programming language and query language I know. Moreover, there's no way to force <abbr>AND</abbr> to take precedence over <abbr>OR</abbr> (inconceivable!) without resorting to using encoded queries, and, even then, good luck going more than a couple levels deep with nested <abbr>AND</abbr>'s and <abbr>OR</abbr>'s.
+It's always annoyed me that in GlideRecord logical <abbr>OR</abbr> takes precedence over logical <abbr>AND</abbr>, which is backward from every other programming language and query language I know. Incredibly, there's not even a way to force <abbr>AND</abbr> to take precedence over <abbr>OR</abbr> without using encoded queries, and, even then, you can't go more than a couple levels deep with nested <abbr>AND</abbr>'s and <abbr>OR</abbr>'s.
 
-If you know me you know I love to gripe about GlideRecord's poor support for join queries. Five years ago some colleagues and I built what we thought would be a fairly simple Service Portal page that showed parent and child records in a nested view. Users were presented with a paginated and filtered list of parent records, each of which could be clicked to expand a Bootstrap accordion containing a filtered list of child records. Since the parent records were filtered in or out based on the presence or absence of specific child records, the only way to perform the query efficiently was with a database join. This turned out to be a total nightmare.
+If you know me you know I love to gripe about GlideRecord's poor support for joins. First, GlideRecord joins only facilitate adding additional where clauses to filter the returned records; you don't actually get any columns from the joined tables in the result set. Additionally, there's no support for encoded queries in the join part of the query, so if you're trying to load the join query from a conditions field on a table, no dice. (I stumbled on a few Community posts recently about a `^JOIN` operator in encoded queries, but I'm pretty sure those aren't supported in conditions fields either.) Lastly, I've seen weird behavior depending on the order of the `addCondition` and `addOrCondition` methods used for the join portion of the query. In short, support for joins is a big dumpster fire.
 
-First off, GlideRecord joins only facilitate adding additional where clauses to filter the returned records; you don't actually get any columns from the joined tables in the result set. So after we got the parent records we still had to turn around and ask for the child records with a separate GlideRecord query. Additionally, there's no support for encoded queries in the join part of the query, so if you're trying to load the join query from a conditions field on a table, no dice. (I stumbled on a few Community posts recently about a `^JOIN` operator in encoded queries, but I'm pretty sure those aren't supported in conditions fields either.) Lastly, I've seen weird behavior depending on the order of the `addCondition` and `addOrCondition` methods used for the join portion of the query. Long story short, support for joins is a big dumpster fire.
+The above are variously considered indispensable features of nearly all <abbr>SQL</abbr>-like languages. Comparatively, GlideRecord just doesn't cut the mustard.
 
 ## GlideRecord isn't JavaScript
-
-
-
 
 
 
@@ -34,9 +31,7 @@ First off, GlideRecord joins only facilitate adding additional where clauses to 
 // ...
 ~~~
 
+## Conclusion
 
-
-
-
-{% include endmark.html %}
+I really tried not to exaggerate anything above, but I know I probably sounded like an infomercial. As you'll see in future articles in this series, GlideQuery fixes several, but not all, of the problems I've described. It also fixes a handful of issues that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to level up your development on the ServiceNow platform.{% include endmark.html %}
 
