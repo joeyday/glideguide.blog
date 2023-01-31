@@ -139,7 +139,7 @@ gr.description instanceof Packages.java.lang.String;  // true
 gr.description instanceof GlideElement;               // true
 ~~~
 
-This is some real Schrödinger's cat quantum superposition arcane witch magic, and don't ask me how it works. I read more Rhino documentation than I want to admit over the weekend and I haven't been able to find if this is a Rhino engine feature or if ServiceNow cooked up some special sauce to make this happen, but either way, it's weird, right?
+This is some real Schrödinger's cat quantum superposition arcane witch magic, and don't ask me how it works. I did some Java programming before I was a ServiceNow developer and I'm pretty sure Java objects aren't allowed to be instances of two completely unrelated classes like this. I read more Rhino documentation than I want to admit over the weekend and I haven't been able to find if this is a Rhino engine feature or if ServiceNow cooked up some special sauce to make this happen, but either way, it's weird, right?
 
 So what's really going on is this two-headed hydra of an object is being passed into our array by reference, not by value. Each time the loop repeats and `gr.next()` is called, the object is mutated, and since each array element has merely a pointer to the same object rather than its own copy, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the primitive types into your array, as this will guarantee more straightforward pass-by-value.
 
