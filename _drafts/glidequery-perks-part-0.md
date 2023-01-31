@@ -32,17 +32,17 @@ But since GlideRecord is a Java object and not a JavaScript object, it behaves i
 var gr = new GlideRecord('incident');
 gr.get('active', true);
 
-var str = 'Routing to oregon mail server';
+var str = 'How did this get in here I am not good with computers';
 
-gr.short_description;           // Routing to oregon mail server
-str;                            // Routing to oregon mail server
-gr.short_description == str;    // true
-gr.short_description === str;   // false (!)
+gr.description;         // How did this get in here I am not good with computers
+str;                    // How did this get in here I am not good with computers
+gr.description == str;  // true
+gr.description === str;	// false (!)
 ~~~
 
 Shenanigans like these made me give up on strict equality nearly a decade ago, though I really wish I hadn't. So what's going on here? Why doesn't strict equality work?
 
-Strict equality in JavaScript tests not only for equality of the values, but that the types of the variables are identical. We're pretty sure `gr.short_description` is a string, and fuzzy equality works, so why does the strict comparison fail? Because it's a Java string, not a JavaScript string. Yep, let that one sink in for a minute.
+Strict equality in JavaScript tests not only for equality of the values, but also that the types of the variables are identical. We're pretty sure `gr.short_description` is a string, and fuzzy equality works, so why does the strict comparison fail? Because it's a Java string, not a JavaScript string. Yep, let that one sink in for a minute.
 
 ~~~ javascript
 typeof str === 'string';                                    // true
@@ -52,7 +52,41 @@ typeof gr.short_description === 'string';                   // false
 gr.short_description instanceof Packages.java.lang.String;  // true
 ~~~
 
-Now, if you've done ServiceNow development for any length of time you're probably screaming at the screen right now, _but what about getValue?_ And you're not wrong! Calling getValue here will ensure we get back a JavaScript primitive string.
+Now, if you've done ServiceNow development for any length of time you're probably screaming at the screen right now, _but Joey, what about getValue?_, and you're not wrong! Calling getValue here will ensure we get back a JavaScript string.
+
+~~~ javascript
+typeof gr.getValue('description') === 'string';	// true
+gr.getValue('description') === str;				// true
+~~~
+
+But, believe it or not, this might not always be what we want. For example, if you want to directly use a true/false column in a conditional, the Java boolean type will work just fine:
+
+~~~ javascript
+if (gr.active) {
+	// Only executes if active is true
+	// ...
+}
+~~~
+
+This works correctly because gr.active is a Java boolean. Note that strict equality won't work when comparing Java booleans to JavaScript booleans, but at least these Java booleans are evaluated correctly for truthiness and falsiness in conditional statements.
+
+~~~ javascript
+typeof gr.active === 'boolean';						// false
+gr.active instanceof Packages.java.lang.Boolean;	// true
+~~~
+
+But in this case if we call getValue instead we'll be sad.
+
+~~~ javascript
+if (gr.getValue('active')) {
+	// Always executes, even if active is false
+	// ...
+}
+~~~
+
+This is because for true/false fields getValue returns either string `'0'` or string `'1'`, both of which are truthy.
+
+The last thing I want to highlight here is something many of us have encountered before, and the first time you see it, boy, it's a doozy.
 
 ## Conclusion
 
