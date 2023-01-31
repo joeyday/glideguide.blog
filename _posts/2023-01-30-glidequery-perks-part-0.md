@@ -20,7 +20,7 @@ It's always annoyed me that in GlideRecord logical <abbr>OR</abbr> takes precede
 
 If you know me you know I love to gripe about GlideRecord's poor support for joins. First, GlideRecord joins can only add additional where clauses to filter the returned records; you don't actually get any columns from the joined tables in the result set. There's no support for encoded queries in the join clause, so if you're trying to load the join query from a conditions field on a table, no soup for you. (I stumbled on a few Community posts recently about a `^JOIN` operator in encoded queries, but I'm pretty sure those aren't supported in conditions fields either.) Lastly, I've seen buggy behavior depending on the precise order of the `addCondition` and `addOrCondition` methods used in the join clause.
 
-All of the above are considered core features of nearly all <abbr>SQL</abbr>-like query languages. Comparatively, GlideRecord just doesn't cut the mustard.
+All of the above are considered core competencies of nearly all <abbr>SQL</abbr>-like query languages. Comparatively, GlideRecord just doesn't cut the mustard.
 
 ## GlideRecord isn't JavaScript
 
