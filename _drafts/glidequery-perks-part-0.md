@@ -26,7 +26,7 @@ The above are variously considered indispensable features of nearly all <abbr>SQ
 
 A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript API. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine that executes all JavaScript scripts on the ServiceNow platform, and it has some pretty neat features that allow sharing of Java objects into the JavaScript environment.
 
-Since GlideRecord is a Java object and not a JavaScript object, it behaves in some unpredictable ways.
+But since GlideRecord is a Java object and not a JavaScript object, it behaves in some unpredictable ways.
 
 ~~~ javascript
 var gr = new GlideRecord('incident');
