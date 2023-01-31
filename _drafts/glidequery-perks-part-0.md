@@ -34,10 +34,10 @@ gr.get('active', true);
 
 var str = 'Routing to oregon mail server';
 
-gr.short_description;			// Routing to oregon mail server
-str;							// Routing to oregon mail server
-gr.short_description == str;	// true
-gr.short_description === str;	// false (!)
+gr.short_description;           // Routing to oregon mail server
+str;                            // Routing to oregon mail server
+gr.short_description == str;    // true
+gr.short_description === str;   // false (!)
 ~~~
 
 Shenanigans like these made me give up on strict equality nearly a decade ago, though I really wish I hadn't. So what's really going on here? Why doesn't strict equality work?
@@ -45,11 +45,11 @@ Shenanigans like these made me give up on strict equality nearly a decade ago, t
 Strict equality in JavaScript tests not only equality of the values, but that the types of the variables are identical. We're pretty sure `gr.short_description` is a string, so why does the strict comparison fail? It's because it's a Java string, not a JavaScript string. Let that one sink in for a minute.
 
 ~~~ javascript
-typeof str === 'string';									// true
-str instanceof Packages.java.lang.String;					// false
+typeof str === 'string';                                    // true
+str instanceof Packages.java.lang.String;                   // false
 
-typeof gr.short_description === 'string';					// false
-gr.short_description instanceof Packages.java.lang.String;	// true
+typeof gr.short_description === 'string';                   // false
+gr.short_description instanceof Packages.java.lang.String;  // true
 ~~~
 
 
