@@ -2,29 +2,29 @@
 layout: post
 title: "GlideQuery Perks, Part 0: What's wrong with GlideRecord?"
 author: Joey
-date: 2023-01-01
+date: 2023-01-30
 categories: 
 ---
 
-When I first encountered [GlideQuery](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/GlideQuery/concept/GlideQueryGlobalAPI.html), for a brief moment I naively assumed it was a complete modern replacement for GlideRecord and I got really excited. But I was quickly disappointed when I learned it's just a wrapper for GlideRecord. As such, I thought it must have all the same drawbacks and limitations, and for a while I admit I was an unbeliever and a naysayer. But, as I learned more, I realized GlideQuery is one of the best things that ever happened to ServiceNow. I've been using it exclusively for nearly two years and I hope I can convince you to switch if you haven't.
+When I first encountered [GlideQuery](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/GlideQuery/concept/GlideQueryGlobalAPI.html), for a brief moment I naively assumed it was a complete modern replacement for GlideRecord and I got really excited. But I was quickly disappointed when I learned it's just a wrapper for GlideRecord. As such, I thought it must have all the same drawbacks and limitations, and for a while I admit I was an unbeliever and a naysayer. But, as I learned more, I realized GlideQuery is one of the best things that ever happened to ServiceNow. I've been using it exclusively for nearly two years and I hope through this new series of articles I can convince you to switch if you haven't.
 
 Before I talk about GlideQuery, though, I want to begin the series with a preface of sorts (hence, "part 0") to enumerate and explain the downsides and imperfections of GlideRecord. Why have I been hoping for years something new would come along? Isn't GlideRecord fine? If it ain't broke, why fix it?
 
-<img style="width: 90%; max-width: 400px; display: block !important; margin: auto;" src="/assets/images/this-is-fine.png" alt="This is fine" />
+<img style="width: 90%; max-width: 400px; display: block !important; margin: auto;" src="/assets/images/2023-01-30-this-is-fine.png" alt="This is fine" />
 
 ## GlideRecord isn't <abbr>SQL</abbr>
 
-Some common complaints I've seen around the interwebtubes are that GlideRecord can't do [stored procedures](https://en.wikipedia.org/wiki/Stored_procedure), [atomic transactions](https://en.wikipedia.org/wiki/Atomicity_(database_systems)), or [set operations](https://en.wikipedia.org/wiki/Set_operations_(SQL)). Notably, GlideRecord can't even select for specific columns; instead it always returns all the columns in a given table.
+Common complaints I've seen around the interwebtubes any time someone compares GlideRecord to <abbr>SQL</abbr> are that GlideRecord can't do [stored procedures](https://en.wikipedia.org/wiki/Stored_procedure), [atomic transactions](https://en.wikipedia.org/wiki/Atomicity_(database_systems)), or [set operations](https://en.wikipedia.org/wiki/Set_operations_(SQL)). Furthermore, GlideRecord can't select for specific columns; instead it always returns all the columns in a given table.
 
-It's always annoyed me that in GlideRecord logical <abbr>OR</abbr> takes precedence over logical <abbr>AND</abbr>, which is backward from every other programming language and query language I know. Incredibly, there's not even a way to force <abbr>AND</abbr> to take precedence over <abbr>OR</abbr> without using encoded queries, and, even then, you can't go more than a couple levels deep with nested <abbr>AND</abbr>'s and <abbr>OR</abbr>'s. It's remarkable this doesn't prevent us from getting things done more often.
+It's always annoyed me that in GlideRecord logical <abbr>OR</abbr> takes precedence over logical <abbr>AND</abbr>, which is backward from every other programming language and query language I know. Incredibly, there's not even a way to force <abbr>AND</abbr> to take precedence over <abbr>OR</abbr> without using encoded queries, and, even then, you can't go more than a couple levels deep with nested <abbr>AND</abbr>'s and <abbr>OR</abbr>'s. It's remarkable this particular limitation doesn't prevent us from getting anything done at all.
 
-If you know me you know I love to gripe about GlideRecord's poor support for joins. First, GlideRecord joins can only add additional where clauses to filter the returned records; you don't actually get any columns from the joined tables in the result set. Additionally, there's no support for encoded queries in the join clause, so if you're trying to load the join query from a conditions field on a table, no soup for you. (I stumbled on a few Community posts recently about a `^JOIN` operator in encoded queries, but I'm pretty sure those aren't supported in conditions fields either.) Lastly, I've seen buggy behavior depending on the precise order of the `addCondition` and `addOrCondition` methods used for the join clause.
+If you know me you know I love to gripe about GlideRecord's poor support for joins. First, GlideRecord joins can only add additional where clauses to filter the returned records; you don't actually get any columns from the joined tables in the result set. There's no support for encoded queries in the join clause, so if you're trying to load the join query from a conditions field on a table, no soup for you. (I stumbled on a few Community posts recently about a `^JOIN` operator in encoded queries, but I'm pretty sure those aren't supported in conditions fields either.) Lastly, I've seen buggy behavior depending on the precise order of the `addCondition` and `addOrCondition` methods used for the join clause.
 
-The above are variously considered indispensable features of nearly all <abbr>SQL</abbr>-like query languages. Comparatively, GlideRecord just doesn't cut the mustard.
+All of the above are considered core features of nearly all <abbr>SQL</abbr>-like query languages. Comparatively, GlideRecord just doesn't cut the mustard.
 
 ## GlideRecord isn't JavaScript
 
-A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript API. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine that executes all JavaScript scripts on the ServiceNow platform, and it has some pretty neat tricks up its sleeve, one being the ability to share Java objects into the JavaScript environment.
+A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript API. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine that parses and executes all JavaScript scripts on the ServiceNow platform, and it has some pretty neat tricks up its sleeve, one being the ability to share Java objects into the JavaScript environment.
 
 But since GlideRecord is a Java object, it behaves in some... _unpredictable_ ways.
 
@@ -147,4 +147,4 @@ GlideRecord's use of Java types instead of JavaScript types and the counterintui
 
 ## Conclusion
 
-I really tried not to exaggerate anything above, but even so I'm sure I managed to sound like an infomercial. As I hope to show in future articles in this series, GlideQuery fixes several, but not all, of the problems I've described. It also fixes a handful of issues that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to take your development on the ServiceNow platform to the next level.{% include endmark.html %}
+I really tried not to exaggerate anything above, but even so I'm sure I managed to sound like an infomercial. I've only identified the problems I've encountered myself with GlideRecord, and GlideQuery doesn't fix all of them—I won't hold it up as a silver bullet or miracle pill. It does, however, fix a handful of additional issues with GlideRecord that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to take your development on the ServiceNow platform to the next level.{% include endmark.html %}
