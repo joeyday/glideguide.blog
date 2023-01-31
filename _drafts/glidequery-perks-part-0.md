@@ -24,12 +24,35 @@ The above are variously considered indispensable features of nearly all <abbr>SQ
 
 ## GlideRecord isn't JavaScript
 
-A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript API. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine ServiceNow uses to execute all the JavaScript written on the ServiceNow platform, and it has some pretty neat features that allow sharing of Java objects into the JavaScript environment.
+A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript API. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine that executes all JavaScript scripts on the ServiceNow platform, and it has some pretty neat features that allow sharing of Java objects into the JavaScript environment.
+
+Since GlideRecord is a Java object and not a JavaScript object, it behaves in some unpredictable ways.
 
 ~~~ javascript
-// code goes here
-// ...
+var gr = new GlideRecord('incident');
+gr.get('active', true);
+
+var str = 'Routing to oregon mail server';
+
+gr.short_description;			// Routing to oregon mail server
+str;							// Routing to oregon mail server
+gr.short_description == str;	// true
+gr.short_description === str;	// false (!)
 ~~~
+
+Shenanigans like these made me give up on strict equality nearly a decade ago, though I really wish I hadn't. So what's really going on here? Why doesn't strict equality work?
+
+Strict equality in JavaScript tests not only equality of the values, but that the types of the variables are identical. We're pretty sure `gr.short_description` is a string, so why does the strict comparison fail? It's because it's a Java string, not a JavaScript string. Let that one sink in for a minute.
+
+~~~ javascript
+typeof str === 'string';									// true
+str instanceof Packages.java.lang.String;					// false
+
+typeof gr.short_description === 'string';					// false
+gr.short_description instanceof Packages.java.lang.String;	// true
+~~~
+
+
 
 ## Conclusion
 
