@@ -52,7 +52,7 @@ typeof gr.short_description === 'string';                   // false
 gr.short_description instanceof Packages.java.lang.String;  // true
 ~~~
 
-
+Now, if you've done ServiceNow development for any length of time you're probably screaming at the screen right now, _but what about getValue?_ And you're not wrong! Calling getValue here will ensure we get back a JavaScript primitive string.
 
 ## Conclusion
 
