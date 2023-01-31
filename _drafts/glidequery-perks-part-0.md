@@ -106,9 +106,9 @@ while (gr.next()) {
 }
 ~~~
 
-Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, the description value from the last incident in the result set. But why? For this we have to understand the difference between pass by value and pass by reference.
+Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, the description value from the last incident in the result set. But why? For this we have to understand the difference between pass-by-value and pass-by-reference.
 
-When you store something in a variable, what's really happening is the system is creating a space in memory to hold your value, and then it's remembering where that space in memory is with a memory address, called a pointer. In JavaScript, if you assign one variable into another variable, as long as the source variable contains a primitive type (string, number, boolean, and a few others), the contents will get copied from that variable into the target variable. Now each variable has its own copy of the value in memory, and it's own separate memory address pointer. This is called "pass by value".
+When you store something in a variable, what really happens is a space is created in memory to hold your value, then that spaces is tracked with a memory address, called a pointer. In JavaScript, if you assign one variable into another variable, as long as the source variable contains a primitive type (string, number, boolean, and a few others), the contents will get copied from that memory address to a new memory address so each variable will end up with its own separate memory address pointer and its own copy of the value. This is called "pass-by-value".
 
 You can prove to yourself each variable has its own copy of the value by modifying one and verifying the other doesn't get modified.
 
@@ -119,9 +119,9 @@ var source = 'apple';
 target;  // banana
 ~~~
 
-But if you have an object stored in a variable and you then assign that variable into a new variable, instead of copying the whole object over to the target variable (potentially a computationally-expensive operation), JavaScript will simply give the target variable a pointer to the same address in memory. This is called "pass by reference".
+But if you have an object stored in a variable and you then assign that variable into a new variable, instead of copying the whole object over to a new memory address (potentially a computationally-expensive operation), JavaScript will simply give the target variable a pointer to the same address in memory. This is called "pass-by-reference".
 
-You can prove to yourself each variable has a pointer to the same object by modifying the object and verifying it gets modified everywhere.
+You can prove to yourself each variable has a pointer to the same object by modifying some part of the object and verifying it gets modified everywhere.
 
 ~~~ javascript
 var source = { fruit: 'banana' };
@@ -130,9 +130,9 @@ source.fruit = 'apple';
 target.fruit;  // apple
 ~~~
 
-That was a long tangent, but we still don't have enough information to see what's going on in the array example above. If JavaScript always passes primitive types by value, then shouldn't `gr.description` get passed by value, not by reference? Is it because `gr.description` is a Java string, not a JavaScript string? Not quite. I did some testing instantiating my own Java strings and couldn't reproduce this pass by reference issue.
+That was a long tangent, but we still don't have enough information to see what's going on in the array example above. If JavaScript always passes primitive types by value, then shouldn't `gr.description` get passed by value, not by reference? Is it because `gr.description` is a Java string, not a JavaScript string? Not quite. I did some testing instantiating my own Java strings and couldn't reproduce this pass-by-reference issue.
 
-What's really going on is even more strange. It turns out, `gr.description` is not only a Java string, but also, somehow, at the same time, a GlideElement object. It only takes a moment's reflection for this to make perfect sense, after all, we can dot-walk to more properties and methods, so it must have been an object all along. (A lot of you probably already had this mental model, and if so, like me, the stuff above about Java strings and booleans might be what threw you for a loop instead.)
+What's really going on is even more strange. It turns out, `gr.description` is not only a Java string, but also, somehow, simultaneously, a GlideElement object. And it takes only a moment's reflection for this to make perfect sense, after all, we can dot-walk down to properties and methods, so it must have been an object all along. (A lot of you probably already had this mental model, and if so, like me, the stuff above about Java strings and booleans might have thrown you for a loop instead.)
 
 ~~~ javascript
 gr.description instanceof Packages.java.lang.String;  // true
@@ -141,11 +141,10 @@ gr.description instanceof GlideElement;               // true
 
 This is some real Schrödinger's cat quantum superposition arcane witch magic, and don't ask me how it works. I've read more Rhino documentation than I want to admit this weekend and I haven't been able to find if this is a Rhino engine feature or if ServiceNow cooked up some special sauce to make this happen, but either way, it's weird, right?
 
-So what's really going on is this two-headed hydra of an object is being passed into our array by reference, not by value. Each time the loop repeats and `gr.next()` is called, the object is mutated, and since each array element has merely a pointer to the same object rather than its own copy, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the primitive types into your array instead, as this will guarantee more straightforward pass by value.
+So what's really going on is this two-headed hydra of an object is being passed into our array by reference, not by value. Each time the loop repeats and `gr.next()` is called, the object is mutated, and since each array element has merely a pointer to the same object rather than its own copy, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the primitive types into your array, as this will guarantee more straightforward pass-by-value.
 
-GlideRecord's use of Java types instead of JavaScript types and the unexpected dual nature of GlideElement objects can add up to make GlideRecord confusing to work with and, although adoption of various best practices can mitigate some issues, all-too-commonly introduces hard-to-troubleshoot bugs into your code.
+GlideRecord's use of Java types instead of JavaScript types and the counterintuitive dual nature of GlideElement objects make GlideRecord confusing to work with and, though adoption of various best practices can mitigate this somewhat, all-too-commonly introduce hard-to-troubleshoot bugs into your code.
 
 ## Conclusion
 
-I really tried not to exaggerate anything above, but even so I'm sure I managed to sound like an infomercial. As you'll see in future articles in this series, GlideQuery fixes several, but not all, of the problems I've described. It also fixes a handful of issues that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to take your development on the ServiceNow platform to the next level.{% include endmark.html %}
-
+I really tried not to exaggerate anything above, but even so I'm sure I managed to sound like an infomercial. As I hope you'll see in future articles in this series, GlideQuery fixes several, but not all, of the problems I've described. It also fixes a handful of issues that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to take your development on the ServiceNow platform to the next level.{% include endmark.html %}
