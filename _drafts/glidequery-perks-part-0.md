@@ -14,7 +14,7 @@ Before I talk about GlideQuery, though, I want to begin the series with a prefac
 
 ## GlideRecord isn't <abbr>SQL</abbr>
 
-Some common complaints I've seen around the interwebtubes are that GlideRecord can't do [stored procedures](https://en.wikipedia.org/wiki/Stored_procedure), [atomic transactions](https://en.wikipedia.org/wiki/Atomicity_(database_systems)), or [set operations](https://en.wikipedia.org/wiki/Set_operations_(SQL)). GlideRecord can't even select for specific columns; instead it always returns all the columns in a given table.
+Some common complaints I've seen around the interwebtubes are that GlideRecord can't do [stored procedures](https://en.wikipedia.org/wiki/Stored_procedure), [atomic transactions](https://en.wikipedia.org/wiki/Atomicity_(database_systems)), or [set operations](https://en.wikipedia.org/wiki/Set_operations_(SQL)). Oddly, GlideRecord can't even select for specific columns; instead it always returns all the columns in a given table.
 
 It's always annoyed me that in GlideRecord logical <abbr>OR</abbr> takes precedence over logical <abbr>AND</abbr>, which is backward from every other programming language and query language I know. Incredibly, there's not even a way to force <abbr>AND</abbr> to take precedence over <abbr>OR</abbr> without using encoded queries, and, even then, you can't go more than a couple levels deep with nested <abbr>AND</abbr>'s and <abbr>OR</abbr>'s. It's remarkable this doesn't prevent us from getting things done more often.
 
@@ -26,69 +26,126 @@ The above are variously considered indispensable features of nearly all <abbr>SQ
 
 A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript API. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine that executes all JavaScript scripts on the ServiceNow platform, and it has some pretty neat features that allow sharing of Java objects into the JavaScript environment.
 
-But since GlideRecord is a Java object and not a JavaScript object, it behaves in some unpredictable ways.
+But since GlideRecord is a Java object, it behaves in some unpredictable ways.
+
+### One of these strings is not like the others
 
 ~~~ javascript
 var gr = new GlideRecord('incident');
-gr.get('active', true);
+gr.get(incidentID);
 
-var str = 'How did this get in here I am not good with computers';
+var text = 'How did this get here I am not good with computers';
 
-gr.description;         // How did this get in here I am not good with computers
-str;                    // How did this get in here I am not good with computers
-gr.description == str;  // true
-gr.description === str;	// false (!)
+gr.description;           // How did this get here I am not good with computers
+text;                     // How did this get here I am not good with computers
+gr.description == text;   // true
+gr.description === text;  // false (!)
 ~~~
 
-Shenanigans like these made me give up on strict equality nearly a decade ago, though I really wish I hadn't. So what's going on here? Why doesn't strict equality work?
+Shenanigans like these made me give up on strict equality after a couple months using GlideRecord, though I really wish I hadn't. So what's going on here? Why doesn't strict equality work?
 
-Strict equality in JavaScript tests not only for equality of the values, but also that the types of the variables are identical. We're pretty sure `gr.short_description` is a string, and fuzzy equality works, so why does the strict comparison fail? Because it's a Java string, not a JavaScript string. Yep, let that one sink in for a minute.
+Strict equality in JavaScript tests not only for equality of the values, but also that the types of the variables are identical. We're pretty sure `gr.description` is a string, and fuzzy equality works, so why does the strict comparison fail? Because it's a Java string, not a JavaScript string. Yep, let that one sink in for a minute.
 
 ~~~ javascript
-typeof str === 'string';                                    // true
-str instanceof Packages.java.lang.String;                   // false
+typeof text === 'string';                             // true
+text instanceof Packages.java.lang.String;            // false
 
-typeof gr.short_description === 'string';                   // false
-gr.short_description instanceof Packages.java.lang.String;  // true
+typeof gr.description === 'string';                   // false
+gr.description instanceof Packages.java.lang.String;  // true
 ~~~
 
-Now, if you've done ServiceNow development for any length of time you're probably screaming at the screen right now, _but Joey, what about getValue?_, and you're not wrong! Calling getValue here will ensure we get back a JavaScript string.
+### getValue to the rescue?
+
+Now, if you've done ServiceNow development for any length of time you're probably screaming at the screen right now, _but Joey, what about getValue?_, and you're not wrong! Calling getValue here will ensure we get back a JavaScript string, which is why most people, myself included, have adopted the best practice of always using the getter and setter methods.
 
 ~~~ javascript
-typeof gr.getValue('description') === 'string';	// true
-gr.getValue('description') === str;				// true
+typeof gr.getValue('description') === 'string';  // true
+gr.getValue('description') === text;             // true
 ~~~
 
-But, believe it or not, this might not always be what we want. For example, if you want to directly use a true/false column in a conditional, the Java boolean type will work just fine:
+But, believe it or not, this might not always be what we want. For example, if we want to directly use a true/false column in a conditional, the Java boolean type will work just fine:
 
 ~~~ javascript
 if (gr.active) {
-	// Only executes if active is true
-	// ...
+    // Only executes if active is true
+    // ...
 }
 ~~~
 
-This works correctly because gr.active is a Java boolean. Note that strict equality won't work when comparing Java booleans to JavaScript booleans, but at least these Java booleans are evaluated correctly for truthiness and falsiness in conditional statements.
+Note that strict equality won't work when comparing Java booleans to JavaScript booleans, but at least Java booleans are evaluated correctly for truthiness and falsiness in conditional statements.
 
 ~~~ javascript
-typeof gr.active === 'boolean';						// false
-gr.active instanceof Packages.java.lang.Boolean;	// true
+typeof gr.active === 'boolean';                   // false
+gr.active instanceof Packages.java.lang.Boolean;  // true
 ~~~
 
-But in this case if we call getValue instead we'll be sad.
+But in this case if we follow our best practice and call getValue instead we'll be sad.
 
 ~~~ javascript
 if (gr.getValue('active')) {
-	// Always executes, even if active is false
-	// ...
+    // Always executes, even if active is false
+    // ...
 }
 ~~~
 
-This is because for true/false fields getValue returns either string `'0'` or string `'1'`, both of which are truthy.
+This is because for the true/false field type getValue returns either string `'0'` or string `'1'`, both of which are truthy. We'd have to coerce this to `true` or `false` somehow for it to work properly.
 
-The last thing I want to highlight here is something many of us have encountered before, and the first time you see it, boy, it's a doozy.
+### Spooky action at a distance
+
+One last issue I want to highlight is one many of you have probably encountered before, but the first time you see it, boy, it's a doozy.
+
+~~~ javascript
+var arr = [];
+
+var gr = new GlideRecord('incident')
+gr.setLimit(10);
+gr.query();
+
+while (gr.next()) {
+    arr.push(gr.description);
+}
+~~~
+
+Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, the description value from the last incident in the result set. But why? For this we have to understand the difference between pass by value and pass by reference.
+
+When you store something in a variable, what's really happening is the system is creating a space in memory to hold your value, and then it's remembering where that space in memory is with a memory address, called a pointer. In JavaScript, if you assign one variable into another variable, as long as the source variable contains a primitive type (string, number, boolean, and a few others), the contents will get copied from that variable into the target variable. Now each variable has its own copy of the value in memory, and it's own separate memory address pointer. This is called "pass by value".
+
+You can prove to yourself each variable has its own copy of the value by modifying one and verifying the other doesn't get modified.
+
+~~~ javascript
+var source = 'banana';
+var target = source;
+var source = 'apple';
+target;  // banana
+~~~
+
+But if you have an object stored in a variable and you then assign that variable into a new variable, instead of copying the whole object over to the target variable (potentially a computationally-expensive operation), JavaScript will simply give the target variable a pointer to the same address in memory. This is called "pass by reference".
+
+You can prove to yourself each variable has a pointer to the same object by modifying the object and verifying it gets modified everywhere.
+
+~~~ javascript
+var source = { fruit: 'banana' };
+target = source;
+source.fruit = 'apple';
+target.fruit;  // apple
+~~~
+
+That was a long tangent, but we still don't have enough information to see what's going on in the array example above. If JavaScript always passes primitive types by value, then shouldn't `gr.description` get passed by value, not by reference? Is it because `gr.description` is a Java string, not a JavaScript string? Not quite. I did some testing instantiating my own Java strings and couldn't reproduce this pass by reference issue.
+
+What's really going on is even more strange. It turns out, `gr.description` is not only a Java string, but also, somehow, at the same time, a GlideElement object. It only takes a moment's reflection for this to make perfect sense, after all, we can dot-walk to more properties and methods, so it must have been an object all along. (A lot of you probably already had this mental model, and if so, like me, the stuff above about Java strings and booleans might be what threw you for a loop instead.)
+
+~~~ javascript
+gr.description instanceof Packages.java.lang.String;  // true
+gr.description instanceof GlideElement;               // true
+~~~
+
+This is some real Schrödinger's cat quantum superposition arcane witch magic, and don't ask me how it works. I've read more Rhino documentation than I want to admit this weekend and I haven't been able to find if this is a Rhino engine feature or if ServiceNow cooked up some special sauce to make this happen, but either way, it's weird, right?
+
+So what's really going on is this two-headed hydra of an object is being passed into our array by reference, not by value. Each time the loop repeats and `gr.next()` is called, the object is mutated, and since each array element has merely a pointer to the same object rather than its own copy, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the primitive types into your array instead, as this will guarantee more straightforward pass by value.
+
+GlideRecord's use of Java types instead of JavaScript types and the unexpected dual nature of GlideElement objects can add up to make GlideRecord confusing to work with and, although adoption of various best practices can mitigate some issues, all-too-commonly introduces hard-to-troubleshoot bugs into your code.
 
 ## Conclusion
 
-I really tried not to exaggerate anything above, but I know I probably sounded like an infomercial. As you'll see in future articles in this series, GlideQuery fixes several, but not all, of the problems I've described. It also fixes a handful of issues that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to level up your development on the ServiceNow platform.{% include endmark.html %}
+I really tried not to exaggerate anything above, but even so I'm sure I managed to sound like an infomercial. As you'll see in future articles in this series, GlideQuery fixes several, but not all, of the problems I've described. It also fixes a handful of issues that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to take your development on the ServiceNow platform to the next level.{% include endmark.html %}
 
