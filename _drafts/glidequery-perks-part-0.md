@@ -42,7 +42,7 @@ gr.short_description === str;   // false (!)
 
 Shenanigans like these made me give up on strict equality nearly a decade ago, though I really wish I hadn't. So what's going on here? Why doesn't strict equality work?
 
-Strict equality in JavaScript tests not only for equality of the values, but that the types of the variables are identical. We're pretty sure `gr.short_description` is a string, so why does the strict comparison fail? Because it's a Java string, not a JavaScript string. Yep, let that one sink in for a minute.
+Strict equality in JavaScript tests not only for equality of the values, but that the types of the variables are identical. We're pretty sure `gr.short_description` is a string, and fuzzy equality works, so why does the strict comparison fail? Because it's a Java string, not a JavaScript string. Yep, let that one sink in for a minute.
 
 ~~~ javascript
 typeof str === 'string';                                    // true
