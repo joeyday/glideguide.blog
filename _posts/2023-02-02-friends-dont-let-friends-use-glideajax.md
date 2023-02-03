@@ -42,7 +42,7 @@ I know what you're gonna say, this looks like more code than a typical GlideAjax
 
 Note, the `g_ck` variable is a client-side variable that stores the logged-in user's session token. It's the easiest way to authenticate the current user to the Table <abbr>API</abbr> so you don't have to pass along any other credential. Be aware <abbr>ACL</abbr>s will be honored, so you may need to find another way to do this if your Client Script needs to fetch records the user can't otherwise read.
 
-Also note, the Fetch <abbr>API</abbr> has [pretty broad support](https://caniuse.com/?search=fetch) (and appreciate this is running in your end users' browsers, so you're not stuck on <abbr>ES</abbr>5 like you are most everywhere else in ServiceNow), but if your environment won't allow it for whatever reason (say your company mandates Internet Explorer), here's the same example using bog standard [<abbr>XML</abbr>HttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) instead:
+Also note, the Fetch <abbr>API</abbr> has [pretty broad support](https://caniuse.com/?search=fetch) (and don't forget this is running in your end users' browsers, so you're not stuck on <abbr>ES</abbr>5 like you are most everywhere else in ServiceNow), but if your environment won't allow it for whatever reason (say your company mandates Internet Explorer), here's the same example using bog standard [<abbr>XML</abbr>HttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) instead:
 
 ~~~ javascript
 var table = 'incident';
