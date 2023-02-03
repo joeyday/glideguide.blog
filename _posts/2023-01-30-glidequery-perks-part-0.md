@@ -67,8 +67,8 @@ But, believe it or not, this might not always be what we want. For example, if w
 
 ~~~ javascript
 if (gr.active) {
-    // Only executes if active is true
-    // ...
+  // Only executes if active is true
+  // ...
 }
 ~~~
 
@@ -83,8 +83,8 @@ But in this case if we strictly adhere to our best practice and call getValue in
 
 ~~~ javascript
 if (gr.getValue('active')) {
-    // Always executes, even if active is false
-    // ...
+  // Always executes, even if active is false
+  // ...
 }
 ~~~
 
@@ -102,7 +102,7 @@ gr.setLimit(10);
 gr.query();
 
 while (gr.next()) {
-    arr.push(gr.description);
+  arr.push(gr.description);
 }
 ~~~
 
