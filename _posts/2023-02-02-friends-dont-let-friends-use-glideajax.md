@@ -38,7 +38,7 @@ fetch(endpoint, { headers: { 'X-UserToken': g_ck } }) // user auth token
   });
 ~~~
 
-I know what you're gonna say, this looks like more code than a typical GlideAjax call. That actually depends (my code has semi-robust error handling, for example, and quality GlideAjax really should follow similar best practice), but keep in mind this is _all_ the code. There's no need for you to make any server-side component because the Table <abbr>API</abbr> does all the heavy lifting for you. One Client Script and you're done.
+I know what you're gonna say, this looks like more code than a typical GlideAjax call. That actually depends on how many parameters you use and whether you need error handling, but keep in mind this is _all_ the code. There's no need for you to make any server-side component because the Table <abbr>API</abbr> does all the heavy lifting for you. One Client Script and you're done.
 
 Note, the `g_ck` variable is a client-side variable that stores the logged-in user's session token. It's the easiest way to authenticate the current user to the Table <abbr>API</abbr> so you don't have to pass along any other credential. Be aware <abbr>ACL</abbr>s will be honored, so you may need to find another way to do this if your Client Script needs to fetch records the user can't otherwise read.
 
