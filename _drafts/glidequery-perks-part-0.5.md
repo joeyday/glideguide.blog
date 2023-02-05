@@ -38,7 +38,10 @@ In June ’21 Bell did another interview with Chuck Tomasi, this time on the _Br
 
 ## Community resources
 
-Jace's cheat sheet?
+- [Jace Benson › Glide Freaking Query Wow](https://jace.pro/post/2020-05-24-glide-freaking-query-wow/)
+- [Alberto Colombo › GlideQuery Cheat Sheet](https://blog.kofko.xyz/glidequery-cheat-sheet)
+- [Sam's ServiceNow Adventures › Overview of GlideQuery](https://www.snow-adventures.com/blog/overview-of-glidequery/)
+- [Sam's ServiceNow Adventures › GlideQuery Cheat Sheet](https://www.snow-adventures.com/blog/glidequery-cheat-sheet/)
 
 Other stuff from the community?
 
