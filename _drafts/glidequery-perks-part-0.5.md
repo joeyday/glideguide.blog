@@ -38,6 +38,7 @@ In June ’21 Bell did another interview with Chuck Tomasi, this time on the _Br
 
 ## Community resources
 
+- [Jace Benson › What is GlideQuery?](https://jace.pro/post/2020-04-28-what-is-glidequery/)
 - [Jace Benson › Glide Freaking Query Wow](https://jace.pro/post/2020-05-24-glide-freaking-query-wow/)
 - [Alberto Colombo › GlideQuery Cheat Sheet](https://blog.kofko.xyz/glidequery-cheat-sheet)
 - [Sam's ServiceNow Adventures › Overview of GlideQuery](https://www.snow-adventures.com/blog/overview-of-glidequery/)
