@@ -36,7 +36,7 @@ include:
 twitter_username: "_danostler_"
 mastodon:
 - username: joeyday
-  instance: mastodon.social
+  instance: social.sndevs.com
 
 # Build settings
 theme: minima
