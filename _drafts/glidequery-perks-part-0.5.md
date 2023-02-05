@@ -44,6 +44,9 @@ In June ’21 Bell did another interview with Chuck Tomasi, this time on the _Br
 - [Sam's ServiceNow Adventures › Overview of GlideQuery](https://www.snow-adventures.com/blog/overview-of-glidequery/)
 - [Sam's ServiceNow Adventures › GlideQuery Cheat Sheet](https://www.snow-adventures.com/blog/glidequery-cheat-sheet/)
 
+- [ServiceNow 911 › GlideRecord vs. GlideQuery](https://www.youtube.com/watch?v=yY9YNe8nPfo)
+- [Dhruv Gupta › GlideQuery not GlideRecord](https://www.youtube.com/watch?v=M5AOlMM35pg)
+
 Other stuff from the community?
 
 
