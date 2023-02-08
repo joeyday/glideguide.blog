@@ -18,38 +18,48 @@ Of course, the best place to start is arguably the official documentation. There
 
 ## Content featuring Peter Bell
 
-Peter Bell is the senior engineer within ServiceNow who created GlideQuery as a side project to help him with his normal day job on the IT Asset Management team. Naturally, his own content is very well worth checking out.
+Peter Bell is the senior engineer within ServiceNow who created GlideQuery as a side project to help him with his normal day job on the <abbr>IT</abbr> Asset Management team. Naturally, his own content is very well worth checking out.
 
-Bell's original CreatorCon 2020 breakout session, _[GlideQuery: A modern upgrade to GlideRecord (CCB3052)](https://www.servicenow.com/community/creatorcon-blogs/glidequery-a-modern-upgrade-to-gliderecord/ba-p/2331050)_ (and accompanying [slide deck](/files/2023-02-01-ccb3052-bell-glidequery.pdf)), is, as far as I know, the first time GlideQuery was announced officially to the public. It's a great introduction to the API and all of its benefits over GlideRecord.
+Bell's original CreatorCon 2020 breakout session, _[GlideQuery: A modern upgrade to GlideRecord (CCB3052)](https://www.servicenow.com/community/creatorcon-blogs/glidequery-a-modern-upgrade-to-gliderecord/ba-p/2331050)_ (and accompanying [slide deck](/files/2023-02-01-ccb3052-bell-glidequery.pdf)), is, as far as I know, the first time GlideQuery was announced officially to the public. It's a great introduction to the <abbr>API</abbr> and all of its benefits over GlideRecord.
 
 From January to April 2021, Bell published a series of excellent blog posts explaining how to use GlideQuery. There's a lot of overlap here with the official documentation, but, where the docs simply list methods alphabetically, these posts order the topics more pedagogically:
-- [GlideQuery Part 1](https://developer.servicenow.com/blog.do?p=/post/glidequery-p1/)
-- [GlideQuery Part 2](https://developer.servicenow.com/blog.do?p=/post/glidequery-p2/)
-- [GlideQuery Part 3](https://developer.servicenow.com/blog.do?p=/post/glidequery-p3/)
-- [GlideQuery Part 4 - Aggregates](https://developer.servicenow.com/blog.do?p=/post/glidequery-p4/)
-- [GlideQuery Part 5 - Dotwalking and Flags](https://developer.servicenow.com/blog.do?p=/post/glidequery-p5/)
-- [GlideQuery - Stream Processing Part 1](https://developer.servicenow.com/blog.do?p=/post/glidequery-p6/)
-- [GlideQuery - Stream Processing Part 2](https://developer.servicenow.com/blog.do?p=/post/glidequery-p7/)
-- [GlideQuery - Complex Streams](https://developer.servicenow.com/blog.do?p=/post/glidequery-p8/)
 
-In April ’21 Bell did an episode of _Creator Toolbox_ on YouTube with Chuck Tomasi, Brad Tilton, and Andrew Barnes, “[Creator Toolbox - GlideQuery](https://www.youtube.com/live/IobUxnK3LDo)”. They work on refactoring some existing GlideRecord code to use GlideQuery instead, and along the way Bell shares a few interesting undocumented features.
+<div class="column-left" markdown="1">
+- ["GlideQuery Part 1"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p1/)
+- ["GlideQuery Part 2"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p2/)
+- ["GlideQuery Part 3"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p3/)
+- ["GlideQuery Part 4 - Aggregates"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p4/)
+</div>
+<div class="column-right" markdown="1">
+- ["GlideQuery Part 5 - Dotwalking and Flags"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p5/)
+- ["GlideQuery - Stream Processing Part 1"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p6/)
+- ["GlideQuery - Stream Processing Part 2"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p7/)
+- ["GlideQuery - Complex Streams"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p8/)
+</div>
 
-In June ’21 Bell did another interview with Chuck Tomasi, this time on the _Breakpoint_ podcast, “[GlideQuery with Peter Bell](https://developer.servicenow.com/blog.do?p=/post/break-point-025/)”. This one is largely a review of the material in the original CreatorCon session, but he talks about some of the inspirations for GlideQuery and shares some useful info about the performance of GlideQuery compared to GlideRecord.
+In April ’21 Bell did an episode of _Creator Toolbox_ on YouTube with Chuck Tomasi, Brad Tilton, and Andrew Barnes, ["Creator Toolbox - GlideQuery"](https://www.youtube.com/live/IobUxnK3LDo). They work on refactoring some existing GlideRecord code to use GlideQuery instead, and along the way Bell shares a few interesting undocumented features.
+
+In June ’21 Bell did another interview with Chuck Tomasi, this time on the _Breakpoint_ podcast, ["GlideQuery with Peter Bell"](https://developer.servicenow.com/blog.do?p=/post/break-point-025/). This one is largely a review of the material in the original CreatorCon session, but he talks about some of the inspirations for GlideQuery and shares some useful info about the performance of GlideQuery compared to GlideRecord.
 
 ## Community resources
 
-- [Jace Benson › What is GlideQuery?](https://jace.pro/post/2020-04-28-what-is-glidequery/)
-- [Jace Benson › Glide Freaking Query Wow](https://jace.pro/post/2020-05-24-glide-freaking-query-wow/)
-- [Alberto Colombo › GlideQuery Cheat Sheet](https://blog.kofko.xyz/glidequery-cheat-sheet)
-- [Sam's ServiceNow Adventures › Overview of GlideQuery](https://www.snow-adventures.com/blog/overview-of-glidequery/)
-- [Sam's ServiceNow Adventures › GlideQuery Cheat Sheet](https://www.snow-adventures.com/blog/glidequery-cheat-sheet/)
+GlideQuery shipped in an early form as part of the <abbr>ITAM</abbr> suite in the Orlando release. A few people discovered it, but this post by Jace Benson is the only thing I can find that predates the official announcement: ["What is GlideQuery"](https://jace.pro/post/2020-04-28-what-is-glidequery/). About the same time, Dhruv Gupta (with his colleague Debasis Majhi) published a YouTube video on the _ServiceNow Mavericks_ channel, ["GlideQuery not GlideRecord"](https://www.youtube.com/watch?v=M5AOlMM35pg), showing off several GlideQuery examples.
 
-- [ServiceNow 911 › GlideRecord vs. GlideQuery](https://www.youtube.com/watch?v=yY9YNe8nPfo)
-- [Dhruv Gupta › GlideQuery not GlideRecord](https://www.youtube.com/watch?v=M5AOlMM35pg)
+After the official CreatorCon session came out (GlideQuery shipped officially in the Paris release), Benson followed his first post up with a full rundown of GlideQuery's feature set: ["Glide Freaking Query Wow"](https://jace.pro/post/2020-05-24-glide-freaking-query-wow/). Others have since posted cheat sheets for GlideQuery, such as [Samuel Meylan's "GlideQuery Cheat Sheet"](https://www.snow-adventures.com/blog/glidequery-cheat-sheet/) and [Alberto Colombo’s "GlideQuery Cheat Sheet"](https://blog.kofko.xyz/glidequery-cheat-sheet).
 
-Other stuff from the community?
+Lubos Strejcek wrote about GlideQuery on the <abbr>STREYDA</abbr> blog in May 2021, ["GlideRecord or GlideQuery? That's the question"](https://www.streyda.eu/post/gliderecordorglidequery), and the anonymous content creator at the _ServiceNow 911_ channel referenced Strejcek's article in his July 2022 video, ["GlideRecord vs. GlideQuery"](https://www.youtube.com/watch?v=yY9YNe8nPfo).
 
+- https://www.johnskender.com/articles/using-glidequery-to-check-if-a-single-record-exists
+- https://ismr.dev/posts/glidequery-main
+- https://ismr.dev/posts/glidequery-debug-post
+- https://ismr.dev/posts/glidequery-parse-post
+- https://ahmeddrar.me/2022/11/16/querying-with-glidequery/
+- https://dhruvsn.wordpress.com/2020/08/24/glidequery-not-gliderecord/
+- https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-2/ba-p/2268423
 
+## Conclusion
+
+Well, there you have it. That's every single resource I can find online about GlideQuery. It's honestly not much, and a lot of the community content simply summarizes either the official documentation or the original CreatorCon session. 
 
 
 ~~~ javascript

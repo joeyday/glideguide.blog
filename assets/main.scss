@@ -317,6 +317,36 @@ abbr {
   display: inline;
 }
 
+.column-left {
+  float: left;
+
+  @include media-query($on-laptop) {
+    p, ol, ul, blockquote {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.column-right {
+  float: right;
+  @extend %clearfix; /* test */
+}
+
+.column-left,
+.column-right {
+  width: -webkit-calc((#{$content-width} / 2) - (#{$spacing-unit}));
+  width:         calc((#{$content-width} / 2) - (#{$spacing-unit}));
+
+  @include media-query($on-laptop) {
+    width: inherit;
+    width: inherit;
+    float: none;
+  }
+}
+
+
 
 /////// Syntax highlighting ///////
 
