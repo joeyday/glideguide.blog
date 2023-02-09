@@ -149,4 +149,4 @@ GlideRecord's use of Java types instead of JavaScript types and the counterintui
 
 I really tried not to exaggerate anything above, but even so I'm sure I managed to sound like an infomercial. I've only identified the problems I've encountered myself with GlideRecord, and GlideQuery doesn't fix all of them—I won't hold it up as a silver bullet or miracle pill. It does, however, fix a handful of additional issues with GlideRecord that weren't even on my radar until GlideQuery showed me a better way. Even if none of the above gets you rankled up, I hope you'll stay tuned to learn all the ways GlideQuery might be able to take your development on the ServiceNow platform to the next level.{% include endmark.html %}
 
-Next in the series: [GlideQuery Perks, Part 0.5: Resources](/2023/02/08/glidequery-perks-part-0.5.html)
+Next in the series: [Part 0.5: Resources](/2023/02/08/glidequery-perks-part-0.5.html)
