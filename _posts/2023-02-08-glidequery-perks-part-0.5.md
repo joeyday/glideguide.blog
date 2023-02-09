@@ -53,7 +53,7 @@ The above are the most important/useful bits of community content, but a number 
 - ServiceNow 911: ["GlideRecord vs. GlideQuery"](https://www.youtube.com/watch?v=yY9YNe8nPfo)
 - Steven Bell: [GlideQuery vs. GlideRecord: A Comparison, Part 1](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-1/ba-p/2267573) and [Part 2](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-2/ba-p/2268423)
 - Ahmed Drar: [Querying with GlideQuery](https://ahmeddrar.me/2022/11/16/querying-with-glidequery/)
-- ismr: ["GlideQuery <abbr>API</abbr>"](https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug functions"](https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://ismr.dev/posts/glidequery-parse-post)
+- ismr: ["GlideQuery <abbr>API</abbr>"](https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug Functions"](https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://ismr.dev/posts/glidequery-parse-post)
 
 ## Conclusion
 
