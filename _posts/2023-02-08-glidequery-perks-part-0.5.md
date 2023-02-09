@@ -2,7 +2,7 @@
 layout: post
 title: 'GlideQuery Perks, Part 0.5: Resources'
 author: Joey
-date: 2023-02-01
+date: 2023-02-08
 categories: 
 ---
 
@@ -45,29 +45,17 @@ In June ’21 Bell did another interview with Chuck Tomasi, this time on the _Br
 
 GlideQuery shipped in an early form as part of the <abbr>ITAM</abbr> suite in the Orlando release. A few people discovered it, but this post by Jace Benson is the only thing I can find that predates the official announcement: ["What is GlideQuery"](https://jace.pro/post/2020-04-28-what-is-glidequery/). After the official CreatorCon session came out (GlideQuery shipped officially in the Paris release), Benson followed his first post up with a full rundown of GlideQuery's feature set: [Jace.pro › "Glide Freaking Query Wow"](https://jace.pro/post/2020-05-24-glide-freaking-query-wow/). Others have since posted cheat sheets for GlideQuery, such as Samuel Meylan's ["GlideQuery Cheat Sheet"](https://www.snow-adventures.com/blog/glidequery-cheat-sheet/) and Alberto Colombo’s ["GlideQuery Cheat Sheet"](https://blog.kofko.xyz/glidequery-cheat-sheet).
 
-The above are the most important/useful bits of community content, but a number of other folks have blogged or published YouTube videos about GlideQuery:
+The above are the most important/useful bits of community content, but a number of other folks have blogged or published YouTube videos about GlideQuery (listing these in chronological order as far as dates could be ascertained):
 
-- Lubos Strejcek: ["GlideRecord or GlideQuery? That's the question"](https://www.streyda.eu/post/gliderecordorglidequery)
-- ServiceNow 911: ["GlideRecord vs. GlideQuery"](https://www.youtube.com/watch?v=yY9YNe8nPfo)
-- John Skender: ["GlideAggregate, GlideQuery or GlideRecord?"](https://www.johnskender.com/articles/using-glidequery-to-check-if-a-single-record-exists)
-- ismr: ["GlideQuery API"](https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug functions"](https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://ismr.dev/posts/glidequery-parse-post)
-- Ahmed Drar: [Querying with GlideQuery](https://ahmeddrar.me/2022/11/16/querying-with-glidequery/)
 - Dhruv Gupta: [GlideQuery Not GlideRecord](https://dhruvsn.wordpress.com/2020/08/24/glidequery-not-gliderecord/)
+- Lubos Strejcek: ["GlideRecord or GlideQuery? That's the question"](https://www.streyda.eu/post/gliderecordorglidequery)
+- John Skender: ["GlideAggregate, GlideQuery or GlideRecord?"](https://www.johnskender.com/articles/using-glidequery-to-check-if-a-single-record-exists)
+- ServiceNow 911: ["GlideRecord vs. GlideQuery"](https://www.youtube.com/watch?v=yY9YNe8nPfo)
 - Steven Bell: [GlideQuery vs. GlideRecord: A Comparison, Part 1](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-1/ba-p/2267573) and [Part 2](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-2/ba-p/2268423)
+- Ahmed Drar: [Querying with GlideQuery](https://ahmeddrar.me/2022/11/16/querying-with-glidequery/)
+- ismr: ["GlideQuery API"](https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug functions"](https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://ismr.dev/posts/glidequery-parse-post)
 
 ## Conclusion
 
-Well, there you have it. That's every single resource I can find online about GlideQuery. It's honestly not much, and a lot of the community content simply summarizes either the official documentation or the original CreatorCon session. 
-
-
-~~~ javascript
-// code goes here
-// ...
-~~~
-
-
-
-
-
-{% include endmark.html %}
+Well, there you have it. That's every single resource I can find online about GlideQuery. It's honestly not much, and a lot of the community content simply summarizes either the official documentation or the original CreatorCon session. Have you found some additional documentation or a blog post or YouTube video or TikTok that I missed? Find me in the ServiceNow Developers Slack workspace or on Mastodon. Next up in the series I'll start to dive into GlideQuery's many benefits. Stay tuned!{% include endmark.html %}
 
