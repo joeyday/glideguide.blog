@@ -28,13 +28,13 @@ From January to April 2021, Bell published a series of excellent blog posts expl
 - ["GlideQuery Part 1"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p1/)
 - ["GlideQuery Part 2"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p2/)
 - ["GlideQuery Part 3"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p3/)
-- ["GlideQuery Part 4 - Aggregates"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p4/)
+- ["GlideQuery Part 4: Aggregates"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p4/)
 </div>
 <div class="column-right" markdown="1">
-- ["GlideQuery Part 5 - Dotwalking and Flags"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p5/)
-- ["GlideQuery - Stream Processing Part 1"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p6/)
-- ["GlideQuery - Stream Processing Part 2"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p7/)
-- ["GlideQuery - Complex Streams"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p8/)
+- ["GlideQuery Part 5: Dotwalking and Flags"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p5/)
+- ["GlideQuery: Stream Processing Part 1"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p6/)
+- ["GlideQuery: Stream Processing Part 2"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p7/)
+- ["GlideQuery: Complex Queries"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p8/)
 </div>
 
 In April ’21 Bell did an episode of _Creator Toolbox_ on YouTube with Chuck Tomasi, Brad Tilton, and Andrew Barnes, ["GlideQuery"](https://www.youtube.com/live/IobUxnK3LDo). They work on refactoring some existing GlideRecord code to use GlideQuery instead, and along the way Bell shares a few interesting undocumented features.
@@ -53,9 +53,9 @@ The above are the most important/useful bits of community content, but a number 
 - ServiceNow 911: ["GlideRecord vs. GlideQuery"](https://www.youtube.com/watch?v=yY9YNe8nPfo)
 - Steven Bell: [GlideQuery vs. GlideRecord: A Comparison, Part 1](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-1/ba-p/2267573) and [Part 2](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-2/ba-p/2268423)
 - Ahmed Drar: [Querying with GlideQuery](https://ahmeddrar.me/2022/11/16/querying-with-glidequery/)
-- ismr: ["GlideQuery API"](https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug functions"](https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://ismr.dev/posts/glidequery-parse-post)
+- ismr: ["GlideQuery <abbr>API</abbr>"](https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug functions"](https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://ismr.dev/posts/glidequery-parse-post)
 
 ## Conclusion
 
-Well, there you have it. That's every single resource I can find online about GlideQuery. It's honestly not much, and a lot of the community content simply summarizes either the official documentation or the original CreatorCon session. Have you found some additional documentation or a blog post or YouTube video or TikTok that I missed? Find me in the ServiceNow Developers Slack workspace or on Mastodon. Next up in the series I'll start to dive into GlideQuery's many benefits. Stay tuned!{% include endmark.html %}
+Well, there you have it. That's every single resource I can find online about GlideQuery. It's honestly not much, and a lot of the community content simply summarizes either the official documentation or the original CreatorCon session. Have you found some additional documentation or a blog post or YouTube video or TikTok that I missed? Find me in the ServiceNow Developers Slack workspace or on Mastodon and let me know. Next up in the series I'll start to dive into GlideQuery's many benefits. Stay tuned!{% include endmark.html %}
 
