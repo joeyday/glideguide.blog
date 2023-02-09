@@ -57,5 +57,5 @@ The above are the most important/useful bits of community content, but a number 
 
 ## Conclusion
 
-Well, there you have it. That's every single resource I can find online about GlideQuery. It's honestly not much, and a lot of the community content simply summarizes either the official documentation or the original CreatorCon session. Have you found some additional documentation or a blog post or YouTube video or TikTok that I missed? Find me in the ServiceNow Developers Slack workspace or on Mastodon and let me know. Next up in the series I'll start to dive into GlideQuery's many benefits. Stay tuned!{% include endmark.html %}
+Well, there you have it. That's every single resource I can find online about GlideQuery. Have you found some additional documentation or a blog post, YouTube video, TikTok, or some other kind of media that I missed? Find me in the ServiceNow Developers Slack workspace or on Mastodon and let me know. Next up in the series I'll start to dive into GlideQuery's many benefits. Stay tuned!{% include endmark.html %}
 
