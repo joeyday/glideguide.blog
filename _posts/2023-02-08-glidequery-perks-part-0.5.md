@@ -3,7 +3,7 @@ layout: post
 title: 'GlideQuery Perks, Part 0.5: Resources'
 author: Joey
 date: 2023-02-08
-categories: 
+categories: glidequery
 ---
 
 Before I start my GlideQuery series proper, I'd be remiss if I didn't take two steps back and recognize all the great content already out there on the topic. I certainly didn't discover all the benefits of GlideQuery myself, though I do have direct experience with most of them. This article will be a complete rundown on every publicly available resource I can find.
