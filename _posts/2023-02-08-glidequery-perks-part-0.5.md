@@ -20,7 +20,7 @@ Of course, the best place to start is arguably the official documentation. There
 
 Peter Bell is the senior engineer within ServiceNow who created GlideQuery as a side project to help him with his normal day job on the <abbr>IT</abbr> Asset Management team. Naturally, his own content is very well worth checking out.
 
-Bell's original CreatorCon 2020 breakout session, _[GlideQuery: A modern upgrade to GlideRecord (CCB3052)](https://www.servicenow.com/community/creatorcon-blogs/glidequery-a-modern-upgrade-to-gliderecord/ba-p/2331050)_ (and accompanying [slide deck](/files/2023-02-08-ccb3052-bell-glidequery.pdf)), is, as far as I know, the first time GlideQuery was announced officially to the public. It's a great introduction to the <abbr>API</abbr> and all of its benefits over GlideRecord.
+Bell's original CreatorCon 2020 breakout session, _[GlideQuery: A modern upgrade to GlideRecord (CCB3052)](https://www.servicenow.com/community/creatorcon-blogs/glidequery-a-modern-upgrade-to-gliderecord/ba-p/2331050)_ (and accompanying [slide deck](/assets/files/2023-02-08-ccb3052-bell-glidequery.pdf)), is, as far as I know, the first time GlideQuery was announced officially to the public. It's a great introduction to the <abbr>API</abbr> and all of its benefits over GlideRecord.
 
 From January to April 2021, Bell published a series of excellent blog posts explaining how to use GlideQuery. There's a lot of overlap here with the official documentation, but, where the docs simply list methods alphabetically, these posts order the topics more pedagogically:
 
