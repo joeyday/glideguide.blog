@@ -33,8 +33,9 @@ include:
 - _pages
 
 # Social
-twitter_username: "_danostler_"
 mastodon:
+- username: dan
+  instance: social.sndevs.com
 - username: joeyday
   instance: social.sndevs.com
 
