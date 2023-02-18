@@ -108,7 +108,7 @@ while (gr.next()) {
 
 Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, the description from the last incident in the result set. But why? For this we have to understand the difference between pass-by-value and pass-by-reference.
 
-When you store something in a variable, what really happens is a space is created in memory to hold your value, then that space is tracked with a memory address, called a pointer. In JavaScript, if you assign one variable into another variable, as long as the source variable contains a primitive type (string, number, boolean, and a few others), the contents will get copied from that memory address to a new memory address so each variable can have its own separate memory pointer and its own copy of the value. This is called "pass-by-value".
+When you store something in a variable, what really happens is a space is created in memory to hold your value, then that space is tracked with a memory address, called a pointer. In JavaScript, if you assign one variable into another variable, as long as the source variable contains a native type (string, number, boolean, and a few others), the contents will get copied from that memory address to a new memory address so each variable can have its own separate memory pointer and its own copy of the value. This is called "pass-by-value".
 
 You can prove to yourself each variable has its own copy of the value by modifying one and verifying the other doesn't get modified:
 
@@ -130,7 +130,7 @@ source.fruit = 'apple';
 target.fruit;  // apple
 ~~~
 
-That was a long tangent, but we still don't have enough information to see what's going on in the array example above. If JavaScript always passes primitive types by value, then shouldn't `gr.description` get passed by value, not by reference? Is it because `gr.description` is a Java string, not a JavaScript string? Not quite. I did some testing instantiating my own Java strings and couldn't reproduce the pass-by-reference issue.
+That was a long tangent, but we still don't have enough information to see what's going on in the array example above. If JavaScript always passes native types by value, then shouldn't `gr.description` get passed by value, not by reference? Is it because `gr.description` is a Java string, not a JavaScript string? Not quite. I did some testing instantiating my own Java strings and couldn't reproduce the pass-by-reference issue.
 
 What's really going on is even more strange. It turns out, `gr.description` is not only a Java string, but also, somehow, simultaneously, a GlideElement object. It takes only a moment's reflection for this to make perfect sense, after all, we can dot-walk down to properties and methods, so it must have been an object all along.
 
@@ -141,7 +141,7 @@ gr.description instanceof GlideElement;               // true
 
 This is some real Schrödinger's cat quantum superposition arcane witch magic, and don't ask me how it works. I did some Java programming before I was a ServiceNow developer and I'm pretty sure Java objects aren't allowed to be instances of two completely unrelated classes like this. I read more Rhino documentation than I want to admit over the weekend and haven't been able to find if this is a Rhino engine feature or if ServiceNow cooked up some special sauce to make this happen, but either way, it's weird, right?
 
-So what's really going on is this two-headed hydra of an object is being passed into our array by reference, not by value. Each time the loop repeats and `gr.next()` is called, the object is mutated, and since each array element has merely a pointer to the same object rather than its own copy, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the primitive types into your array, as this will guarantee more straightforward pass-by-value.
+So what's really going on is this two-headed hydra of an object is being passed into our array by reference, not by value. Each time the loop repeats and `gr.next()` is called, the object is mutated, and since each array element has merely a pointer to the same object rather than its own copy, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the native types into your array, as this will guarantee more straightforward pass-by-value.
 
 GlideRecord's use of Java types instead of JavaScript types and the counterintuitive dual nature of GlideElement objects make GlideRecord confusing to work with and—although adoption of various best practices can mitigate this somewhat—all-too-commonly introduce hard-to-troubleshoot bugs into your code.
 
