@@ -50,8 +50,8 @@ Because Integer and Decimal columns are evaluated to GlideElementNumeric objects
 ~~~ javascript
 var gr = new GlideRecord('alm_asset');
 gr.get('model.display_name', 'Acer Notebook Battery');
-gr.quantity;      // 3
-gr.quantity + 10; // 310? Nope, it's 13 ✓
+gr.quantity;       // 3
+gr.quantity + 10;  // 310? Nope, it's 13 ✓
 ~~~
 
 Similarly, because Boolean columns come out as GlideElementBoolean objects (and Java booleans), they work fine in boolean logic operations and conditionals.
