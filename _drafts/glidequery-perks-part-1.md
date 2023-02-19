@@ -123,29 +123,69 @@ As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distr
 
 ## JavaScript native objects
 
-In addition to column values being native types, even the whole objects returned by GlideQuery are also native JavaScript objects. One implication of this is the whole object can be logged out for easier debugging.
+In addition to column values being native types, even the whole objects returned by GlideQuery are native JavaScript objects. One implication of this is the whole object can be logged out for quick and easy debugging.
 
 ~~~ javascript
 var inc = new GlideRecord('incident');
 inc.get('sys_id', exampleID);
-gs.debug(inc);  // Logs a lot of useless stuff
+gs.debug(inc);  // A lot of pretty useless stuff ✗
 
 var inc = new GlideQuery('incident')
 	.get(exampleID, ['number', 'short_description'])
 	.get();
-gs.debug(inc);  // Logs an actually useful object
-                // {
+gs.debug(inc);  // {
                 //   "sys_id": "...",
                 //   "number": "INC0010005",
-                //   "short_description": "This is a test"
+                //   "short_description": "Email server is down"
                 // }
+                // Nice! ✓
 ~~~
 
-A much more useful implication of them being native objects is they can be used directly like any other JavaScript object.
+Maybe you can think of lots more ways this is useful, but, to name just one more example, objects returned by GlideQuery can be directly serialized into JSON for sending across a REST connection. How many Scripted REST APIs have you written where you had to copy data out of a GlideRecord object into a native object before it could be serialized? Consider this example I found in ServiceNow's documentation (["Scripted REST API example - streaming vs object serialization"](https://docs.servicenow.com/bundle/tokyo-application-development/page/integrate/custom-web-services/reference/r_ScriptedRESTExampleStreamVsLO.html)):
 
+~~~ javascript
+(function runOperation(request, response) {
+  result_arr = [],
+  
+  gr = new GlideRecord('incident');
+  gr.setLimit(100);
+  gr.query();
 
+  // iterate over incident records and build JSON
+  // representations to be streamed out
+  while (gr.next()) {
+    var incidentObj = {};
+    incidentObj.number = gr.number + '';
+    incidentObj.short_description = gr.short_description + '';
+    result_arr.push(incidentObj);
+  }
+  
+  return result_arr;
+})(request, response);
+~~~
+
+This looks simple enough, but imagine we had a lot more fields to load into the objects to be serialized—the more fields we had, the more lines of code we'd need.
+
+This is much nicer with GlideQuery. Since the objects are already native objects, we can push each one onto the array as is and return the array with full confidence ServiceNow will be able to stringify it into JSON to be sent down to the client.
+
+~~~ javascript
+(function runOperation(request, response) {
+  result_arr = [],
+
+  new GlideQuery('incident')
+    .limit(100)
+    .select('number', 'short_description')
+    .forEach(function (inc) {
+      result_arr.push(inc);
+    });
+  
+  return result_arr;
+})(request, response);
+~~~
+
+(As before, note this is a poor way to create arrays with GlideQuery. I'm trying to keep things similar to the GlideRecord examples for more apples-to-apples comparisons. Keep an eye out for Part 3 for some vastly improved GlideQuery array building examples.)
 
 ## Conclusion
 
-Because GlideQuery behaves so much more predictably in always returning JavaScript native types, a lot of confusion and potential bugs are just removed from the picture. I know I would've understood and trusted the platform a lot more in my early years if I'd cut my teeth scripting with GlideQuery instead of GlideRecord.{% include endmark.html %}
+Because GlideQuery behaves so much more predictably in always returning JavaScript native types and native objects, a lot of confusion and potential bugs are avoided. We get the simple convenience of rarely if ever having to convert values and objects into other kinds of values and objects. I know I would've more intuitively understood and had a lot more trust in the platform in my early years if I'd cut my teeth scripting with GlideQuery instead of GlideRecord.{% include endmark.html %}
 
