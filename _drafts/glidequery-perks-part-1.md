@@ -102,7 +102,7 @@ As I said, using `getValue` avoids this bug, but GlideQuery shines here for not 
 
 ## Strict comparisons are possible
 
-Returned values can also be strictly compared with other values.
+Because GlideQuery's returned values are native JavaScript types, they can safely be strictly compared with other values of the same type.
 
 ~~~ javascript
 var inc = new GlideRecord('incident');
