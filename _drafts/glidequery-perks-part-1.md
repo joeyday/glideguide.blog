@@ -121,5 +121,5 @@ As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distr
 
 ## Conclusion
 
-Because GlideQuery behaves so much more predictably in always returning JavaScript native types, a lot of confusion and potential bugs are just removed from the picture. I know I would've understood and trusted the platform a lot more in my early years scripting on the platform if I'd cut my teeth on GlideQuery instead of GlideRecord.{% include endmark.html %}
+Because GlideQuery behaves so much more predictably in always returning JavaScript native types, a lot of confusion and potential bugs are just removed from the picture. I know I would've understood and trusted the platform a lot more in my early years if I'd cut my teeth scripting with GlideQuery instead of GlideRecord.{% include endmark.html %}
 
