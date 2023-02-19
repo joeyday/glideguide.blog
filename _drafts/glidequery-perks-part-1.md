@@ -58,14 +58,14 @@ Similarly, because Boolean columns come out as GlideElementBoolean objects (and 
 
 ~~~ javascript
 var gr = new GlideRecord('incident');
-gr.get('active', true);
+gr.addActiveQuery();
 if (gr.active) {
   // Stuff in here will execute
   // ...
 }
 
 var gr = new GlideRecord('incident');
-gr.get('active', false);
+gr.addInactiveQuery();
 if (gr.active) {
   // Stuff in here will _not_ execute
   // ...
