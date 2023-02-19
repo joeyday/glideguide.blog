@@ -20,7 +20,7 @@ Let's compare how different types of values get returned by GlideRecord:
 | Integer | GlideElementNumeric / Java string | JavaScript string |
 | True/False | GlideElementBoolean / Java boolean | JavaScript string (0 or 1) |
 
-It's honestly pretty odd, right? If we don't use `getValue`, we sometimes get the right type, but not always, and actually never really since they're Java types instead of native JavaScript types. If we do use `getValue`, we always get a native JavaScript string and then we have to cast it to whichever type we need.
+It's honestly pretty odd, right? If we don't use `getValue`, we sometimes get the right type, but not always, but actually never really since they're Java types instead of native JavaScript types. If we do use `getValue`, we always get a native JavaScript string and then we have to cast it to whichever type we need.
 
 You can use `typeof` and `instanceof` (see also `JSUtil.instance_of`) to inspect this behavior for yourself. Here's an example:
 
