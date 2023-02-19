@@ -6,7 +6,7 @@ date: 2023-01-01
 categories: glidequery
 ---
 
-One of the main points I made in [Part 0](/2023/01/30/glidequery-perks-part-0.html) was that GlideRecord is a Java object and its various methods return Java types and more Java objects, so it doesn't behave like native JavaScript. In contrast, though GlideQuery does call GlideRecord to perform database operations under the hood, its public interface is written entirely in JavaScript and was intentionally designed to behave like JavaScript.
+One of the main points I made in [Part 0](/2023/01/30/glidequery-perks-part-0.html) of this series was that GlideRecord is a Java object and its various methods return Java types and more Java objects, so it doesn't behave like native JavaScript. In contrast, though GlideQuery does call GlideRecord to perform database operations under the hood, its public interface is written entirely in JavaScript and was intentionally designed to behave like JavaScript.
 
 ## JavaScript native types
 
@@ -98,7 +98,7 @@ gq_array;  // ['INC0010004', 'INC0010005', 'INC0010019'] ✓
 
 As I said, using `getValue` avoids this bug, but GlideQuery shines here for not having the problem in the first place.
 
-(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3. Also note the real issue here is pass-by-reference combined with the way GlideRecord objects mutate when the `next` method is called, as I explained in Part 0 of this series. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, but that's another thing I'll cover in Part 3.)
+(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of this series. Also note the real issue here is pass-by-reference combined with the way GlideRecord objects mutate when the `next` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, but that's another thing I'll cover in Part 3.)
 
 ## Strict comparisons are possible
 
