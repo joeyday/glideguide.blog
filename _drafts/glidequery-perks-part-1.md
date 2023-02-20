@@ -167,7 +167,7 @@ This is much nicer to implement with GlideQuery. Since the objects are already n
 })(request, response);
 ~~~
 
-(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Keep an eye out for Part 3 for some vastly improved GlideQuery array building examples.)
+(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for Part 3 for some vastly improved GlideQuery array building examples.)
 
 ### Native object methods
 
