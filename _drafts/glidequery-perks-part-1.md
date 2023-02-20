@@ -82,7 +82,7 @@ new GlideQuery('incident')
 result;  // ['INC0010001', 'INC0010002', 'INC0010003', ...]
 ~~~
 
-We already know using `getValue()` with GlideRecord avoids this bug, but GlideQuery shines here for not having the problem in the first place.
+We already know using `getValue()` with GlideRecord avoids the pass-by-reference issue, but GlideQuery shines here for not having the problem in the first place.
 
 (Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series. Also note the real issue is pass-by-reference combined with the way GlideRecord objects mutate when the `next()` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, and that's another thing I'll cover in Part 3.)
 
@@ -99,7 +99,7 @@ inc.number == 'INC0010005';   // true
 inc.number === 'INC0010005';  // true
 ~~~
 
-As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distrust strict equality in JavaScript in my early ServiceNow days. Continuing the pattern, using `getValue()` and/or casting to the appropriate native type avoids the problem, but GlideQuery just hands over the value in the correct native type. Easy peasy.
+As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distrust strict equality in JavaScript in my early ServiceNow days. Continuing the pattern, using `getValue()` and/or casting to the appropriate native type works the same way, but GlideQuery gives us the value in the correct native type without any casting or coercion. Easy peasy.
 
 ## JavaScript native objects
 
@@ -148,7 +148,7 @@ Another nice use case for this is that objects returned by GlideQuery can be dir
 })(request, response);
 ~~~
 
-This looks simple enough, but imagine we had a lot more fields to load into the objects to be serialized—the more fields we had, the more lines of code we'd need.
+This looks simple enough, but imagine we have a lot more fields to load into the objects to be serialized—the more fields we want, the more lines of code we'll need.
 
 This is much nicer to implement with GlideQuery. Since the objects are already native objects, we can push each one onto the array as is and return the array with full confidence it can be safely stringified into JSON.
 
@@ -167,11 +167,11 @@ This is much nicer to implement with GlideQuery. Since the objects are already n
 })(request, response);
 ~~~
 
-(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for Part 3 for some vastly improved GlideQuery array building examples.)
+(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for Part 3 for some vastly improved GlideQuery array examples.)
 
 ### Native object methods
 
-Yet another benefit to GlideQuery's native objects is all of JavaScript's object methods can be used such as `hasOwnProperty()`. We can also use `Object.keys()` to get just the field names from the object, or we can use a `for...in` loop to iterate over all the properties.
+Yet another benefit to GlideQuery's native objects is all of JavaScript's object methods can be used such as `hasOwnProperty()`. We can also use helper functions like `Object.keys()` and features like `for...in` loops.
 
 ~~~ javascript
 var inc = new GlideQuery('incident')
@@ -187,7 +187,9 @@ for (var field in inc) {
 // short_description: Email server is down
 ~~~
 
+(And if you're lucky enough to be on the Tokyo release or later and in a context where you can use modern JavaScript language features, you might find a use for `Object.entries()` or `Object.values()`.)
+
 ## Conclusion
 
-Because GlideQuery behaves so much more predictably in always returning JavaScript native types and native objects, a lot of confusion and potential bugs are avoided. We get the simple convenience of rarely if ever having to convert values and objects into other kinds of values and objects, and we get the benefits of JavaScript native methods for the various types. I know I would've more intuitively understood and had a lot more trust in the platform in my early years if I'd cut my teeth scripting with GlideQuery instead of GlideRecord.{% include endmark.html %}
+Because GlideQuery behaves so much more predictably in always returning JavaScript native types and native objects, a lot of confusion and potential bugs are avoided. We get the simple convenience of rarely if ever having to convert values and objects into other kinds of values and objects, and we get the benefits of JavaScript native methods for the various types. I'm certain I would've more intuitively understood and had a lot more trust in the platform in my early years if I'd cut my teeth scripting with GlideQuery instead of GlideRecord.{% include endmark.html %}
 
