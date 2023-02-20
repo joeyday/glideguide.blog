@@ -179,7 +179,7 @@ var inc = new GlideQuery('incident')
   .get()
 
 for (var field in inc) {
-	gs.debug(field + ': ' + inc[field]);
+  gs.debug(field + ': ' + inc[field]);
 }
 
 // sys_id: ...
