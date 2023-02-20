@@ -84,7 +84,7 @@ result;  // ['INC0010001', 'INC0010002', 'INC0010003', ...]
 
 We already know using `getValue()` with GlideRecord avoids the pass-by-reference issue, but GlideQuery shines here for not having the problem in the first place.
 
-(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series. Also note the real issue is pass-by-reference combined with the way GlideRecord objects mutate when the `next()` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, and that's another thing I'll cover in Part 3.)
+(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 2 of the series. Also note the real issue is pass-by-reference combined with the way GlideRecord objects mutate when the `next()` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, but that's something I'll cover in Part 3.)
 
 ### Strict comparisons are possible
 
@@ -167,7 +167,7 @@ This is much nicer to implement with GlideQuery. Since the objects are already n
 })(request, response);
 ~~~
 
-(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for Part 3 for some vastly improved GlideQuery array examples.)
+(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for Part 2 for some vastly improved GlideQuery array examples.)
 
 ### Native object methods
 
