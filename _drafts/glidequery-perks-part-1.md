@@ -14,13 +14,13 @@ A big part of how GlideQuery behaves like JavaScript is its consistent use of Ja
 
 Let's compare how different types of values get returned by GlideRecord. I have some examples in Part 0 showing how I sussed this out with the `instanceof` operator (see also `JSUtil.instance_of()`).
 
-| Column type | Accessed directly | Accessed with `getValue` |
+| Column type | Accessed directly | Accessed with `getValue()` |
 |:------------|:-----------------|:----------------|
 | String | GlideElement / Java string | JavaScript string |
 | Integer | GlideElementNumeric / Java string | JavaScript string |
 | True/False | GlideElementBoolean / Java boolean | JavaScript string (0 or 1) |
 
-It's honestly pretty odd, right? If we don't use `getValue`, sometimes we get the right type, but actually not really since they're Java types instead of native JavaScript types. If we do use `getValue`, we consistently get a native JavaScript string but then we have to cast it to whichever type we need.
+It's honestly pretty odd, right? If we don't use `getValue()`, sometimes we get the right type, but actually not really since they're Java types instead of native JavaScript types. If we do use `getValue()`, we consistently get a native JavaScript string but then we have to cast it to whichever type we need.
 
 Now let's directly inspect some values from GlideQuery:
 
@@ -38,9 +38,9 @@ As you can see, refreshingly, the various kinds of table fields just come to us 
 
 ### GlideRecord is more sane than I thought
 
-Years ago I adopted the best practice of just always using `getValue` whenever interacting with columns on a GlideRecord object (and [many](https://snprotips.com/blog/2017/4/9/always-use-getters-and-setters) [other](https://www.servicenow.com/community/developer-articles/gliderecord-hints-tips-common-issues-and-good-practices/ta-p/2323766) [people](https://www.servicenow.com/community/developer-forum/get-field-value-of-gliderecord-best-practice-method/m-p/1619218) [have](https://www.youtube.com/live/j57cXWGQD98?feature=share&t=1025) [also](https://www.servicenow.com/community/developer-blog/tnt-the-importance-of-using-quot-getvalue-quot-when-getting-data/ba-p/2273338), or have advocated for some [alternative](https://codecreative.io/blog/is-gliderecord-getvalue-the-king-of-the-string/)). But in researching this series I've come to realize GlideElement objects actually behave better than I remembered.
+Years ago I adopted the best practice of just always using `getValue()` whenever interacting with columns on a GlideRecord object (and [many](https://snprotips.com/blog/2017/4/9/always-use-getters-and-setters) [other](https://www.servicenow.com/community/developer-articles/gliderecord-hints-tips-common-issues-and-good-practices/ta-p/2323766) [people](https://www.servicenow.com/community/developer-forum/get-field-value-of-gliderecord-best-practice-method/m-p/1619218) [have](https://www.youtube.com/live/j57cXWGQD98?feature=share&t=1025) [also](https://www.servicenow.com/community/developer-blog/tnt-the-importance-of-using-quot-getvalue-quot-when-getting-data/ba-p/2273338), or have advocated for some [alternative](https://codecreative.io/blog/is-gliderecord-getvalue-the-king-of-the-string/)). But in researching this series I've come to realize GlideElement objects actually behave more intuitively than I remembered.
 
-Because Integer and Decimal columns are evaluated to GlideElementNumeric objects, you can do math with them directly. I had thought, surely, since `instanceof` reports them as Java strings, addition would be evaluated as string concatenation, but no, it works fine.
+Because Integer and Decimal columns are evaluated to GlideElementNumeric objects, you can do math with them directly. (I had thought, surely, since `instanceof` reports them as Java strings, addition would be evaluated as string concatenation, but no, it works fine.)
 
 ~~~ javascript
 var gr = new GlideRecord('alm_asset');
@@ -62,9 +62,9 @@ if (gr.active) {
 }
 ~~~
 
-So it turns out I've made extra work for myself by always using `getValue`. I've needlessly casted a lot of strings to numbers or tested them for equality with `'0'` and `'1'`, when I could've and arguably should've just been directly accessing the values I needed.
+So it turns out I've made extra work for myself by always using `getValue()`. I've needlessly casted a lot of strings to numbers or tested them for equality with `'0'` and `'1'`, when I could've (and arguably should've) just been directly accessing the values I needed.
 
-But there are two significant issues with GlideRecord and GlideElement objects that drove us all to adopt `getValue` in the first place, and they're both handily avoided by GlideQuery's use of native types.
+But there are two significant issues with GlideRecord and GlideElement objects that drove us all to adopt `getValue()` in the first place, and they're both handily avoided by GlideQuery's use of native types.
 
 ### No pass-by-reference shenanigans
 
@@ -82,9 +82,9 @@ new GlideQuery('incident')
 result;  // ['INC0010001', 'INC0010002', 'INC0010003', ...]
 ~~~
 
-We already know using `getValue` with GlideRecord avoids this bug, but GlideQuery shines here for not having the problem in the first place.
+We already know using `getValue()` with GlideRecord avoids this bug, but GlideQuery shines here for not having the problem in the first place.
 
-(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series. Also note the real issue here is pass-by-reference combined with the way GlideRecord objects mutate when the `next` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, and that's another thing I'll cover in Part 3.)
+(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series. Also note the real issue is pass-by-reference combined with the way GlideRecord objects mutate when the `next()` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, and that's another thing I'll cover in Part 3.)
 
 ### Strict comparisons are possible
 
@@ -99,7 +99,7 @@ inc.number == 'INC0010005';   // true
 inc.number === 'INC0010005';  // true
 ~~~
 
-As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distrust strict equality in JavaScript in my early ServiceNow days. And, continuing the pattern, using `getValue` and/or casting to the appropriate native type avoids the problem, but GlideQuery just hands over the value in the correct native type. Easy peasy.
+As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distrust strict equality in JavaScript in my early ServiceNow days. And, continuing the pattern, using `getValue()` and/or casting to the appropriate native type avoids the problem, but GlideQuery just hands over the value in the correct native type. Easy peasy.
 
 ## JavaScript native objects
 
@@ -111,8 +111,9 @@ Maybe the simplest implication of GlideQuery returning native objects is they ca
 
 ~~~ javascript
 var inc = new GlideQuery('incident')
-	.get(exampleID, ['number', 'short_description'])
-	.get();
+  .get(exampleID, ['number', 'short_description'])
+  .get();
+
 gs.debug(inc);
 
 // {
@@ -170,7 +171,7 @@ This is much nicer to implement with GlideQuery. Since the objects are already n
 
 ### Native object methods
 
-Yet another benefit to GlideQuery's native objects is all of JavaScript's object methods can be used such as `hasOwnProperty`. We can also use `Object.keys()` to get just the field names from the object, or we can use a `for...in` loop to iterate over all the properties.
+Yet another benefit to GlideQuery's native objects is all of JavaScript's object methods can be used such as `hasOwnProperty()`. We can also use `Object.keys()` to get just the field names from the object, or we can use a `for...in` loop to iterate over all the properties.
 
 ~~~ javascript
 var inc = new GlideQuery('incident')
