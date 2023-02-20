@@ -6,63 +6,29 @@ date: 2023-01-01
 categories: glidequery
 ---
 
-One of the main points I made in [Part 0](/2023/01/30/glidequery-perks-part-0.html) of this series was that GlideRecord is a Java object and its various methods return Java types and more Java objects, so it doesn't behave like native JavaScript. In contrast, though GlideQuery does call GlideRecord to perform database operations under the hood, its public interface is written entirely in JavaScript and was intentionally designed to behave like JavaScript.
+One of the main points I made in [Part 0](/2023/01/30/glidequery-perks-part-0.html) of this series was that GlideRecord is a Java object and its various methods return Java types and more Java objects, so it doesn't behave like native JavaScript. In contrast, though GlideQuery uses GlideRecord to perform database operations in its private implementation, its public interface is written entirely in JavaScript and was intentionally designed to behave like JavaScript.
 
 ## JavaScript native variable types
 
-A big part of how GlideQuery behaves like JavaScript is its consistent use of JavaScript native types. For example, if you ask GlideQuery to return the contents of an Integer or Decimal column in the ServiceNow database, GlideQuery will give you the value as a native JavaScript number. If you ask it to return the contents of a True/False field, you'll get a native JavaScript boolean.
-
-Let's compare how different types of values get returned by GlideRecord. I have some examples in Part 0 showing how I sussed this out with the `instanceof` operator (see also `JSUtil.instance_of()`).
-
-| Column type | Accessed directly | Accessed with `getValue()` |
-|:------------|:-----------------|:----------------|
-| String | GlideElement / Java string | JavaScript string |
-| Integer | GlideElementNumeric / Java string | JavaScript string |
-| True/False | GlideElementBoolean / Java boolean | JavaScript string (0 or 1) |
-
-It's honestly pretty odd, right? If we don't use `getValue()`, sometimes we get the right type, but actually not really since they're Java types instead of native JavaScript types. If we do use `getValue()`, we consistently get a native JavaScript string but then we have to cast it to whichever type we need.
-
-Now let's directly inspect some values from GlideQuery:
+A big part of how GlideQuery acts like JavaScript is its consistent use of JavaScript native types. For example, if you ask GlideQuery to return the contents of an Integer or Decimal column in the ServiceNow database, GlideQuery will give you the value as a native JavaScript number. If you ask it to return the contents of a True/False field, you'll get a native JavaScript boolean.
 
 ~~~ javascript
 var inc = new GlideQuery('incident')
   .get(exampleID, ['description', 'sys_mod_count', 'active'])
   .get();
 
-typeof inc.desciption === 'string';     // true
+typeof inc.description === 'string';     // true
 typeof inc.sys_mod_count === 'number';  // true
 typeof inc.active === 'boolean';        // true
 ~~~
 
-As you can see, refreshingly, the various kinds of table fields just come to us as their appropriate native JavaScript types. They're not Java types nor are they Java objects. GlideElement, GlideElementNumeric, and GlideElementBoolean are nowhere to be found here.
+As you can see, they're not Java types nor are they Java objects. Refreshingly, GlideElement is nowhere to be found here.
 
 ### GlideRecord is more sane than I thought
 
 Years ago I adopted the best practice of just always using `getValue()` whenever interacting with columns on a GlideRecord object (and [many](https://snprotips.com/blog/2017/4/9/always-use-getters-and-setters) [other](https://www.servicenow.com/community/developer-articles/gliderecord-hints-tips-common-issues-and-good-practices/ta-p/2323766) [people](https://www.servicenow.com/community/developer-forum/get-field-value-of-gliderecord-best-practice-method/m-p/1619218) [have](https://www.youtube.com/live/j57cXWGQD98?feature=share&t=1025) [also](https://www.servicenow.com/community/developer-blog/tnt-the-importance-of-using-quot-getvalue-quot-when-getting-data/ba-p/2273338), or have advocated for some [alternative](https://codecreative.io/blog/is-gliderecord-getvalue-the-king-of-the-string/)). But in researching this series I've come to realize GlideElement objects actually behave more intuitively than I remembered.
 
-Because Integer and Decimal columns are evaluated to GlideElementNumeric objects, you can do math with them directly. (I had thought, surely, since `instanceof` reports them as Java strings, addition would be evaluated as string concatenation, but no, it works fine.)
-
-~~~ javascript
-var gr = new GlideRecord('alm_asset');
-gr.get('model.display_name', 'Acer Notebook Battery');
-
-gr.quantity;       // 3
-gr.quantity + 10;  // '310'? Nope, 13
-~~~
-
-Similarly, because Boolean columns come out as GlideElementBoolean objects (and Java booleans), they work fine in logic operations and conditionals.
-
-~~~ javascript
-var gr = new GlideRecord('incident');
-gr.addInactiveQuery();
-
-if (gr.active) {
-  // Stuff in here won't execute
-  // ...
-}
-~~~
-
-So it turns out I've made extra work for myself by always using `getValue()`. I've needlessly casted a lot of strings to numbers or tested them for equality with `'0'` and `'1'`, when I could've (and arguably should've) just been directly accessing the values I needed.
+Because Integer and Decimal columns are evaluated to GlideElementNumeric objects, you can do math with them directly. Similarly, because Boolean columns come out as GlideElementBoolean objects (and Java booleans), they work fine in logic operations and conditionals.
 
 But there are two significant issues with GlideRecord and GlideElement objects that drove us all to adopt `getValue()` in the first place, and they're both handily avoided by GlideQuery's use of native types.
 
@@ -84,11 +50,11 @@ result;  // ['INC0010001', 'INC0010002', 'INC0010003', ...]
 
 We already know using `getValue()` with GlideRecord avoids the pass-by-reference issue, but GlideQuery shines here for not having the problem in the first place.
 
-(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 2 of the series. Also note the real issue is pass-by-reference combined with the way GlideRecord objects mutate when the `next()` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, but that's something I'll cover in Part 3.)
+(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series. Also note the real issue is pass-by-reference combined with the way GlideRecord objects mutate when the `next()` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, but that's something I'll cover in Part 4.)
 
 ### Strict comparisons are possible
 
-Another benefit of GlideQuery's native type return values is they can safely be strictly compared with other values.
+Another benefit of GlideQuery's use of native types is they can safely be strictly compared with other values.
 
 ~~~ javascript
 var inc = new GlideQuery('incident')
@@ -107,7 +73,7 @@ In addition to column values being native types, even whole objects returned by 
 
 ### Easier debugging
 
-Maybe the simplest implication of GlideQuery returning native objects is they can be logged out for quick and easy debugging.
+Maybe the simplest implication of GlideQuery returning native objects is the whole object can be logged out for quick and easy debugging.
 
 ~~~ javascript
 var inc = new GlideQuery('incident')
@@ -123,9 +89,9 @@ gs.debug(inc);
 // }
 ~~~
 
-### Easier JSON serialization
+### Easier <abbr>JSON</abbr> serialization
 
-Another nice use case for this is that objects returned by GlideQuery can be directly serialized into JSON for sending across a REST connection. How many Scripted REST APIs have you written where you had to copy data out of a GlideRecord object into a native object before it could be serialized? Consider this example I found in ServiceNow's documentation (["Scripted REST API example - streaming vs object serialization"](https://docs.servicenow.com/bundle/tokyo-application-development/page/integrate/custom-web-services/reference/r_ScriptedRESTExampleStreamVsLO.html)):
+Another nice use case for this is that objects returned by GlideQuery can be directly serialized into <abbr>JSON</abbr> for sending across a <abbr>REST</abbr> connection. How many Scripted <abbr>REST</abbr> <abbr>API</abbr>s have you written where you had to copy data out of a GlideRecord object into a native object before it could be serialized? Consider this example I found in ServiceNow's documentation (["Scripted <abbr>REST</abbr> <abbr>API</abbr> example - streaming vs object serialization"](https://docs.servicenow.com/bundle/tokyo-application-development/page/integrate/custom-web-services/reference/r_ScriptedRESTExampleStreamVsLO.html)):
 
 ~~~ javascript
 (function runOperation(request, response) {
@@ -148,9 +114,9 @@ Another nice use case for this is that objects returned by GlideQuery can be dir
 })(request, response);
 ~~~
 
-This looks simple enough, but imagine we have a lot more fields to load into the objects to be serialized—the more fields we want, the more lines of code we'll need.
+This looks simple enough, but imagine we had a lot more fields to load into the objects to be serialized—the more fields we had, the more lines of code we'd need.
 
-This is much nicer to implement with GlideQuery. Since the objects are already native objects, we can push each one onto the array as is and return the array with full confidence it can be safely stringified into JSON.
+This is much nicer to implement with GlideQuery. Since the objects are already native objects, we can push each one onto the array as is and return the array with full confidence it can be safely stringified into <abbr>JSON</abbr>.
 
 ~~~ javascript
 (function runOperation(request, response) {
@@ -167,7 +133,7 @@ This is much nicer to implement with GlideQuery. Since the objects are already n
 })(request, response);
 ~~~
 
-(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for Part 2 for some vastly improved GlideQuery array examples.)
+(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for better array examples in Part 3.)
 
 ### Native object methods
 
