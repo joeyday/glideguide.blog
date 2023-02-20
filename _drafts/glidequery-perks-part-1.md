@@ -99,7 +99,7 @@ inc.number == 'INC0010005';   // true
 inc.number === 'INC0010005';  // true
 ~~~
 
-As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distrust strict equality in JavaScript in my early ServiceNow days. And, continuing the pattern, using `getValue()` and/or casting to the appropriate native type avoids the problem, but GlideQuery just hands over the value in the correct native type. Easy peasy.
+As I mentioned in Part 0, GlideRecord's inconsistent behavior here made me distrust strict equality in JavaScript in my early ServiceNow days. Continuing the pattern, using `getValue()` and/or casting to the appropriate native type avoids the problem, but GlideQuery just hands over the value in the correct native type. Easy peasy.
 
 ## JavaScript native objects
 
