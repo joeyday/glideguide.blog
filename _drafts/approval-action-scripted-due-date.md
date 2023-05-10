@@ -22,6 +22,7 @@ I was recently building a flow using this workaround when I happened to see that
 After finding this I immediately made some assumptions on other possible values and began to test my theories. The JSON object below is the result of my testing. I have documented each property's purpose and possible values along with an example script. 
 
 **Due Date Configuration Template**
+
 ~~~ json
 {
     "action": "", // approve, cancel, reject
@@ -56,6 +57,7 @@ return JSON.stringify(config);
 ~~~
 
 **Disclaimer**
+
 I can't emphasize enough that to my knowledge all of this is completely undocumented, at least as of the [Utah release](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html). I cannot guarantee that this will work for you or that it will continue to work.
 
 {% include endmark.html %}
