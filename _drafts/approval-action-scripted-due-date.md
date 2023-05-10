@@ -21,6 +21,8 @@ I was recently building a flow using this workaround when I happened to see that
 
 After finding this I immediately made some assumptions on other possible values and began to test my theories. The JSON object below is the result of my testing. I have documented each property's purpose and possible values along with an example script. 
 
+<img style="width: 90%; max-width: 400px; display: block !important; margin: auto;" src="/assets/images/2023-05-10-script-example.png" alt="Example Script Input" />
+
 **Due Date Configuration Template**
 ~~~ json
 {
