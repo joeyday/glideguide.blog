@@ -14,6 +14,7 @@ As of this writing it is sometimes necessary to script the due date value in the
 One workaround to my failed attempts at using the script input has been to populate a Flow Variable with the desired date/time string value. I can populate the variable via script using the Set Flow Variables action. While I dislike this solution for a number of reasons it does work. 
 
 <img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-variable-workaround.png" alt="Set Flow Variable action" />
+<img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-workaround-pill.png" alt="Add Variable Pill" />
 
 I was recently building a flow using this workaround when I happened to see that a due date configured with pills generates a JSON configuration that you can view from the Flow Execution Context. 
 
