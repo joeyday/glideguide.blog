@@ -5,13 +5,13 @@ author: Dan
 date: 2023-05-10
 categories: Flow Designer
 ---
-Something in Flow Designer that has always bothered me is that I've been unable to get scripted due dates to work in the Ask For Approval Action. If you're unfamiliar, due dates provide the ability to specify how long the Flow should wait for approval, as well as what action should be taken on the approval when the specified due date arrives. This prevents a Flow from waiting endlessly for an approval response. 
+Something in Flow Designer that has always bothered me is that I've been unable to get scripted due dates to work in the Ask For Approval action. If you're unfamiliar, due dates provide the ability to specify how long the flow should wait for approval, as well as what action should be taken on the approval when the specified due date arrives. This prevents a flow from waiting endlessly for an approval response. 
 
-It is sometimes necessary to script the due date value in the Ask For Approval Action. For example, if you wanted an approval to automatically cancel when left unresponded after 14 calendar days. At first glance this seems entirely possible using the relative due date configuration options, until you get to the "From" date/time value input that must be provided. How can you specify that you want the timer to start at the time of Approval record creation? To my knowledge you cannot, at least not without writing a script. As with all other inputs in Flow Designer it would like you to drag and drop a date/time pill value and move on. If this flow is based on a Catalog Item it can be tempting to drag and drop the Created On date/time pill from the RITM, and in some cases (depending on where this Action is in your Flow) this may not be much of a problem. 
+It is sometimes necessary to script the due date value in the Ask For Approval action. For example, if you wanted an approval to automatically cancel when left unresponded after 14 calendar days. At first glance this seems entirely possible using the relative due date configuration options, until you get to the "From" date/time value input that must be provided. How can you specify that you want the timer to start at the time of Approval record creation? To my knowledge you cannot, at least not without writing a script. As with all other inputs in Flow Designer it would like you to drag and drop a date/time pill value and move on. If this flow is based on a Catalog Item it can be tempting to drag and drop the Created On date/time pill from the RITM, and in some cases (depending on where this Action is in your Flow) this may not be much of a problem. 
 
 <img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-ask-for-approval-action.png" alt="Ask For Approval Action" />
 
-One workaround to my failed attempts at using the script input has been to populate a Flow Variable with the desired date/time string value. I can populate the variable via script using the Set Flow Variables action. While I dislike this solution for a number of reasons it does work. 
+One workaround that I have used after my failed attempts at using the script input has been to populate a flow variable with the desired date/time string value. I can populate the variable via script using the Set Flow Variables action. While I dislike this solution for a number of reasons it does work. 
 
 <img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-variable-workaround.png" alt="Set Flow Variable action" />
 <img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-workaround-pill.png" alt="Add Variable Pill" />
@@ -57,6 +57,5 @@ var config = {
 return JSON.stringify(config);
 ~~~
 
-**Disclaimer**
 
-I can't emphasize enough that to my knowledge all of this is completely undocumented, at least as of the [Utah release](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html). I cannot guarantee that this will work for you or that it will continue to work.{% include endmark.html %}
+While I am delighted to have solved this riddle, I can't emphasize enough that to my knowledge all of this is completely undocumented, at least as of the [Utah release](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html), and is likely unrecommended as if the Ask For Approval action changes any instances of this action using a scripted input are subject to break. I cannot guarantee that this will work for you or that it will continue to work. Now that I have seen how the action works I suspect that in the event you find yourself in a scenario like the one described above, the intended solution would be to use a flow variable or similar steps of scripting a dynamic date/time and provide that value via pill.{% include endmark.html %}
