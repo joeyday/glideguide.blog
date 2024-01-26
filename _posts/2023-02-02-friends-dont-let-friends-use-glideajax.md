@@ -62,7 +62,7 @@ xhr.send();
 
 xhr.onreadystatechange = function () {
   if (xhr.readyState !== XMLHttpRequest.DONE)
-    throw 'Ready state ' + xhr.readyState + ' on ' + endpoint;
+    return;
     
   if (xhr.status < 200 || xhr.status >= 300)
     throw 'HTTP status ' + xhr.status + ' on ' + endpoint;
