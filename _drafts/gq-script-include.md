@@ -65,8 +65,112 @@ If all you need is a list of sys_ids or a list of names, `get()` is a very handy
 
 The <abbr>GQ</abbr> utility has other functions like `merge()` and `values()` that I highly recommend you check out, but I also want to share with you another utility I made myself that complements <abbr>GQ</abbr> with a few helpful functions if its own. I call it <abbr>GQX</abbr>.
 
-~~~ javascript
+GQX has functions mainly for use with Stream's `reduce()` method. Early on in my use of GlideQuery I found myself writing this pattern a lot:
 
+~~~ javascript
+let problemIDs = new global.GlideQuery('problem')
+	.select()
+	.map(global.GQ.get('sys_id'))
+	.reduce((problemIDs, problemID) => {
+		problemIDs.push(problemID);
+		return problemIDs;
+	}, []);
+~~~
+
+
+
+
+~~~ javascript
+/**
+ * GQX is a utility class intended for use with GlideQuery.
+ * @namespace
+ */
+function GQX() {}
+
+/**
+ * Returns the accumulator array after pushing on the element.
+ * Handy as a reduce function.
+ * @example
+ * var names = new GlideQuery('sys_user')
+ *     .whereNotNull('first_name')
+ *     .select('first_name')
+ *     .reduce(GQX.push, []);
+ * @param {array} accumulator
+ * @param {any} element
+ * @returns {array} accumulator
+ */
+GQX.push = function push (accumulator, element) {
+	accumulator.push(element);
+	return accumulator;
+};
+
+/**
+ * Returns the accumulator array after unshifting on the element.
+ * Handy as a reduce function.
+ * @example
+ * var names = new GlideQuery('sys_user')
+ *     .whereNotNull('first_name')
+ *     .select('first_name')
+ *     .reduce(GQX.unshift, []);
+ * @param {array} accumulator
+ * @param {any} element
+ * @returns {array} accumulator
+ */
+GQX.unshift = function unshift (accumulator, element) {
+	accumulator.unshift(element);
+	return accumulator;
+};
+
+/**
+ * Returns the accumulator array after concatenating on the element.
+ * Handy as a reduce function.
+ * @example
+ * var names = new GlideQuery('sys_user')
+ *     .whereNotNull('first_name')
+ *     .select('first_name')
+ *     .reduce(GQX.concat, []);
+ * @param {array} accumulator
+ * @param {any} element
+ * @returns {array} accumulator
+ */
+GQX.concat = function concat (accumulator, element) {
+	return accumulator.concat(element);
+};
+
+/**
+ * Returns the accumulator Set after adding the element.
+ * Handy as a reduce function.
+ * @example
+ * var names = new GlideQuery('sys_user')
+ *     .whereNotNull('first_name')
+ *     .select('first_name')
+ *     .reduce(GQX.add, new Set());
+ * @param {Set} accumulator
+ * @param {any} element
+ * @returns {Set} accumulator
+ */
+GQX.add = function add (accumulator, element) {
+	return accumulator.add(element);
+};
+
+/**
+ * Returns the accumulator Map after adding the
+ * specified key and value from the element.
+ * Handy as a reduce function.
+ * @example
+ * var names = new GlideQuery('sys_user')
+ *     .whereNotNull('first_name')
+ *     .select('first_name')
+ *     .reduce(GQX.set('sys_id', 'first_name'), new Map());
+ * @param {string} key property name
+ * @param {string} value property name
+ * @param {Map} accumulator
+ * @param {any} element
+ * @returns {Map} accumulator
+ */
+GQX.set = GQ.partial(function set(key, value, accumulator, element) {
+	return accumulator.set(element[key], element[value]);
+});
 ~~~
 
 
