@@ -15,12 +15,12 @@ It is sometimes necessary to script the due date value in the Ask For Approval a
 
 One workaround that I have used after my failed attempts at using the script input has been to populate a flow variable with the desired date/time string value. I can populate the variable via script using the Set Flow Variables action. While I dislike this solution for a number of reasons it does work. 
 
-<img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-variable-workaround.png" alt="Set Flow Variable action" />
-<img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-workaround-pill.png" alt="Add Variable Pill" />
+<img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-variable-workaround.png" alt="Set Flow Variable action" />
+<img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-workaround-pill.png" alt="Add Variable Pill" />
 
 I was recently building a flow using this workaround when I happened to see that a due date configured with pills generates a JSON configuration that you can view from the Flow Execution Context. 
 
-<img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-execution-context.png" alt="Execution Context" />
+<img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-execution-context.png" alt="Execution Context" />
 
 After finding this I immediately made some assumptions on other possible values and began to test my theories. The JSON object below is the result of my testing. I have documented each property's purpose and possible values along with an example script. 
 
@@ -45,7 +45,7 @@ After finding this I immediately made some assumptions on other possible values 
 **Scripted Due Date Example**
 
 
-<img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-script-example.png" alt="Example Script Input" />
+<img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-script-example.png" alt="Example Script Input" />
 
 
 ~~~ javascript
@@ -63,6 +63,5 @@ var config = {
 }
 return JSON.stringify(config);
 ~~~
-
 
 While I am delighted to have solved this riddle, I can't emphasize enough that to my knowledge all of this is completely undocumented, at least as of the [Utah release](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/flow-designer/reference/ask-approval-flow-designer.html), and is likely unrecommended as any instances of this action using a scripted input are subject to break in the event that the action is updated. I cannot guarantee that this will work for you or that it will continue to work. Now that I have seen how the action works I suspect that in the event you find yourself in a scenario like the one described above, the intended solution would be to use a flow variable or similar steps of scripting a dynamic date/time and provide that value via pill.{% include endmark.html %}
