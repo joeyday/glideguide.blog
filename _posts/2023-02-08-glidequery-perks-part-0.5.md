@@ -6,7 +6,7 @@ date: 2023-02-08
 categories: glidequery
 ---
 
-Before I start my GlideQuery series proper, I'd be remiss if I didn't take two steps back and recognize all the great content already out there on the topic. I certainly didn't discover all the benefits of GlideQuery myself, though I do have direct experience with most of them. This article will be a complete rundown on every publicly available resource I can find.
+<abbr>Before I start my GlideQuery series proper</abbr>, I'd be remiss if I didn't take two steps back and recognize all the great content already out there on the topic. I certainly didn't discover all the benefits of GlideQuery myself, though I do have direct experience with most of them. This article will be a complete rundown on every publicly available resource I can find.
 
 Mind you, I'm not presenting any of the following as pre-requisites to my series. I won't assume you've engaged with any of this material beforehand. But likewise, I'll do my best not to just regurgitate what others have said. Though of necessity I'll be covering a lot of the same ground, wherever possible I'll try to give it my own unique spin and share my own original usage examples.
 
