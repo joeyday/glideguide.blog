@@ -11,7 +11,7 @@ categories:
 
 It is sometimes necessary to script the due date value in the Ask For Approval action. For example, if you wanted an approval to automatically cancel when left unresponded after 14 calendar days. At first glance this seems entirely possible using the relative due date configuration options, until you get to the "From" date/time value input that must be provided. How can you specify that you want the timer to start at the time of Approval record creation? To my knowledge you cannot, at least not without writing a script. As with all other inputs in Flow Designer it would like you to drag and drop a date/time pill value and move on. If this flow is based on a Catalog Item it can be tempting to drag and drop the Created On date/time pill from the RITM, and in some cases (depending on where this Action is in your Flow) this may not be much of a problem. 
 
-<img style="width: 90%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-ask-for-approval-action.png" alt="Ask For Approval Action" />
+<img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-ask-for-approval-action.png" alt="Ask For Approval Action" />
 
 One workaround that I have used after my failed attempts at using the script input has been to populate a flow variable with the desired date/time string value. I can populate the variable via script using the Set Flow Variables action. While I dislike this solution for a number of reasons it does work. 
 
