@@ -36,7 +36,7 @@ include:
 mastodon:
 - username: dan
   instance: social.sndevs.com
-- username: joeyday
+- username: joey
   instance: social.sndevs.com
 
 # Build settings
