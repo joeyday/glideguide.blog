@@ -88,69 +88,69 @@ let problemIDs = new global.GlideQuery('problem')
 function GQX() {}
 
 /**
- * Returns the accumulator array after pushing on the element.
+ * Returns the accumulator array after pushing the value.
  * Handy as a reduce function.
  * @example
  * var names = new GlideQuery('sys_user')
  *     .whereNotNull('first_name')
  *     .select('first_name')
- *     .reduce(GQX.push, []);
+ *     .reduce(GQX.arrayPush, []);
  * @param {array} accumulator
- * @param {any} element
+ * @param {any} value
  * @returns {array} accumulator
  */
-GQX.push = function push (accumulator, element) {
-	accumulator.push(element);
+GQX.arrayPush = function arrayPush (accumulator, value) {
+	accumulator.push(value);
 	return accumulator;
 };
 
 /**
- * Returns the accumulator array after unshifting on the element.
+ * Returns the accumulator array after unshifting the value.
  * Handy as a reduce function.
  * @example
  * var names = new GlideQuery('sys_user')
  *     .whereNotNull('first_name')
  *     .select('first_name')
- *     .reduce(GQX.unshift, []);
+ *     .reduce(GQX.arrayUnshift, []);
  * @param {array} accumulator
- * @param {any} element
+ * @param {any} value
  * @returns {array} accumulator
  */
-GQX.unshift = function unshift (accumulator, element) {
-	accumulator.unshift(element);
+GQX.arrayUnshift = function arrayUnshift (accumulator, value) {
+	accumulator.unshift(value);
 	return accumulator;
 };
 
 /**
- * Returns the accumulator array after concatenating on the element.
+ * Returns the accumulator array after concatenating the value.
  * Handy as a reduce function.
  * @example
  * var names = new GlideQuery('sys_user')
  *     .whereNotNull('first_name')
  *     .select('first_name')
- *     .reduce(GQX.concat, []);
+ *     .reduce(GQX.arrayConcat, []);
  * @param {array} accumulator
- * @param {any} element
+ * @param {any} value
  * @returns {array} accumulator
  */
-GQX.concat = function concat (accumulator, element) {
-	return accumulator.concat(element);
+GQX.arrayConcat = function arrayConcat (accumulator, value) {
+	return accumulator.concat(value);
 };
 
 /**
- * Returns the accumulator Set after adding the element.
+ * Returns the accumulator Set after adding the value.
  * Handy as a reduce function.
  * @example
  * var names = new GlideQuery('sys_user')
  *     .whereNotNull('first_name')
  *     .select('first_name')
- *     .reduce(GQX.add, new Set());
+ *     .reduce(GQX.setAdd, new Set());
  * @param {Set} accumulator
- * @param {any} element
+ * @param {any} value
  * @returns {Set} accumulator
  */
-GQX.add = function add (accumulator, element) {
-	return accumulator.add(element);
+GQX.setAdd = function setAdd (accumulator, value) {
+	return accumulator.add(value);
 };
 
 /**
