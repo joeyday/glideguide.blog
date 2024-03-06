@@ -21,6 +21,9 @@ layout: default
             {{ post.title | smartify }}
           </a>
         </h2>
+        {%- if post.subtitle -%}
+          <p class="post-list-subtitle">{{ post.subtitle }}</p>
+        {%- endif -%}
         {%- if site.show_excerpts -%}
           {{ post.excerpt }}
         {%- endif -%}

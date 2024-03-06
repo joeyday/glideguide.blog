@@ -9,7 +9,7 @@ categories:
   - script include
 ---
 
-In keeping with my series about GlideQuery, I'd like to share a tool Dan and I made that can slightly improve the experience when you'd prefer to use GlideQuery but have no choice but to use GlideRecord.
+<abbr>In keeping with my series</abbr> about GlideQuery, I'd like to share a tool Dan and I made that can slightly improve the experience when you'd prefer to use GlideQuery but have no choice but to use GlideRecord.
 
 ## The problem
 
