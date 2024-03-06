@@ -10,7 +10,7 @@ categories:
 - fetch
 ---
 
-<abbr>I used to hate writing [GlideAjax](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/GlideAjax/concept/c_GlideAjaxAPI.html) Script Includes</abbr>, but I haven't written one in probably five years. How have I avoided it? Easy! Let me show you how to hit the [Table <abbr>API</abbr>](https://docs.servicenow.com/bundle/tokyo-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html) in a Client Script using vanilla JavaScript.
+<span class="lead">I used to hate writing [GlideAjax](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/GlideAjax/concept/c_GlideAjaxAPI.html) Script Includes</span>, but I haven't written one in probably five years. How have I avoided it? Easy! Let me show you how to hit the [Table <abbr>API</abbr>](https://docs.servicenow.com/bundle/tokyo-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html) in a Client Script using vanilla JavaScript.
 
 The preferred way using modern JavaScript is with the [Fetch <abbr>API</abbr>](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Here's an example to pull the ten oldest Incident records:
 
