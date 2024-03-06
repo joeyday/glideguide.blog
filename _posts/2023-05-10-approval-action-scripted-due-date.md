@@ -3,7 +3,8 @@ layout: post
 title: Scripted Due Dates in the Ask For Approval Action
 author: Dan
 date: 2023-05-10
-categories: Flow Designer
+categories:
+   - flow designer
 ---
 Something in Flow Designer that has always bothered me is that I've been unable to get scripted due dates to work in the Ask For Approval action. If you're unfamiliar, due dates provide the ability to specify how long the flow should wait for approval, as well as what action should be taken on the approval when the specified due date arrives. This prevents a flow from waiting endlessly for an approval response. 
 
