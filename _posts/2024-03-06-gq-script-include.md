@@ -12,7 +12,7 @@ categories:
 excerpt_separator: <!--more-->
 ---
 
-<abbr>I wonder how many ServiceNow developers know</abbr> the <abbr>GQ</abbr> script include exists. Maybe you've heard of GlideQuery, but <abbr>GQ</abbr> is a bit of an undocumented feature. <!--more--> I first heard about it from Peter Bell himself (creator of GlideQuery) in an episode of *Creator Toolbox*, where he calls it, "a little undocumented magic, if you're into that kind of stuff."[^1] Why, yes, yes I am.
+<abbr>I wonder how many ServiceNow developers</abbr> know the <abbr>GQ</abbr> script include exists. Maybe you've heard of GlideQuery, but <abbr>GQ</abbr> is a bit of an undocumented feature. <!--more--> I first heard about it from Peter Bell himself (creator of GlideQuery) in an episode of *Creator Toolbox*, where he calls it, "a little undocumented magic, if you're into that kind of stuff."[^1] Why, yes, yes I am.
 
 ## What is it?
 
