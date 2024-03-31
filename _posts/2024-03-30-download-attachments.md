@@ -131,7 +131,7 @@ for record in get_records(table, query, limit):
 
 Here’s how to use the script:
 
-1. Copy and paste it into your favorite text editor (worth noting here: unlike in JavaScript, indentation matters in Python—copy carefully)
+1. Copy and paste it into your favorite text editor (worth noting here: unlike in JavaScript, indentation matters in Python, so copy carefully)
 2. Update the settings at the top of the script to your liking
 3. Save it as _attachments.py_ (or whatever you want)
 4. On the command line, navigate to the same folder where you saved the script
