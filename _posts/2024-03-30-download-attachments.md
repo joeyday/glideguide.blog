@@ -24,7 +24,7 @@ There’s apparently an out-of-box Processor called DownloadAllAttachmentsProces
 
 Fortunately, all that thinking about Processors got me on the related subject of <abbr>REST</abbr> <abbr>API</abbr>s. At first I thought I might have to create a Scripted <abbr>REST</abbr> <abbr>API</abbr>, but then I discovered there is an out-of-box [Attachment <abbr>API</abbr>](https://docs.servicenow.com/bundle/washingtondc-api-reference/page/integrate/inbound-rest/concept/c_AttachmentAPI.html). The last missing piece fell into place when I found [Hitoshi Ozawa using a Python script](https://www.servicenow.com/community/developer-forum/download-file-using-rest-api/m-p/1824873#M481799) to hit the Attachment <abbr>API</abbr> from the command line on his local machine.
 
-I liked Ozawa’s approach, but he was still only downloading the attachments on a single record. So here’s my version of the script that downloads all attachments for all records in a specified table matching a specified encoded query, organizing them in a nice folder hierarchy (don’t miss some notes on usage after the script, including a very important one about security):
+Ozawa’s solution seemed promising, but he was still only downloading the attachments on a single record. So here’s my own version of a Python script that downloads all attachments for all records in a specified table matching a specified encoded query, organizing them in a nice folder hierarchy (don’t miss some notes on usage after the script, including a very important one about security):
 
 ~~~ python
 import requests
