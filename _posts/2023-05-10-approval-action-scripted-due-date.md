@@ -25,7 +25,7 @@ I was recently building a flow using this workaround when I happened to see that
 After finding this I immediately made some assumptions on other possible values and began to test my theories. The JSON object below is the result of my testing. I have documented each property's purpose and possible values along with an example script. 
 
 
-**Due Date Configuration Template**
+### Due Date Configuration Template
 
 
 ~~~ json
@@ -42,7 +42,7 @@ After finding this I immediately made some assumptions on other possible values 
 ~~~
 
 
-**Scripted Due Date Example**
+### Scripted Due Date Example
 
 
 <img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2023-05-10-script-example.png" alt="Example Script Input" />
