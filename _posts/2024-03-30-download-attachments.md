@@ -37,7 +37,7 @@ instance = 'https://<your-instance>.service-now.com'
 username = ''
 password = ''
 
-table = 'task'
+table = 'incident'
 display_field = 'number'
 query = 'active=true'
 limit = '5' # set to 'None' (without quotes) to remove limit
@@ -46,11 +46,13 @@ directory = './Attachments'
 
 ### shouldn't have to edit anything below ###
 
+# helper dict for converting mime types to file extensions
 mime_type_to_ext = {
   'application/json': ['.json'],
   'application/xml': ['.xml'],
   'image/png': ['.png'],
   'image/jpeg': ['.jpg', '.jpeg'],
+  'image/gif': ['.gif'],
   'text/csv': ['.csv'],
   'text/plain': ['.txt'],
   'application/pdf': ['.pdf'],
@@ -58,6 +60,8 @@ mime_type_to_ext = {
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
   'application/vnd.ms-excel': ['.xls'],
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx'],
+  'application/application/vnd.ms-powerpoint': ['.ppt'],
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation': ['.pptx'],
 }
 
 # helper function for hitting any endpoint, returns response object
