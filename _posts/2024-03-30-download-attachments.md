@@ -8,7 +8,7 @@ categories:
   - attachments
 ---
 
-I’ve been exporting a lot of data from my ServiceNow instance lately for archival purposes (<abbr>IYKYK</abbr>) and one of the challenges I’ve encountered is properly preserving attachments.
+<span class="lead">I’ve been exporting a lot of data</span> from my ServiceNow instance lately for archival purposes (<abbr>IYKYK</abbr>) and one of the challenges I’ve encountered is properly preserving attachments.
 
 ## Converting from Base64?
 
