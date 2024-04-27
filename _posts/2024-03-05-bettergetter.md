@@ -28,9 +28,9 @@ Use it like this:
 ~~~ javascript
 var bg = new BetterGetter(current);
 bg.getValue('short_description');  // string
-bg.getValue('priority');           // number
-bg.getValue('active');             // boolean
-bg.getValue('watch_list');         // array of strings
+bg.getValue('priority');       // number
+bg.getValue('active');         // boolean
+bg.getValue('watch_list');       // array of strings
 ~~~
 
 Note that BetterGetter is only a getter, not a setter, so if you need to set values you would just use `current.setValue()` as usual. The neat thing is your BetterGetter object becomes sort of quantum entangled with the GlideRecord object passed to it, so you can get some values with BetterGetter, set a value or two the normal way, then get them later with BetterGetter and you'll get the updated values.
@@ -67,61 +67,61 @@ If this sounds awesome and you want to try it out, grab the Update Set from Shar
 //    var active = getter.getValue('active');
 
 function BetterGetter(gr) {
-	// In case caller omits the new keyword
-    if (!(this instanceof BetterGetter)) return new BetterGetter(gr);
-	this._gr = gr;
+  // In case caller omits the new keyword
+  if (!(this instanceof BetterGetter)) return new BetterGetter(gr);
+  this._gr = gr;
 }
 
 BetterGetter.prototype.getValue = function(element) {
-    switch (this._gr[element].getED().getInternalType() + '') {
-        case 'boolean':
-            return this.getBoolean(element);
-        case 'glide_date':
-            return this.getDate(element);
-        case 'glide_date_time':
-            return this.getDateTime(element);
-        case 'glide_list':
-            return this.getList(element);
-        case 'decimal':
-        case 'float':
-        case 'integer':
-        case 'longint':
-        case 'long':
-        case 'numeric':
-            return this.getNumber(element);
-        default:
-            return this.getString(element);
-    }
+  switch (this._gr[element].getED().getInternalType() + '') {
+    case 'boolean':
+      return this.getBoolean(element);
+    case 'glide_date':
+      return this.getDate(element);
+    case 'glide_date_time':
+      return this.getDateTime(element);
+    case 'glide_list':
+      return this.getList(element);
+    case 'decimal':
+    case 'float':
+    case 'integer':
+    case 'longint':
+    case 'long':
+    case 'numeric':
+      return this.getNumber(element);
+    default:
+      return this.getString(element);
+  }
 };
 
 BetterGetter.prototype.getBoolean = function(element) {
-    return Boolean(this._gr[element]);
+  return Boolean(this._gr[element]);
 };
 
 BetterGetter.prototype.getDate = function(element) {
-    return (this._gr[element] + '').slice(0, 10) || null;
+  return (this._gr[element] + '').slice(0, 10) || null;
 };
 
 BetterGetter.prototype.getDateTime = function(element) {
-    return this._gr[element] + '' || null;
+  return this._gr[element] + '' || null;
 };
 
 BetterGetter.prototype.getList = function(element) {
-    if (this._gr[element].nil()) return null;
-    return (this._gr[element] + '').split(',');
+  if (this._gr[element].nil()) return null;
+  return (this._gr[element] + '').split(',');
 };
 
 BetterGetter.prototype.getListDisplay = function(element) {
-    if (this._gr[element].nil()) return null;
-    return (this._gr.getDisplayValue(element)).split(',');
+  if (this._gr[element].nil()) return null;
+  return (this._gr.getDisplayValue(element)).split(',');
 };
 
 BetterGetter.prototype.getNumber = function(element) {
-    if (this._gr[element].nil()) return null;
-    return Number(this._gr[element]);
+  if (this._gr[element].nil()) return null;
+  return Number(this._gr[element]);
 };
 
 BetterGetter.prototype.getString = function(element) {
-    return this._gr[element] + '' || null;
+  return this._gr[element] + '' || null;
 };
 ~~~
