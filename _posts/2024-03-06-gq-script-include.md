@@ -116,8 +116,8 @@ function GQX() {}
  * @returns {array} accumulator
  */
 GQX.toArray = function toArray (accumulator, value) {
-	accumulator.push(value);
-	return accumulator;
+  accumulator.push(value);
+  return accumulator;
 };
 
 /**
@@ -133,7 +133,7 @@ GQX.toArray = function toArray (accumulator, value) {
  * @returns {Set} accumulator
  */
 GQX.toSet = function toSet (accumulator, value) {
-	return accumulator.add(value);
+  return accumulator.add(value);
 };
 
 /**
@@ -151,9 +151,9 @@ GQX.toSet = function toSet (accumulator, value) {
  * @param {object} record
  * @returns {object} accumulator
  */
-GQX.toObject = GQ.partial(function toObject(key, value, accumulator, record) {
-	accumulator[record[key]] = record[value];
-	return accumulator;
+GQX.toObject = GQ.partial(function toObject (key, value, accumulator, record) {
+  accumulator[record[key]] = value ? record[value] : record;
+  return accumulator;
 });
 
 /**
@@ -171,8 +171,8 @@ GQX.toObject = GQ.partial(function toObject(key, value, accumulator, record) {
  * @param {object} record
  * @returns {Map} accumulator
  */
-GQX.toMap = GQ.partial(function toMap(key, value, accumulator, record) {
-	return accumulator.set(record[key], record[value]);
+GQX.toMap = GQ.partial(function toMap (key, value, accumulator, record) {
+  return accumulator.set(record[key], value ? record[value] : record);
 });
 ~~~
 
