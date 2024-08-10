@@ -82,40 +82,50 @@ def get_records(table, query, limit=None):
   }
   if limit:
     params['sysparm_limit'] = limit
-  
+
   return get_response(endpoint, 'application/json', params).json().get('result')
 
-# helper function for attachment api, writes files to disk
-def get_attachment(sys_id, mime_type, path):
-  endpoint = f'{instance}/api/now/attachment/{sys_id}/file'
-  response = get_response(endpoint, mime_type)
-  with open(path, 'wb') as f:
-    for chunk in response.iter_content(chunk_size=1024):
-      if chunk:
-        f.write(chunk)
-        
 # helper function to make directory and file names safer
 def sanitize_filename(filename):
   filename = re.sub(r'[<>:"/\\|?*]', '', filename) # remove invalid characters
   filename = re.sub(r'^\.+', '', filename) # remove leading period
   return filename[:255] # truncate to 255 characters
+  
+# Helper function to generate a unique filename if file exists
+def unique_filename(path):
+    base, extension = os.path.splitext(path)
+    counter = 1
+    while os.path.exists(path):
+        path = f"{base}_{counter}{extension}"
+        counter += 1
+    return path
 
+# helper function for attachment api, writes files to disk
+def get_attachment(sys_id, mime_type, path):
+  path = unique_filename(path)
+  endpoint = f'{instance}/api/now/attachment/{sys_id}/file'
+  response = get_response(endpoint, mime_type)
+
+  with open(path, 'wb') as f:
+    for chunk in response.iter_content(chunk_size=1024):
+      if chunk:
+        f.write(chunk)
 
 # call table api to get specified table records and iterate over results
 for record in get_records(table, query, limit):
   class_name = sanitize_filename(record.get('sys_class_name'))
   display_value = sanitize_filename(record.get(display_field))
   print(f'{class_name}: {display_value}')
-    
+
   # call table api again to get attachment metadata and iterate over results
   attachment_query = f"table_sys_id={record.get('sys_id')}"
   attachments = get_records('sys_attachment', attachment_query)
-  
+
   if attachments:
     # make folders if they don't exist
     path = os.path.join(directory, class_name, display_value)
     os.makedirs(path, exist_ok=True)
-  
+
     for attachment in attachments:
       # get mime type and file name
       mime_type = attachment.get('content_type')
