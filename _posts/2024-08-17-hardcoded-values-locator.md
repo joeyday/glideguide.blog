@@ -2,7 +2,7 @@
 layout: post
 title: Hardcoded Values Locator
 author: Joey
-date: 2024-04-18
+date: 2024-08-17
 categories:
   - script include
   - workflow
@@ -372,4 +372,4 @@ Note I'm using `gs.print()` in the above sample, which works fine
 
 ## Conclusion
 
-I hope this Script Include helps you find and clean up some of the skeletons in your ServiceNow closet. If you do find it useful or if you have any questions, look for me and let me know in the SNDevs Slack workspace or on SNDevs Mastodon.{% include endmark.html %}
+I hope this helps you find and clean up some of the skeletons in your ServiceNow closet. If you do find it useful or have any questions, feel free to reach out on [SNDevs Slack](https://invite.sndevs.com/) or [Mastodon](https://social.sndevs.com/).{% include endmark.html %}
