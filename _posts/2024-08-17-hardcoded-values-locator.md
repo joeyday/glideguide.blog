@@ -21,195 +21,195 @@ Here's a Script Include that can help you locate hardcoded values in legacy Work
 
 ~~~ javascript
 var HardcodedValuesLocator = function (table, tableQuery) {
-	return (function() {
+  return (function() {
 
-		/////// INITIALIZATION ///////
+  /////// INITIALIZATION ///////
 
-		if (typeof tableQuery === 'undefined')
-			tableQuery = new GlideQuery();
+    if (typeof tableQuery === 'undefined')
+      tableQuery = new GlideQuery();
 
-		var displayColumn = gs.getDisplayColumn(table);
+    var displayColumn = gs.getDisplayColumn(table);
 
-		var records = new GlideQuery(table)
-			.where(tableQuery)
-			.whereNotNull(displayColumn)
-			.select(displayColumn)
-			.reduce(function (acc, record) {
-				acc[record.sys_id] = record[displayColumn];
-				return acc;
-			}, {});
+    var records = new GlideQuery(table)
+      .where(tableQuery)
+      .whereNotNull(displayColumn)
+      .select(displayColumn)
+      .reduce(function (acc, record) {
+        acc[record.sys_id] = record[displayColumn];
+        return acc;
+      }, {});
 
-		var recordIDs = Object.keys(records);
+    var recordIDs = Object.keys(records);
 
-		/////// PUBLIC FUNCTIONS ///////
-		
-		function findInFlows(flowQuery) {
-			flowQuery = flowQuery || new GlideQuery()
-				.where('active', true);
+    /////// PUBLIC FUNCTIONS ///////
+    
+    function findInFlows(flowQuery) {
+      flowQuery = flowQuery || new GlideQuery()
+        .where('active', true);
 
-			var flows = new GlideQuery('sys_hub_flow')
-				.where(flowQuery)
-				.select()
-				.reduce(function (acc, flow) {
-					return acc.concat(flow.sys_id);
-				}, []);
+      var flows = new GlideQuery('sys_hub_flow')
+        .where(flowQuery)
+        .select()
+        .reduce(function (acc, flow) {
+          return acc.concat(flow.sys_id);
+        }, []);
 
-			var actions = new GlideQuery('sys_hub_action_instance')
-				.where('flow', 'IN', flows)
-				.select('flow', 'flow$DISPLAY')
-				.reduce(function (acc, action) {
-					acc[action.sys_id] = action;
-					return acc;
-				}, {});
+      var actions = new GlideQuery('sys_hub_action_instance')
+        .where('flow', 'IN', flows)
+        .select('flow', 'flow$DISPLAY')
+        .reduce(function (acc, action) {
+          acc[action.sys_id] = action;
+          return acc;
+        }, {});
 
-			var result = new GlideQuery('sys_element_mapping')
-				.where('id', 'IN', Object.keys(actions))
-				.whereNotNull('value')
-				.select('value', 'id')
-				.map(function (mapping) {
-					mapping.values = mapping.value.split(/\b/); // split on word boundaries
-					return mapping;
-				})
-				.filter(function (mapping) {
-					return mapping.values.some(function (value) {
-						return Boolean(records[value]);
-					});
-				})
-				.reduce(function (acc, mapping) {
-					return acc.concat(mapping);
-				}, []);
+      var result = new GlideQuery('sys_element_mapping')
+        .where('id', 'IN', Object.keys(actions))
+        .whereNotNull('value')
+        .select('value', 'id')
+        .map(function (mapping) {
+          mapping.values = mapping.value.split(/\b/); // split on word boundaries
+          return mapping;
+        })
+        .filter(function (mapping) {
+          return mapping.values.some(function (value) {
+            return Boolean(records[value]);
+          });
+        })
+        .reduce(function (acc, mapping) {
+          return acc.concat(mapping);
+        }, []);
 
-			result = result.concat(new GlideQuery('sys_variable_value')
-				.where('document', 'sys_hub_action_instance')
-				.where('document_key', 'IN', Object.keys(actions))
-				.where('variable.reference', table)
-				.whereNotNull('value')
-				.select('value', 'document_key')
-				.map(function (variable) {
-					variable.id = variable.document_key;
-					variable.values = variable.value.split(',');
-					return variable;
-				})
-				.filter(function (variable) {
-					return variable.values.some(function (value) {
-						return Boolean(records[value]);
-					});
-				})
-				.reduce(function (acc, variable) {
-					return acc.concat(variable);
-				}, []);
+      result = result.concat(new GlideQuery('sys_variable_value')
+        .where('document', 'sys_hub_action_instance')
+        .where('document_key', 'IN', Object.keys(actions))
+        .where('variable.reference', table)
+        .whereNotNull('value')
+        .select('value', 'document_key')
+        .map(function (variable) {
+          variable.id = variable.document_key;
+          variable.values = variable.value.split(',');
+          return variable;
+        })
+        .filter(function (variable) {
+          return variable.values.some(function (value) {
+            return Boolean(records[value]);
+          });
+        })
+        .reduce(function (acc, variable) {
+          return acc.concat(variable);
+        }, []);
 
-			function getDisplayValuesWithReferences() {
-				return result.reduce(function (acc, mapping) {
-					var flow = actions[mapping.id].flow$DISPLAY.trim();
-					if (typeof acc[flow] === 'undefined') {
-						acc[flow] = [];
-					}
+      function getDisplayValuesWithReferences() {
+        return result.reduce(function (acc, mapping) {
+          var flow = actions[mapping.id].flow$DISPLAY.trim();
+          if (typeof acc[flow] === 'undefined') {
+            acc[flow] = [];
+          }
 
-					var intersection = mapping.values
-						.reduce(function (acc, value) {
-							var record = records[value];
-							if (record) acc.push(record.trim());
-							return acc;
-						}, []);
+          var intersection = mapping.values
+            .reduce(function (acc, value) {
+              var record = records[value];
+              if (record) acc.push(record.trim());
+              return acc;
+            }, []);
 
-					acc[flow] = acc[flow].concat(intersection);
-					return acc;
-				}, {});
-			}
-			
-			function getSysIds() {
-				return result.reduce(function (acc, mapping) {
-					var flowId = actions[mapping.id].flow;
-					if (acc.indexOf(flowId) == -1)
-						acc.push(flowId);
-					return acc;
-				}, []);
-			}
-			
-			return {
-				getDisplayValuesWithReferences: getDisplayValuesWithReferences,
-				getSysIds: getSysIds
-			};
-		}
+          acc[flow] = acc[flow].concat(intersection);
+          return acc;
+        }, {});
+      }
+      
+      function getSysIds() {
+        return result.reduce(function (acc, mapping) {
+          var flowId = actions[mapping.id].flow;
+          if (acc.indexOf(flowId) == -1)
+            acc.push(flowId);
+          return acc;
+        }, []);
+      }
+      
+      return {
+        getDisplayValuesWithReferences: getDisplayValuesWithReferences,
+        getSysIds: getSysIds
+      };
+    }
 
-		function findInWorkflows(workflowVersionQuery) {
-			workflowVersionQuery = workflowVersionQuery || new GlideQuery()
-					.where('published', true);
+    function findInWorkflows(workflowVersionQuery) {
+      workflowVersionQuery = workflowVersionQuery || new GlideQuery()
+          .where('published', true);
 
-			var workflowVersions = new GlideQuery('wf_workflow_version')
-				.where(workflowVersionQuery)
-				.select()
-				.reduce(function (acc, workflow) {
-					return acc.concat(workflow.sys_id);
-				}, []);
+      var workflowVersions = new GlideQuery('wf_workflow_version')
+        .where(workflowVersionQuery)
+        .select()
+        .reduce(function (acc, workflow) {
+          return acc.concat(workflow.sys_id);
+        }, []);
 
-			var activities = new GlideQuery('wf_activity')
-				.where('workflow_version', 'IN', workflowVersions)
-				.select('workflow_version', 'workflow_version$DISPLAY')
-				.reduce(function (acc, activity) {
-					acc[activity.sys_id] = activity;
-					return acc;
-				}, {});
+      var activities = new GlideQuery('wf_activity')
+        .where('workflow_version', 'IN', workflowVersions)
+        .select('workflow_version', 'workflow_version$DISPLAY')
+        .reduce(function (acc, activity) {
+          acc[activity.sys_id] = activity;
+          return acc;
+        }, {});
 
-			var result = new GlideQuery('sys_variable_value')
-				.where('document', 'wf_activity')
-				.where('document_key', 'IN', Object.keys(activities))
-				.where('variable.reference', table)
-				.whereNotNull('value')
-				.select('value', 'document_key')
-				.map(function (variable) {
-					variable.values = variable.value.split(',');
-					return variable;
-				})
-				.filter(function (variable) {
-					return variable.values.some(function (value) {
-						return Boolean(records[value]);
-					});
-				});
-			
-			function getDisplayValuesWithReferences() {
-				return result.reduce(function (acc, variable) {
-					var workflow = activities[variable.document_key].workflow_version$DISPLAY.trim();
-					if (typeof acc[workflow] === 'undefined') {
-						acc[workflow] = [];
-					}
+      var result = new GlideQuery('sys_variable_value')
+        .where('document', 'wf_activity')
+        .where('document_key', 'IN', Object.keys(activities))
+        .where('variable.reference', table)
+        .whereNotNull('value')
+        .select('value', 'document_key')
+        .map(function (variable) {
+          variable.values = variable.value.split(',');
+          return variable;
+        })
+        .filter(function (variable) {
+          return variable.values.some(function (value) {
+            return Boolean(records[value]);
+          });
+        });
+      
+      function getDisplayValuesWithReferences() {
+        return result.reduce(function (acc, variable) {
+          var workflow = activities[variable.document_key].workflow_version$DISPLAY.trim();
+          if (typeof acc[workflow] === 'undefined') {
+            acc[workflow] = [];
+          }
 
-					var intersection = variable.values
-						.reduce(function (acc, value) {
-							var record = records[value];
-							if (record) acc.push(record);
-							return acc;
-						}, []);
+          var intersection = variable.values
+            .reduce(function (acc, value) {
+              var record = records[value];
+              if (record) acc.push(record);
+              return acc;
+            }, []);
 
-					acc[workflow] = acc[workflow].concat(intersection);
-					return acc;
-				}, {});
-			}
-			
-			function getSysIds() {
-				return result.reduce(function (acc, variable) {
-					var workflowId = activities[variable.document_key].workflow_version;
-					if (acc.indexOf(workflowId) == -1)
-						acc.push(workflowId);
-					return acc;
-				}, []);
-			}
-			
-			return {
-				getDisplayValuesWithReferences: getDisplayValuesWithReferences,
-				getSysIds: getSysIds
-			};
-		}
+          acc[workflow] = acc[workflow].concat(intersection);
+          return acc;
+        }, {});
+      }
+      
+      function getSysIds() {
+        return result.reduce(function (acc, variable) {
+          var workflowId = activities[variable.document_key].workflow_version;
+          if (acc.indexOf(workflowId) == -1)
+            acc.push(workflowId);
+          return acc;
+        }, []);
+      }
+      
+      return {
+        getDisplayValuesWithReferences: getDisplayValuesWithReferences,
+        getSysIds: getSysIds
+      };
+    }
 
-		/////// RETURN ///////
+    /////// RETURN ///////
 
-		return {
-			findInFlows: findInFlows,
-			findInWorkflows: findInWorkflows
-		};
-	
-	})();
+    return {
+      findInFlows: findInFlows,
+      findInWorkflows: findInWorkflows
+    };
+  
+  })();
 };
 ~~~
 
@@ -228,16 +228,16 @@ Or I like to chain the method calls together more fluidly like this:
 
 ~~~ javascript
 var result = HardcodedValuesLocator('sys_user')
-	.findInFlows();
+  .findInFlows();
 ~~~
 
 The result here is another object that has the data you're after, but not yet in a form that's immediately useful. You have two options at this step, (1) get the data as sys_ids by calling the `getSysIds` method. This would be useful if you're building some automated process and you need the result to be machine-readable so you can perform subsequent processing yourself.
 
 ~~~ javascript
 var machineReadableResult = HardcodedValuesLocator('sys_user')
-	.findInFlows()
-	.getSysIds();
-	
+  .findInFlows()
+  .getSysIds();
+  
 // Your processing logic goes here...
 ~~~
 
@@ -269,102 +269,102 @@ Your use cases for this will likely vary from mine, so you're welcome to call th
 
 ~~~ javascript
 (function () {
-	// Get some useful data up front
-	var catalogWorkflows = new GlideQuery('sc_cat_item')
-		.where('active', true)
-		.whereNotNull('workflow')
-		.select('workflow')
-		.reduce(function (acc, catItem) {
-			return acc.concat(catItem.workflow);
-		}, []);
+  // Get some useful data up front
+  var catalogWorkflows = new GlideQuery('sc_cat_item')
+    .where('active', true)
+    .whereNotNull('workflow')
+    .select('workflow')
+    .reduce(function (acc, catItem) {
+      return acc.concat(catItem.workflow);
+    }, []);
 
-	var catalogWorkflowVersions = new GlideQuery()
-		.where('published', true)
-		.where('active', true)
-		.where('workflow', 'IN', catalogWorkflows);
+  var catalogWorkflowVersions = new GlideQuery()
+    .where('published', true)
+    .where('active', true)
+    .where('workflow', 'IN', catalogWorkflows);
 
-	var otherWorkflowVersions = new GlideQuery()
-		.where('published', true)
-		.where('active', true)
-		.where('table', '!=', 'sc_req_item');
+  var otherWorkflowVersions = new GlideQuery()
+    .where('published', true)
+    .where('active', true)
+    .where('table', '!=', 'sc_req_item');
 
-	var groups = new GlideQuery('sys_user_grmember')
-		.whereNotNull('user')
-		.whereNotNull('group')
-		.groupBy('group')
-		.aggregate('count');
+  var groups = new GlideQuery('sys_user_grmember')
+    .whereNotNull('user')
+    .whereNotNull('group')
+    .groupBy('group')
+    .aggregate('count');
 
-	var groupsWithActiveMembers = groups
-		.where('user.active', true)
-		.select()
-		.reduce(function (acc, groupMember) {
-			return acc.concat(groupMember.group.group);
-		}, []);
+  var groupsWithActiveMembers = groups
+    .where('user.active', true)
+    .select()
+    .reduce(function (acc, groupMember) {
+      return acc.concat(groupMember.group.group);
+    }, []);
 
-	var groupsWithInactiveMembers = groups
-		.where('user.active', false)
-		.select()
-		.reduce(function (acc, groupMember) {
-			return acc.concat(groupMember.group.group);
-		}, []);
+  var groupsWithInactiveMembers = groups
+    .where('user.active', false)
+    .select()
+    .reduce(function (acc, groupMember) {
+      return acc.concat(groupMember.group.group);
+    }, []);
 
-	// Define searches we want to perform from most to least concerning
-	var searches = [
-		{
-			description: 'Hardcoded inactive users',
-			table: 'sys_user',
-			query: new GlideQuery()
-				.where('active', false)
-		},
-		{
-			description: 'Hardcoded groups with no active members',
-			table: 'sys_user_group',
-			query: new GlideQuery()
-				.where('sys_id', 'NOT IN', groupsWithActiveMembers)
-		},
-		{
-			description: 'Hardcoded groups with at least one inactive member',
-			table: 'sys_user_group',
-			query: new GlideQuery()
-				.where('sys_id', 'IN', groupsWithInactiveMembers)
-		},
-		{
-			description: 'Hardcoded active users',
-			table: 'sys_user',
-			query: new GlideQuery()
-				.where('active', true)
-		}
-	];
+  // Define searches we want to perform from most to least concerning
+  var searches = [
+    {
+      description: 'Hardcoded inactive users',
+      table: 'sys_user',
+      query: new GlideQuery()
+        .where('active', false)
+    },
+    {
+      description: 'Hardcoded groups with no active members',
+      table: 'sys_user_group',
+      query: new GlideQuery()
+        .where('sys_id', 'NOT IN', groupsWithActiveMembers)
+    },
+    {
+      description: 'Hardcoded groups with at least one inactive member',
+      table: 'sys_user_group',
+      query: new GlideQuery()
+        .where('sys_id', 'IN', groupsWithInactiveMembers)
+    },
+    {
+      description: 'Hardcoded active users',
+      table: 'sys_user',
+      query: new GlideQuery()
+        .where('active', true)
+    }
+  ];
 
-	for (var i = 0; i < searches.length; i++) {
-		// Do each search in all three places and output the results
-		var flowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
-			.findInFlows(new GlideQuery().where('active', true))
-			.getDisplayValuesWithReferences();
-		
-		if (Object.keys(flowsResult).length) {
-			gs.print('\n' + searches[i].description + ' in flows:');
-			gs.print(flowsResult);
-		}
+  for (var i = 0; i < searches.length; i++) {
+    // Do each search in all three places and output the results
+    var flowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
+      .findInFlows(new GlideQuery().where('active', true))
+      .getDisplayValuesWithReferences();
+    
+    if (Object.keys(flowsResult).length) {
+      gs.print('\n' + searches[i].description + ' in flows:');
+      gs.print(flowsResult);
+    }
 
-		var catalogWorkflowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
-			.findInWorkflows(catalogWorkflowVersions)
-			.getDisplayValuesWithReferences();
-		
-		if (Object.keys(catalogWorkflowsResult).length) {
-			gs.print('\n' + searches[i].description + ' in catalog workflows:');
-			gs.print(flowsResult);
-		}
+    var catalogWorkflowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
+      .findInWorkflows(catalogWorkflowVersions)
+      .getDisplayValuesWithReferences();
+    
+    if (Object.keys(catalogWorkflowsResult).length) {
+      gs.print('\n' + searches[i].description + ' in catalog workflows:');
+      gs.print(flowsResult);
+    }
 
-		var otherWorkflowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
-			.findInWorkflows(otherWorkflowVersions)
-			.getDisplayValuesWithReferences();
-		
-		if (Object.keys(otherWorkflowsResult).length) {
-			gs.print('\n' + searches[i].description + ' in other workflows:');
-			gs.print(flowsResult);
-		}
-	}
+    var otherWorkflowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
+      .findInWorkflows(otherWorkflowVersions)
+      .getDisplayValuesWithReferences();
+    
+    if (Object.keys(otherWorkflowsResult).length) {
+      gs.print('\n' + searches[i].description + ' in other workflows:');
+      gs.print(flowsResult);
+    }
+  }
 })();
 ~~~
 
