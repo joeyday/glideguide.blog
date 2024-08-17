@@ -9,7 +9,7 @@ categories:
   - flow designer
 ---
 
-<span class="lead">I don't know about your ServiceNow environment</span>, but in our environment we have a lot of technical debt built up in the form of hardcoded values (users, groups, etc.) in legacy Workflows and Flow Designer Flows.
+<span class="lead">I don't know about your ServiceNow environment</span>, but we've got a lot of technical debt built up in ours in the form of hardcoded values (users, groups, etc.) in legacy Workflows and Flow Designer Flows.
 
 For example, we might have hardcoded some specific user to be an approver on a request, but of course it's only a matter of time before that user transfers departments, gets a promotion, or leaves the company and then that process is broken. In an effort to mitigate the issue, we might use a group instead, but if nobody's paying attention it doesn't take long for all the users in the group to rotate out and then we're right back in the same boat.
 
