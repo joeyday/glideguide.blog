@@ -343,7 +343,7 @@ Your use cases for this will likely vary from mine, so you're welcome to call th
 			.getDisplayValuesWithReferences();
 		
 		if (Object.keys(flowsResult).length) {
-			gs.print('\n' + searches[i].description + ' in catalog workflows:');
+			gs.print('\n' + searches[i].description + ' in flows:');
 			gs.print(flowsResult);
 		}
 
@@ -361,7 +361,7 @@ Your use cases for this will likely vary from mine, so you're welcome to call th
 			.getDisplayValuesWithReferences();
 		
 		if (Object.keys(otherWorkflowsResult).length) {
-			gs.print('\n' + searches[i].description + ' in catalog workflows:');
+			gs.print('\n' + searches[i].description + ' in other workflows:');
 			gs.print(flowsResult);
 		}
 	}
