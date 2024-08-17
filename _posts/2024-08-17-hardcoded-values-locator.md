@@ -344,7 +344,7 @@ Your use cases for this will likely vary from mine, so you're welcome to call th
     
     if (Object.keys(flowsResult).length) {
       gs.print('\n' + searches[i].description + ' in flows:');
-      gs.print(flowsResult);
+      gs.print(JSON.stringify(flowsResult, null, 2));
     }
 
     var catalogWorkflowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
@@ -353,7 +353,7 @@ Your use cases for this will likely vary from mine, so you're welcome to call th
     
     if (Object.keys(catalogWorkflowsResult).length) {
       gs.print('\n' + searches[i].description + ' in catalog workflows:');
-      gs.print(flowsResult);
+      gs.print(JSON.stringify(catalogWorkflowsResult, null, 2));
     }
 
     var otherWorkflowsResult = HardcodedValuesLocator(searches[i].table, searches[i].query)
@@ -362,13 +362,13 @@ Your use cases for this will likely vary from mine, so you're welcome to call th
     
     if (Object.keys(otherWorkflowsResult).length) {
       gs.print('\n' + searches[i].description + ' in other workflows:');
-      gs.print(flowsResult);
+      gs.print(JSON.stringify(otherWorkflowsResult, null, 2));
     }
   }
 })();
 ~~~
 
-Note I'm using `gs.print()` in the above sample, which works fine 
+Note I'm using `gs.print()` in the above sample, which works fine in a background script or in Xplore, but you may need to use `gs.info()` instead depending on context.
 
 ## Conclusion
 
