@@ -20,10 +20,10 @@
 
 title: GlideGuide
 description: >- # this means to ignore newlines until "baseurl:"
-  Hi, we're Dan and Joey. Together we've got 20+ years of experience engineering solutions
-  on the ServiceNow platform and coaching and mentoring junior devs to do the same. Follow
-  us for tips & tricks, tutorials, and best practices to take your skills to the next
-  level.
+  Hi, we're Dan and Joey. Together we've got 20+ years of experience engineering pro-code 
+  solutions on the ServiceNow platform and coaching and mentoring junior developers.
+  Follow us for tips & tricks, tutorials, and best practices to take your skills to the
+  next level.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://glideguide.blog" # the base hostname & protocol for your site, e.g. http://example.com
