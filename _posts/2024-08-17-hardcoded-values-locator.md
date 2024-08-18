@@ -215,7 +215,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
 
 ### Basic usage
 
-So far we've been using this by just calling it manually in a background script and having it log out the results, but you could conceivably call it from a scheduled job to either notify someone or raise tasks to clean up newly discovered issues. Even better might be calling it from an ATF Test.
+So far we've been using this by just calling it manually in a background script and having it log out the results, but you could conceivably call it from a scheduled job to either notify someone or raise tasks to clean up newly discovered issues. Even better might be calling it from an <abbr>ATF</abbr> test.
 
 When you call the HardcodedValuesLocator you must provide a table you're looking for hardcoded values from (`sys_user` and `sys_user_group` are the common ones, but go nuts if you have something else you're looking for). You get back an object with a couple of methods, `findInFlows` and `findInWorkflows`, which do pretty much what they say on the tin. You can of course assign the object to a variable and then make the subsequent method call like this:
 
