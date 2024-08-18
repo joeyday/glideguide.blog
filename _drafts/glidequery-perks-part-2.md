@@ -3,7 +3,9 @@ layout: post
 title: 'GlideQuery Perks, Part 2: JavaScript not Java'
 author: Joey
 date: 2023-01-01
-categories: glidequery
+categories:
+ - glidequery
+ - glidequery perks series
 ---
 
 Another point I made in [Part 0](/2023/01/30/glidequery-perks-part-0.html) of this series was that GlideRecord is a Java object and its various methods return Java types and more Java objects, so it doesn't behave like native JavaScript. In contrast, though GlideQuery uses GlideRecord to perform database operations in its private implementation, its public interface is written entirely in JavaScript and was intentionally designed to behave like JavaScript.

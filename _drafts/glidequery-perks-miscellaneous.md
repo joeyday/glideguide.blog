@@ -3,7 +3,9 @@ layout: post
 title: 
 author: 
 date: 2023-01-01
-categories: 
+categories:
+ - glidequery
+ - glidequery perks series
 ---
 
 

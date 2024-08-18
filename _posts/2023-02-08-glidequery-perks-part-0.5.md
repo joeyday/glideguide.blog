@@ -24,13 +24,13 @@ Bell's original CreatorCon 2020 breakout session, _[GlideQuery: A modern upgrade
 
 From January to April 2021, Bell published a series of excellent blog posts explaining how to use GlideQuery. There's a lot of overlap here with the official documentation, but, where the docs simply list methods alphabetically, these posts order the topics more pedagogically:
 
-<div class="column-left" markdown="1">
+<div class="column-left" markdown="1" style="width: 44%">
 - ["GlideQuery Part 1"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p1/)
 - ["GlideQuery Part 2"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p2/)
 - ["GlideQuery Part 3"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p3/)
 - ["GlideQuery Part 4: Aggregates"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p4/)
 </div>
-<div class="column-right" markdown="1">
+<div class="column-right" markdown="1" style="width: 56%">
 - ["GlideQuery Part 5: Dotwalking and Flags"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p5/)
 - ["GlideQuery: Stream Processing Part 1"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p6/)
 - ["GlideQuery: Stream Processing Part 2"](https://developer.servicenow.com/blog.do?p=/post/glidequery-p7/)
