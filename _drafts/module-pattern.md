@@ -6,7 +6,7 @@ date: 2023-01-01
 categories: 
 ---
 
-Have you ever wondered what happens if you edit or remove the starting boilerplate code in a Script Include? Surely that code's needed for the Script Include to work properly, right? As it turns out, not exactly. There are a number of alternative design patterns that can be used in Script Includes. In this article I'll tell you about one, the Module pattern, which I really like and think you should consider adopting.
+<span class="lead">Have you ever wondered what happens</span> if you edit or remove the starting boilerplate code in a Script Include? Surely that code's needed for the Script Include to work properly, right? As it turns out, not exactly. There are a number of alternative design patterns that can be used in Script Includes. In this article I'll tell you about one, the Module pattern, which I really like and think you should consider adopting.
 
 I remember my mind was completely blown when I read Travis Toulson's _CodeCreative_ article, ["Interface Design Patterns for Script Includes"](https://codecreative.io/blog/interface-design-patterns-for-script-includes/). It completely demystified for me what's really happening with Script Includes. A Script Include is exactly what it says on the tin: a way to include some script from one place in other places, and the content and design pattern of that script can be pretty much anything you want. ServiceNow provides a suggested format, but you're under no obligation to follow it. As long as you start your script by declaring a variable with the same name as your Script Include record, you can call it from anywhere just like any other Script Include.[^1]
 

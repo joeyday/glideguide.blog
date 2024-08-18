@@ -1,15 +1,17 @@
 ---
 layout: post
-title:
-author:
+title: Variable Flattener
+author: Joey
 date: 2023-01-01
 categories:
+ - script include
+ - variables
 ---
 
-<span class="lead">Lorem ipsum dolor sit amet</span>, consectetur adipiscing elit.
+<span class="lead">Do I want to wait</span> to blog about this until I build the OptionsTransformer? Requested Item variable values come from the Options [sc_item_option] table but they are complicated by a many-to-many linking table between the Requested Item and Options tables called Variable Ownership [sc_item_option_mtom]. (And the variables themselves are defined on the Variable [item_option_new] table.) This will be the most complicated transformer to build and as-of-yet I haven't had a use case for building it. Maybe this blog post is a use case in itself? 🤔
 
 ~~~ javascript
-const TableFlattener = (function () {
+const VariableFlattener = (function () {
 	/////// PRIVATE PROPERTIES ///////
 	const DICT_FIELDS = [
 		'element',

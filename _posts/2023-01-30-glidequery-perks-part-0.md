@@ -24,7 +24,7 @@ All of the above are considered core competencies of nearly all <abbr>SQL</abbr>
 
 ## GlideRecord isn't JavaScript
 
-A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript API. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine that parses and executes all JavaScript scripts on the ServiceNow platform, and it has some pretty neat tricks up its sleeve, one being the ability to share Java objects into the JavaScript environment.
+A major source of confusion and bugs in ServiceNow development is that GlideRecord just doesn't behave like a JavaScript <abbr>API</abbr>. GlideRecord is actually a Java object cleverly disguised as a JavaScript object through the magic of the Mozilla Rhino JavaScript engine. Rhino is the engine that parses and executes all JavaScript scripts on the ServiceNow platform, and it has some pretty neat tricks up its sleeve, one being the ability to share Java objects into the JavaScript environment.
 
 But since GlideRecord is a Java object, it behaves in some... _unpredictable_ ways.
 

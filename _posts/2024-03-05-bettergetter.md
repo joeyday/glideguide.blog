@@ -6,6 +6,7 @@ date: 2024-03-05
 categories:
   - bettergetter
   - gliderecord
+  - glidequery
   - script include
 ---
 
