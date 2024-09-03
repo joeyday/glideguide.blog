@@ -88,8 +88,6 @@ let problemIDs = new global.GlideQuery('problem')
 
 In addition to the `toArray()` method, <abbr>GQX</abbr> has methods for reducing a Stream to an object or even an <abbr>ES6</abbr> Set or Map. If you find a cool use for it, please let me know. Cheers!{% include endmark.html %}
 
-<p style="text-align: center">∗ ∗ ∗</p>
-
 #### Settings
 
 <img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2024-03-06-gqx.png" alt="GQX Script Include settings">
@@ -175,5 +173,7 @@ GQX.toMap = GQ.partial(function toMap (key, value, accumulator, record) {
   return accumulator.set(record[key], value ? record[value] : record);
 });
 ~~~
+
+<hr class="footnotes">
 
 [^1]: See the episode here: [Creator Toolbox - GlideQuery](https://www.youtube.com/watch?v=IobUxnK3LDo) (my direct quote is from around 52 minutes into the video).

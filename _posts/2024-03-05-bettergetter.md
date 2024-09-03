@@ -40,8 +40,6 @@ If you do happen to be iterating over a GlideRecord, you can make a single Bette
 
 If this sounds awesome and you want to try it out, grab the Update Set from Share or copy/paste the Script Include below. Let us know if you find a cool use for this. Cheers!{% include endmark.html %}
 
-<p style="text-align: center;">∗ ∗ ∗</p>
-
 #### Settings:
 
 <img style="width: 100%; display: block !important; margin: auto;" src="/assets/images/2024-03-05-bettergetter.png" alt="BetterGetter Script Include settings" />

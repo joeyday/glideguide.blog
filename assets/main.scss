@@ -420,6 +420,18 @@ abbr,
   }
 }
 
+hr.footnotes {
+	border: none;
+	border-top: solid 1px $grey-color;
+	width: 50%;
+	margin: 2em 0 1em;
+}
+
+div.footnotes {
+	font-size: $small-font-size;
+	color: $grey-color-light;
+}
+
 
 
 /////// Syntax highlighting ///////
