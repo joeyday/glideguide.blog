@@ -92,7 +92,7 @@ This is because for the true/false field type getValue returns either string `'0
 
 ### Spooky action at a distance
 
-One last issue I want to highlight is one many of you have probably encountered before, but the first time you see it, boy, it's a doozy.
+One last issue I want to highlight is one you might be familiar with, but the first time you see it, boy, it's a doozy.
 
 ~~~ javascript
 var arr = [];
@@ -106,33 +106,11 @@ while (gr.next()) {
 }
 ~~~
 
-Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, the description from the last incident in the result set. But why? For this we have to understand the difference between pass-by-value and pass-by-reference.
+Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, all ten the description from the last incident in the result set. If we debug this code and inspect the descriptions inside the loop, we can verify the values are fine when as push each one onto the array. Something's changing them after the fact, but what, and why? For this we have to understand the difference between primitive values and objects in JavaScript.
 
-When you store something in a variable, what really happens is a space is created in memory to hold your value, then that space is tracked with a memory address, called a pointer. In JavaScript, if you assign one variable into another variable, as long as the source variable contains a native type (string, number, boolean, and a few others), the contents will get copied from that memory address to a new memory address so each variable can have its own separate memory pointer and its own copy of the value. This is called "pass-by-value".
+Primitive values in JavaScript like strings and numbers are immutable (unchangeable) and complex values like arrays and objects are mutable (changeable). If you're not sure about this or it feels counterintuitive, I'll talk about it more in part 2 of this series, so bear with me for now.
 
-You can prove to yourself each variable has its own copy of the value by modifying one and verifying the other doesn't get modified:
-
-~~~ javascript
-var source = 'banana';
-var target = source;
-var source = 'apple';
-target;  // banana
-~~~
-
-But if you have an _object_ stored in a variable and you then assign that variable into a new variable, instead of copying the whole object over to a new memory address (potentially a computationally-expensive operation), JavaScript will simply give the target variable a pointer to the same address in memory. This is called "pass-by-reference". Some languages give you operators to force pass-by-reference or pass-by-value, but with JavaScript objects it's simply unavoidable.
-
-You can prove to yourself each variable has a pointer to the same object by modifying some part of the object and verifying it gets modified everywhere:
-
-~~~ javascript
-var source = { fruit: 'banana' };
-target = source;
-source.fruit = 'apple';
-target.fruit;  // apple
-~~~
-
-That was a long tangent, but we still don't have enough information to see what's going on in the array example above. If JavaScript always passes native types by value, then shouldn't `gr.description` get passed by value, not by reference? Is it because `gr.description` is a Java string, not a JavaScript string? Not quite. I did some testing instantiating my own Java strings and couldn't reproduce the pass-by-reference issue.
-
-What's really going on is even more strange. It turns out, `gr.description` is not only a Java string, but also, somehow, simultaneously, a GlideElement object. It takes only a moment's reflection for this to make perfect sense, after all, we can dot-walk down to properties and methods, so it must have been an object all along.
+We just learned `gr.description` is a Java string (and, through my own testing Java strings seem to be immutable like JavaScript strings), but strangely, simultaneously, it's also a GlideElement object. It takes only a moment's reflection for this to make perfect sense, after all, we can dot-walk to helpful properties and methods like `gr.description.canRead()`, so it must have been an object all along.
 
 ~~~ javascript
 gr.description instanceof Packages.java.lang.String;  // true
@@ -141,7 +119,7 @@ gr.description instanceof GlideElement;               // true
 
 This is some real Schrödinger's cat quantum superposition arcane witch magic, and don't ask me how it works. I did some Java programming before I was a ServiceNow developer and I'm pretty sure Java objects aren't allowed to be instances of two completely unrelated classes like this. I read more Rhino documentation than I want to admit over the weekend and haven't been able to find if this is a Rhino engine feature or if ServiceNow cooked up some special sauce to make this happen, but either way, it's weird, right?
 
-So what's really going on is this two-headed hydra of an object is being passed into our array by reference, not by value. Each time the loop repeats and `gr.next()` is called, the object is mutated, and since each array element has merely a pointer to the same object rather than its own copy, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the native types into your array, as this will guarantee more straightforward pass-by-value.
+So what's really going on is, each time the loop repeats and `gr.next()` is called, this two-headed hydra of an object isn't getting replaced with a new object, it's simply getting mutated, and since each of our array elements has been assigned the same object, they each appear in the end to have the same identical value. And the fix, of course, is the same as before: just use getValue to pass the primitive string values into your array, as this will guarantee they won't/can't be mutated by the call to `gr.next()`.
 
 GlideRecord's use of Java types instead of JavaScript types and the counterintuitive dual nature of GlideElement objects make GlideRecord confusing to work with and—although adoption of various best practices can mitigate this somewhat—all-too-commonly introduce hard-to-troubleshoot bugs into your code.
 

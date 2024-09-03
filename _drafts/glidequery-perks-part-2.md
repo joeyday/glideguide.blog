@@ -2,7 +2,7 @@
 layout: post
 title: 'GlideQuery Perks, Part 2: JavaScript not Java'
 author: Joey
-date: 2023-01-01
+date: 2024-08-31
 categories:
  - glidequery
  - glidequery perks series
@@ -19,7 +19,7 @@ var inc = new GlideQuery('incident')
   .get(exampleID, ['description', 'sys_mod_count', 'active'])
   .get();
 
-typeof inc.description === 'string';     // true
+typeof inc.description === 'string';    // true
 typeof inc.sys_mod_count === 'number';  // true
 typeof inc.active === 'boolean';        // true
 ~~~
