@@ -2,7 +2,7 @@
 layout: post
 title: 'GlideQuery Perks, Part 2: JavaScript not Java'
 author: Joey
-date: 2024-08-31
+date: 2024-09-07
 categories:
  - glidequery
  - glidequery perks series
@@ -26,7 +26,7 @@ typeof inc.active === 'boolean';        // true
 
 As you can see, they're not Java types nor are they Java objects. Refreshingly, GlideElement is nowhere to be found here.
 
-### GlideRecord is more sane than I thought
+### In hindsight, GlideRecord is more sane than I thought
 
 Years ago I adopted the best practice of just always using `getValue()` whenever interacting with columns on a GlideRecord object (and [many](https://snprotips.com/blog/2017/4/9/always-use-getters-and-setters) [other](https://www.servicenow.com/community/developer-articles/gliderecord-hints-tips-common-issues-and-good-practices/ta-p/2323766) [people](https://www.servicenow.com/community/developer-forum/get-field-value-of-gliderecord-best-practice-method/m-p/1619218) [have](https://www.youtube.com/live/j57cXWGQD98?feature=share&t=1025) [also](https://www.servicenow.com/community/developer-blog/tnt-the-importance-of-using-quot-getvalue-quot-when-getting-data/ba-p/2273338), or have advocated for some [alternative](https://codecreative.io/blog/is-gliderecord-getvalue-the-king-of-the-string/)). But in researching this series I've come to realize GlideElement objects actually behave more intuitively than I remembered.
 
@@ -34,9 +34,9 @@ Because Integer and Decimal columns are evaluated to GlideElementNumeric objects
 
 But there are two significant issues with GlideRecord and GlideElement objects that drove us all to adopt `getValue()` in the first place, and they're both handily avoided by GlideQuery's use of native types.
 
-### No pass-by-reference shenanigans
+### No mutable object shenanigans
 
-Since column values returned by GlideQuery are just JavaScript native types and not GlideElement objects or Java types, they always get passed-by-value, preventing unexpected pass-by-reference behavior.
+As I explained in Part 0, GlideElement objects mutate when the `next()` method is called, producing some unexpected behavior. Since column values returned by GlideQuery are just JavaScript native types (strings, numbers, and booleans) and not GlideElement objects or any other Java types, they're naturally immutable:
 
 ~~~ javascript
 var result = [];
@@ -50,9 +50,9 @@ new GlideQuery('incident')
 result;  // ['INC0010001', 'INC0010002', 'INC0010003', ...]
 ~~~
 
-We already know using `getValue()` with GlideRecord avoids the pass-by-reference issue, but GlideQuery shines here for not having the problem in the first place.
+(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series.)
 
-(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series. Also note the real issue is pass-by-reference combined with the way GlideRecord objects mutate when the `next()` method is called, as I explained in Part 0. GlideQuery not only avoids pass-by-reference but also any kind of object mutation, but that's something I'll cover in Part 4.)
+We already know using `getValue()` turns GlideElement objects into JavaScript primitive types, preventing unexpected behavior, but GlideQuery shines here for not having the problem in the first place. And stay tuned as I'll have more to say about object mutation in Part 4.
 
 ### Strict comparisons are possible
 
