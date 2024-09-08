@@ -59,6 +59,5 @@ The above are the most important/useful bits of community content, but a number 
 
 Well, there you have it. That's every single resource I can find online about GlideQuery. Have you found some additional documentation or a blog post, YouTube video, TikTok, or some other kind of media that I missed? Find me in the ServiceNow Developers Slack workspace or on Mastodon and let me know. Next up in the series I'll start to dive into GlideQuery's many benefits. Stay tuned!{% include endmark.html %}
 
-Next in the series: [Part 1: Unambiguous Boolean Logic &rarr;](/2024/08/18/glidequery-perks-part-1.html)
-
+_Next in the series: [Part 1: Unambiguous Boolean Logic &rarr;](/2024/08/18/glidequery-perks-part-1.html)_
 
