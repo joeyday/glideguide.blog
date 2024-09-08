@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'GlideQuery Perks, Part 2: JavaScript not Java'
+title: 'GlideQuery Perks, Part 2: JavaScript Not Java'
 author: Joey
 date: 2024-09-07
 categories:

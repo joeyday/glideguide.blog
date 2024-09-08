@@ -85,3 +85,6 @@ ServiceNow's inexplicable "<abbr>OR</abbr>" bias has always bothered me, but the
 
 That's it for this installment. I hope this starts to persuade you GlideQuery is superior to GlideRecord and should be the way forward for all pro-code solutions on the ServiceNow platform, and I hope you're looking forward to future articles in the series. Cheers!{% include endmark.html %}
 
+Next in the series: [Part 2: JavaScript Not Java &rarr;](/2024/09/07/glidequery-perks-part-2.html)
+
+
