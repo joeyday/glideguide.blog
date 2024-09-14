@@ -14,7 +14,7 @@ So feel free to engage with as much or as little of what follows, or ignore it f
 
 ## Official documentation
 
-Of course, the best place to start is arguably the official documentation. There are Docs pages for [GlideQuery](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/GlideQuery/concept/GlideQueryGlobalAPI.html), [Stream](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/Stream/concept/StreamGlobalAPI.html), and [Optional](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/Optional/concept/OptionalGlobalAPI.html). There are also mirrors of the same documentation on the Developer site ([GlideQuery](https://developer.servicenow.com/dev.do#!/reference/api/tokyo/server/no-namespace/GlideQueryAPI), [Stream](https://developer.servicenow.com/dev.do#!/reference/api/tokyo/server/no-namespace/StreamGlobalAPI), and [Optional](https://developer.servicenow.com/dev.do#!/reference/api/tokyo/server/no-namespace/OptionalGlobalAPI)).
+Of course, the best place to start is arguably the official documentation. There are Docs pages for [GlideQuery](https://docs.servicenow.com/bundle/xanadu-api-reference/page/app-store/dev_portal/API_reference/GlideQuery/concept/GlideQueryGlobalAPI.html), [Stream](https://docs.servicenow.com/bundle/xanadu-api-reference/page/app-store/dev_portal/API_reference/Stream/concept/StreamGlobalAPI.html), and [Optional](https://docs.servicenow.com/bundle/xanadu-api-reference/page/app-store/dev_portal/API_reference/Optional/concept/OptionalGlobalAPI.html). There are also mirrors of the same documentation on the Developer site ([GlideQuery](https://developer.servicenow.com/dev.do#!/reference/api/xanadu/server/no-namespace/GlideQueryGlobalAPI), [Stream](https://developer.servicenow.com/dev.do#!/reference/api/xanadu/server/no-namespace/StreamGlobalAPI), and [Optional](https://developer.servicenow.com/dev.do#!/reference/api/xanadu/server/no-namespace/OptionalGlobalAPI)).
 
 ## Content featuring Peter Bell
 
@@ -53,7 +53,7 @@ The above are the most important/useful bits of community content, but a number 
 - ServiceNow 911: ["GlideRecord vs. GlideQuery"](https://www.youtube.com/watch?v=yY9YNe8nPfo)
 - Steven Bell: ["GlideQuery vs. GlideRecord: A Comparison", Part 1](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-1/ba-p/2267573) and [Part 2](https://www.servicenow.com/community/developer-blog/glidequery-vs-gliderecord-a-comparison-part-2/ba-p/2268423)
 - Ahmed Drar: [Querying with GlideQuery](https://ahmeddrar.me/2022/11/16/querying-with-glidequery/)
-- ismr: ["GlideQuery <abbr>API</abbr>"](https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug Functions"](https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://ismr.dev/posts/glidequery-parse-post)
+- ismr: ["GlideQuery <abbr>API</abbr>"](https://web.archive.org/web/20230402062819/https://ismr.dev/posts/glidequery-main), ["GlideQuery Debug Functions"](https://web.archive.org/web/20220717141747/https://ismr.dev/posts/glidequery-debug-post), and ["GlideQuery Parse()"](https://web.archive.org/web/20220607193820/https://ismr.dev/posts/glidequery-parse-post)
 
 ## Conclusion
 
