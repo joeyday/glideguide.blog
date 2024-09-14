@@ -4,9 +4,9 @@ title: Hardcoded Values Locator
 author: Joey
 date: 2024-08-17
 categories:
-  - script include
-  - workflow
-  - flow designer
+  - Script Include
+  - Workflow
+  - Flow Designer
 ---
 
 <span class="lead">I don't know about your ServiceNow environment</span>, but we've got a lot of technical debt built up in ours in the form of hardcoded values (users, groups, etc.) in legacy Workflows and Flow Designer Flows.

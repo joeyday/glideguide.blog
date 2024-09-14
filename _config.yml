@@ -42,6 +42,7 @@ mastodon:
 theme: minima
 plugins:
 - jekyll-feed
+- jekyll-archives
   
 rss: "Subscribe via RSS"
 show_excerpts: true
@@ -53,6 +54,16 @@ footer_pages:
 - _pages/about.md
 - _pages/colophon.md
 
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tag/:name/'
+    category: '/category/:name/'
 
 # Exclude from processing.
 # The following items will not be processed, by default.

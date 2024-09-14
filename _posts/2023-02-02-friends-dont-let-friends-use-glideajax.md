@@ -4,10 +4,10 @@ title: "Friends Don't Let Friends Use GlideAjax"
 author: Joey
 date: 2023-02-02
 categories: 
-- glideajax
-- xmlhttprequest
-- rest
-- fetch
+- GlideaAax
+- XMLHttpRequest
+- REST
+- Fetch
 ---
 
 <span class="lead">I used to hate writing [GlideAjax](https://docs.servicenow.com/bundle/tokyo-application-development/page/app-store/dev_portal/API_reference/GlideAjax/concept/c_GlideAjaxAPI.html) Script Includes</span>, but I haven't written one in probably five years. How have I avoided it? Easy! Let me show you how to hit the [Table <abbr>API</abbr>](https://docs.servicenow.com/bundle/tokyo-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html) in a Client Script using vanilla JavaScript.

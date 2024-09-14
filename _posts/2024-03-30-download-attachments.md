@@ -4,8 +4,8 @@ title: Python Script for Downloading Attachments
 author: Joey
 date: 2024-03-30
 categories:
-  - python
-  - attachments
+  - Python
+  - Attachments
 ---
 
 <span class="lead">I’ve been exporting a lot of data</span> from my ServiceNow instance lately for archival purposes (<abbr>IYKYK</abbr>) and one of the challenges I’ve encountered is properly preserving attachments.

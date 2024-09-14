@@ -3,7 +3,7 @@ layout: post
 title: 'GlideQuery: Selecting All Fields'
 author: Joey
 date: 2023-01-15
-categories: glidequery
+categories: GlideQuery
 ---
 
 <span class="lead">I love how GlideQuery's select method</span> takes a list of column names and returns a Stream of records with only those columns. Since it uses GlideRecord under the hood, I'm not sure we get much performance gain from it, but it makes working with the resulting objects so much more pleasant, having exactly and only the columns you need in a given context. But what can you do if you really need every column for a given record?

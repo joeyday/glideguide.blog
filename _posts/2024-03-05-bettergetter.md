@@ -4,10 +4,10 @@ title: BetterGetter
 author: Joey
 date: 2024-03-05
 categories:
-  - bettergetter
-  - gliderecord
-  - glidequery
-  - script include
+  - BetterGetter
+  - GlideRecord
+  - GlideQuery
+  - Script Include
 ---
 
 <span class="lead">In keeping with my series about GlideQuery</span>, I'd like to share a tool Dan and I made that can slightly improve the experience when you'd prefer to use GlideQuery but have no choice but to use GlideRecord.

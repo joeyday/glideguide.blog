@@ -1,5 +1,6 @@
 ---
 layout: default
+id: 'post'
 ---
 <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
@@ -17,6 +18,7 @@ layout: default
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
+    {%- if page.errata -%}<p class="errata">{{ page.errata }}</p>{%- endif -%}
     {{ content }}
   </div>
 

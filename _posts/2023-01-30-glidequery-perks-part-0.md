@@ -3,10 +3,11 @@ layout: post
 title: "GlideQuery Perks, Part 0: What's wrong with GlideRecord?"
 author: Joey
 date: 2023-01-30
-categories: glidequery
+categories:
+ - GlideQuery
+ - GlideQuery Perks Series
+errata: 'September 14, 2024, update: The “Spooky action at a distance” section of this article has been significantly edited for clarity and accuracy. See the footnote in that section for more detail.'
 ---
-
-_Semptember 2, 2024, update: The “Spooky action at a distance” section of this article has been significantly edited for clarity and accuracy. See the footnote in that section for more detail._
 
 <span class="lead">When I first encountered [GlideQuery](https://docs.servicenow.com/bundle/xanadu-api-reference/page/app-store/dev_portal/API_reference/GlideQuery/concept/GlideQueryGlobalAPI.html)</span>, for a brief moment I naively assumed it was a complete modern replacement for GlideRecord and I got really excited. But I was quickly disappointed when I learned it's just a wrapper for GlideRecord. As such, I thought it must have all the same drawbacks and limitations, and for a while I admit I was an unbeliever and a naysayer. But, as I learned more, I realized GlideQuery is one of the best things that ever happened to ServiceNow. I've been using it exclusively for nearly two years and I hope through this new series of articles I can convince you to switch if you haven't.
 
@@ -108,7 +109,7 @@ while (gr.next()) {
 }
 ~~~
 
-Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, all ten the description from the last incident in the result set. If we debug inside the loop and inspect the descriptions, we can verify the values are fine when each one is pushed onto the array. Something's changing them after the fact, but what, and why? For this we have to understand the difference between primitive values and objects in JavaScript.<!--[^1]-->
+Looks simple enough, right? We're looping through ten records and pushing the descriptions onto an array. What could go wrong? But some of you are already smirking because you know what's going to happen. For some reason, this code produces an array with ten identical values, all ten the description from the last incident in the result set. If we debug inside the loop and inspect the descriptions, we can verify the values are fine when each one is pushed onto the array. Something's changing them after the fact, but what, and why? For this we have to understand the difference between primitive values and objects in JavaScript.[^1]
 
 Primitive values in JavaScript like strings and numbers are immutable (unchangeable) and complex values like arrays and objects are mutable (changeable). If you're not sure about this or it feels counterintuitive, I highly recommend [Just JavaScript](https://justjavascript.com/) by Dan Abramov (my co-author Dan Ostler originally shared this with me), a series of lessons that gave me foundational mental models for JavaScript I never realized I needed.
 
@@ -134,4 +135,4 @@ _Next in the series: [Part 0.5: Resources &rarr;](/2023/02/08/glidequery-perks-p
 
 <hr class="footnotes">
 
-<!-- [^1]: The [first published version of this article](https://github.com/joeyday/glideguide.blog/blob/6e4b14ec722851b991718163339a5c9e77ae283e/_posts/2023-01-30-glidequery-perks-part-0.md) attributed this problem to the difference between pass-by-value and pass-by-reference. While these aren't entirely unrelated concepts, they do turn out to be pretty irrelevant (JavaScript is actually a call-by-sharing language; actual pass-by-reference is even goofier). I also had some business in there about memory and pointers which may or may not be at all true, especially since different implementations of JavaScript are free to handle memory in different ways. Some implementations might make copies of primitive values as I described, but some might do something called _value interning_ where multiple variables assigned the same primitive value could actually point to the same place in memory so the value only needs to be stored once. Anyway, there's a lot of misinformation out there about why this particular GlideRecord problem happens, and I'm sorry for previously contributing to that misinformation. -->
+[^1]: The [first published version of this article](https://github.com/joeyday/glideguide.blog/blob/6e4b14ec722851b991718163339a5c9e77ae283e/_posts/2023-01-30-glidequery-perks-part-0.md) attributed this problem to the difference between pass-by-value and pass-by-reference. While these aren't entirely unrelated concepts, they do turn out to be pretty irrelevant (JavaScript is actually a call-by-sharing language; actual pass-by-reference is even goofier). I also had some business in there about memory and pointers which may or may not be at all true, especially since different implementations of JavaScript are free to handle memory in different ways. Some implementations might make copies of primitive values as I described, but some might do something called _value interning_ where multiple variables assigned the same primitive value could actually point to the same place in memory so the value only needs to be stored once. Anyway, there's a lot of misinformation out there about why this particular GlideRecord problem happens, and I'm sorry for previously contributing to that misinformation.

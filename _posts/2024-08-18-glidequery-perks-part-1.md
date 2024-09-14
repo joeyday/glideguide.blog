@@ -4,8 +4,8 @@ title: 'GlideQuery Perks, Part 1: Unambiguous Boolean Logic'
 author: Joey
 date: 2024-08-18
 categories:
- - glidequery
- - glidequery perks series
+ - GlideQuery
+ - GlideQuery Perks Series
 excerpt_separator: <!--more-->
 ---
 

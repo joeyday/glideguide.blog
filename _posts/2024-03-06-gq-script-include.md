@@ -5,10 +5,10 @@ subtitle: The GlideQuery helper functions you never knew you needed
 author: Joey
 date: 2024-03-06
 categories:
-  - glidequery
-  - gq
-  - gqx
-  - script include
+  - GlideQuery
+  - GQ
+  - GQX
+  - Script Include
 excerpt_separator: <!--more-->
 ---
 
