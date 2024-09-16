@@ -1,16 +1,24 @@
 ---
-layout: post
-title: 'GlideQuery Perks, Part 3: Many Ways to Process Results'
-author: Joey
-date: 2023-01-01
-categories:
- - glidequery
- - glidequery perks series
+layout: page
+title: 'GlideQuery Design Patterns'
+permalink: glidequery-design-patterns
 ---
 
-<span class="lead">One of the problems I never knew GlideRecord has</span> is there's only a couple ways to get records out of it—either `get()` for a single record or `query()` and `next()` for multiple records. GlideQuery breaks the mold by offering a gaggle of new ways to loop through the resulting records.
+// If I get lost, I left off on ReportUtility
+// sys_script_include_f59640a347d0bd5078dfb098436d43b0 (35 occurrences found)
 
-This article offers a high level overview and a few samples of the kinds of things you can do with GlideQuery, but alongside this article I'm also publishing a new resource I'm very proud of which I'm calling GlideQuery Design Patterns. More on that at the end of the article.
+
+
+// Consider two versions of this post, one for ES2012 features with let and arrow
+// functions, etc. and another version sanitized for ES5-only. This would basically
+// require me to add some sort of functionality to create hidden blog posts on the
+// site, which might actually be nice since I kind of wanted to make that earlier
+// version of the GlideQuery Perks Part 0 available for people to read without linking
+// directly to GitHub.
+
+One of the problems I never knew GlideRecord has is there's only a couple ways to get records out of it, either `get()` for a single record or `query()` and `next()` for multiple records. GlideQuery breaks the mold by offering a gaggle of new and expressive ways to loop through the resulting records.
+
+An early draft of this entry basically just regurgitated ServiceNow's own documentation about these features, but I want to provide more value than that by showing more examples, design patterns, and best practices for how to use the various methods proficiently.
 
 ## Common use cases
 - Get a single field value from the database
