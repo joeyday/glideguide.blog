@@ -70,7 +70,7 @@ let n = new GlideQuery(table)
 
 The GlideQuery object instantiated on the first line never gets assigned to `n`. Instead, the entire method chain is evaluated and, ultimately, the variable will be assigned the return value from the `count` method.
 
-I'll be remiss if I don't point out the indentation convention used here. Indenting each of the chained method call lines with a single tab is deliberate and highly recommended since it serves to remind us that the whole thing is one long expression, not a series of individual expressions or statements.
+And notice the indentation convention used here. Indenting each of the chained method call lines with a single tab is deliberate and recommended since it reminds us the whole thing is one long expression, not a series of individual expressions or statements.
 
 ## Object re-usability
 
