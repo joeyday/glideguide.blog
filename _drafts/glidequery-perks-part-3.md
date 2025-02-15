@@ -58,7 +58,7 @@ Here you can see clearly that with each new step we get back a new GlideQuery or
 
 ## Fluent method chaining
 
-One immediate benefit of this pure function architecture is it enables the fluent method chaining we usually use with GlideQuery. Each chained method call acts on the new object returned from the method call immediately preceding it. We usually don't have any need to keep all those intermediate objects so we don't bother assigning them to variables. This generally leads to shorter and cleaner-looking lines of code and fewer overall keystrokes.
+One immediate benefit of this pure function architecture is it enables the fluent method chaining we usually use with GlideQuery. We usually don't have any need to keep all those intermediate objects so we don't bother assigning them to variables. Each chained method call simply acts on the new object returned from the method call immediately preceding it. This generally leads to shorter and cleaner-looking lines of code and fewer overall keystrokes.
 
 When you chain methods like this, even though the method calls span multiple lines, you're actually creating one long single expression. This means in some cases, like our first GlideQuery example above, you don't need to assign anything to a variable. If you do start with declaring a variable, keep in mind the value assigned to the variable will be the result of the entire expression.
 
