@@ -8,7 +8,7 @@ categories:
  - glidequery perks series
 ---
 
-<span class="lead">Compare these bog standard GlideRecord and GlideQuery examples</span> and you'll see something is quite different between them:
+<span class="lead">Compare these bog standard GlideRecord and GlideQuery examples</span> and you'll see something is different between them:
 
 ~~~ javascript
 let gr = new GlideRecord(someTable);
@@ -34,7 +34,7 @@ The difference might be subtle or it might jump out at you right away. They're t
 
 ## GlideRecord is founded on object mutation
 
-In the GlideRecord example, we first instantiate an object and assign it to a variable. From that point on we call methods on the object that cause the object to change. We don't have to assign the output of those method calls to any new variable, because each time we add a new query the object itself changes (it would also change if we used other methods like `setLimit` or `orderBy`). When we execute the query the object changes again, and each time we iterate to the next record the object changes yet again. And the whole time it remains assigned to the same variable name.
+In the GlideRecord example, we first instantiate an object and assign it to a variable. From that point on we call methods on the object that cause the object to change. We don't have to assign the output of those method calls to any new variable, because each time we add a new query the object itself changes. When we execute the query the object changes again, and each time we iterate to the next record the object changes yet again. And the whole time it remains assigned to the same variable name.
 
 These changes in the object are sometimes referred to as mutations or side effects, and it's considered a best practice by some to avoid them. But aren't variables meant to vary? After all, it's right there in the name "variable". What's really wrong with allowing the GlideRecord object to mutate like this? We saw one extreme (and thankfully uncommon) example in [Part 0](/2023/01/30/glidequery-perks-part-0.html) and [Part 2](/2024/09/07/glidequery-perks-part-2.html) where mutation due to the `next` method caused undesirable behavior, but are there other drawbacks?
 
@@ -58,9 +58,9 @@ Here you can see clearly that with each new step we get back a new GlideQuery or
 
 ## Fluent method chaining
 
-One immediate benefit of this architecture is it enables the fluent method chaining we usually use with GlideQuery. Each chained method call acts on the new object returned from the method call immediately preceding it. We usually don't have any need to keep all those intermediate objects so we don't bother assigning them to variables. This generally leads to shorter and cleaner-looking lines of code and fewer overall keystrokes.
+One immediate benefit of this pure function architecture is it enables the fluent method chaining we usually use with GlideQuery. Each chained method call acts on the new object returned from the method call immediately preceding it. We usually don't have any need to keep all those intermediate objects so we don't bother assigning them to variables. This generally leads to shorter and cleaner-looking lines of code and fewer overall keystrokes.
 
-When you chain methods like this, even though the method calls span multiple lines, you're actually creating one long single expression. In some cases, like our first GlideQuery example above, this means you don't need to assign anything to a variable. If you do start with declaring a variable, keep in mind the value assigned to the variable will be the result of the entire expression.
+When you chain methods like this, even though the method calls span multiple lines, you're actually creating one long single expression. This means in some cases, like our first GlideQuery example above, you don't need to assign anything to a variable. If you do start with declaring a variable, keep in mind the value assigned to the variable will be the result of the entire expression.
 
 ~~~ javascript
 let n = new GlideQuery(table)
@@ -76,9 +76,48 @@ And notice the indentation convention used here. Indenting each of the chained m
 
 A less obvious but very powerful feature of this pure functional architecture is object re-use. Since the intermediate objects are never mutated, if we do decide to save one by assigning it to a variable, we can go back and re-use it later.
 
+Let's say we want to send an e-mail to everyone in our department who got an above average score on the most recent customer satisfaction survey. In order to do that, we first need to know what the average is. For simplicity, let's say we've already calculated each team member's score and stored it in a custom field on the Users \[sys_user] table.
 
+Without GlideQuery, the best way to do this is with GlideAggregate to get the average and GlideRecord to loop through the users and send the e-mails.
 
+~~~ javascript
+let ga = new GlideAggregate('sys_user');
+ga.addQuery('department', someDepartment);
+ga.addNotNullQuery('u_csat_score');
+ga.addAggregate('AVG', 'u_csat_score');
+ga.query();
+ga.next();
+let average = ga.getAggregate('AVG', 'u_csat_score');
 
+gr = new GlideRecord('sys_user');
+gr.addQuery('department', someDepartment);
+gr.addNotNullQuery('u_csat_score');
+gr.addQuery('u_csat_score', '>', average);
+gr.query();
+while (gr.next()) {
+  // Send the e-mail...
+}
+~~~
 
+Notice how the first three lines are nearly identical in the two different blocks of our script? This is a simple example, but imagine if our query were even more complicated. Wouldn't it be great if we could somehow only write those lines once? We can't do that with GlideAggregate and GlideRecord, but we can with GlideQuery.
+
+~~~ javascript
+let query = new GlideQuery('sys_user')
+  .where('department', someDepartment)
+  .whereNotNull('u_csat_score');
+
+let average = query
+  .avg('u_csat_score')
+  .get();
+
+query
+  .where('u_csat_score', '>', average)
+  .select(someFields)
+  .forEach((user) => {
+  	// Send e-mail...
+  });
+~~~
+
+After calling the `avg` and `get` methods you might think the `query` object is all used up, but since it doesn't mutate like a GlideRecord object we can re-use it (even adding an additional where clause) to send the e-mails.
 
 {% include endmark.html %}
