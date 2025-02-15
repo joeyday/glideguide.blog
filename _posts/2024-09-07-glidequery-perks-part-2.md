@@ -50,9 +50,9 @@ new GlideQuery('incident')
 result;  // ['INC0010001', 'INC0010002', 'INC0010003', ...]
 ~~~
 
-(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 3 of the series.)
+(Note there are better ways to load values into an array with GlideQuery, so don't follow this example—I'll give you a better one in Part 4 of the series.)
 
-We already know using `getValue()` turns GlideElement objects into JavaScript primitive types, preventing unexpected behavior, but GlideQuery shines here for not having the problem in the first place. And stay tuned as I'll have more to say about object mutation in Part 4.
+We already know using `getValue()` turns GlideElement objects into JavaScript primitive types, preventing unexpected behavior, but GlideQuery shines here for not having the problem in the first place. And stay tuned as I'll have more to say about object mutation in Part 3.
 
 ### Strict comparisons are possible
 
@@ -135,7 +135,7 @@ This is much nicer to implement with GlideQuery. Since the objects are already n
 })(request, response);
 ~~~
 
-(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for better array examples in Part 3.)
+(As before, note this is a poor way to create arrays with GlideQuery. I kept this similar to the GlideRecord example for a more apples-to-apples comparison. Again, keep an eye out for better array examples in Part 4.)
 
 ### Native object methods
 
