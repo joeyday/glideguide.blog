@@ -26,7 +26,7 @@ new GlideQuery(someTable)
   .whereNotNullQuery(someOtherField)
   .select(someFields)
   .forEach((record) => {
-  	// do the thing...
+    // do the thing...
   });
 ~~~
 
@@ -117,7 +117,7 @@ query  // using query a second time
   .where('u_csat_score', '>', average)
   .select(someFields)
   .forEach((user) => {
-  	// send e-mail...
+    // send e-mail...
   });
 ~~~
 
