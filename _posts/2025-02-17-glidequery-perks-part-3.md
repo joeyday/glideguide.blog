@@ -131,4 +131,4 @@ Hopefully I've convinced you GlideQuery's stateless, immutable design is safer t
 
 <hr class="footnotes">
 
-[^1]: This is possible in the first place due to GlideQuery being one API, not split into separate APIs for aggregate and normal queries. However, even if our example didn't involve GlideAggregate and instead used GlideRecord twice, the first GlideRecord object couldn't be re-used the way a GlideQuery object can.
+[^1]: This is possible in the first place due to GlideQuery being one <abbr>API</abbr>, not split into separate <abbr>API</abbr>s for aggregate and normal queries. However, even if our example didn't involve GlideAggregate and instead used GlideRecord twice, the first GlideRecord object couldn't be re-used the way a GlideQuery object can.
