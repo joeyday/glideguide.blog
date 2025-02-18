@@ -24,7 +24,7 @@ while (gr.next()) {
 new GlideQuery(someTable)
   .where(someField, someValue)
   .whereNotNullQuery(someOtherField)
-  .select()
+  .select(someFields)
   .forEach((record) => {
   	// do something...
   });
@@ -48,7 +48,7 @@ This is cumbersome, but it helps to see what's really going on if we rewrite the
 let query1 = new GlideQuery(someTable)
 let query2 = query1.where(someField, someValue)
 let query3 = query2.whereNotNullQuery(someOtherField)
-let stream = query3.select()
+let stream = query3.select(someFields)
 stream.forEach((record) => {
   // do something...
 });
@@ -58,7 +58,7 @@ Here you can see clearly that with each new step we get back a new GlideQuery or
 
 ## Fluent method chaining
 
-One immediate benefit of this pure function architecture is it enables the fluent method chaining we usually use with GlideQuery. We usually don't have any need to keep all those intermediate objects so we don't bother assigning them to variables. Each chained method call simply acts on the new object returned from the method call immediately preceding it. This generally leads to shorter and cleaner-looking lines of code and fewer overall keystrokes.
+One immediate benefit of this pure function architecture is it enables GlideQuery's fluent method chaining style. We usually don't have any need to keep all those intermediate objects so we don't bother assigning them to variables. Each chained method call simply acts on the new object returned from the preceding method call. This generally leads to shorter and cleaner-looking lines of code and fewer overall keystrokes.
 
 When you chain methods like this, even though the method calls span multiple lines, you're actually creating one long single expression. This means in some cases, like our first GlideQuery example above, you don't need to assign anything to a variable. If you do start with declaring a variable, keep in mind the value assigned to the variable will be the result of the entire expression.
 
@@ -76,13 +76,14 @@ And notice the indentation convention used here. Indenting each of the chained m
 
 A less obvious but very powerful feature of this pure functional architecture is object re-use. Since the intermediate objects are never mutated, if we do decide to save one by assigning it to a variable, we can go back and re-use it later.
 
-Let's say we want to send an e-mail to everyone in our department who got an above average score on the most recent customer satisfaction survey. In order to do that, we first need to know what the average is. For simplicity, let's say we've already calculated each team member's score and stored it in a custom field on the Users \[sys_user] table.
+Let's say we want to send an e-mail to everyone in our department who got an above average score on the most recent customer satisfaction survey. In order to do that, we first need to know what the average is. For simplicity, let's assume we've already calculated each team member's score and stored it in a custom field on the Users \[sys_user] table.
 
-Without GlideQuery, the best way to do this is with GlideAggregate to get the average and GlideRecord to loop through the users and send the e-mails.
+Without GlideQuery, the best way to do this is with GlideAggregate to get the average and then GlideRecord to loop through the users and send the e-mails.
 
 ~~~ javascript
 let ga = new GlideAggregate('sys_user');
 ga.addQuery('department', someDepartment);
+ga.addQuery('active', true);
 ga.addNotNullQuery('u_csat_score');
 ga.addAggregate('AVG', 'u_csat_score');
 ga.query();
@@ -91,6 +92,7 @@ let average = ga.getAggregate('AVG', 'u_csat_score');
 
 gr = new GlideRecord('sys_user');
 gr.addQuery('department', someDepartment);
+gr.addQuery('active', true);
 gr.addNotNullQuery('u_csat_score');
 gr.addQuery('u_csat_score', '>', average);
 gr.query();
@@ -99,11 +101,12 @@ while (gr.next()) {
 }
 ~~~
 
-Notice how the first three lines are nearly identical in the two different blocks of our script? This is a simple example, but imagine if our query were even more complicated. Wouldn't it be great if we could somehow only write those lines once? We can't do that with GlideAggregate and GlideRecord, but we can with GlideQuery.
+Notice how the first four lines are nearly identical in the two different blocks of our script? This is a simple example, but imagine if our query were even more complicated. Wouldn't it be great if we could somehow only write those lines once? We can't do that with GlideAggregate and GlideRecord, but we can with GlideQuery.
 
 ~~~ javascript
 let query = new GlideQuery('sys_user')
   .where('department', someDepartment)
+  .where('active', true)
   .whereNotNull('u_csat_score');
 
 let average = query
@@ -118,6 +121,10 @@ query
   });
 ~~~
 
-After calling the `avg` and `get` methods you might think the `query` object is all used up, but since it doesn't mutate like a GlideRecord object we can re-use it (even adding an additional where clause) to send the e-mails.
+After calling the `avg` and `get` methods you might think the `query` object is all used up, but since it doesn't mutate like a GlideRecord object we can re-use it—even adding an additional where clause—to send the e-mails.
+
+I've also used this in Script Includes where many different methods execute nearly the same query. The query can be assigned to a Script Include property and then re-used across all the methods.
+
+
 
 {% include endmark.html %}
