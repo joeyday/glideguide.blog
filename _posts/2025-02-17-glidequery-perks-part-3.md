@@ -16,7 +16,7 @@ gr.addQuery(someField, someValue);
 gr.addNotNullQuery(someOtherField);
 gr.query();
 while (gr.next()) {
-  // do something...
+  // do the thing...
 }
 ~~~
 
@@ -26,7 +26,7 @@ new GlideQuery(someTable)
   .whereNotNullQuery(someOtherField)
   .select(someFields)
   .forEach((record) => {
-  	// do something...
+  	// do the thing...
   });
 ~~~
 
@@ -50,7 +50,7 @@ let query2 = query1.where(someField, someValue)
 let query3 = query2.whereNotNullQuery(someOtherField)
 let stream = query3.select(someFields)
 stream.forEach((record) => {
-  // do something...
+  // do the thing...
 });
 ~~~
 
@@ -97,7 +97,7 @@ gr.addNotNullQuery('u_csat_score');
 gr.addQuery('u_csat_score', '>', average);
 gr.query();
 while (gr.next()) {
-  // Send the e-mail...
+  // send e-mail...
 }
 ~~~
 
@@ -117,7 +117,7 @@ query  // using query a second time
   .where('u_csat_score', '>', average)
   .select(someFields)
   .forEach((user) => {
-  	// Send e-mail...
+  	// send e-mail...
   });
 ~~~
 
