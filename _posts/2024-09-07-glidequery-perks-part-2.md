@@ -161,3 +161,4 @@ for (var field in inc) {
 
 Because GlideQuery behaves so much more predictably in always returning JavaScript native types and native objects, a lot of confusion and potential bugs are avoided. We get the simple convenience of rarely if ever having to convert values and objects into other kinds of values and objects, and we get the benefits of JavaScript native methods for the various types. I'm certain I would've more intuitively understood and had a lot more trust in the platform in my early years if I'd cut my teeth scripting with GlideQuery instead of GlideRecord.{% include endmark.html %}
 
+_Next in the series: [Part 3: Pure Functions, Fluent Method Chaining, and Object Re-usability &rarr;](/2025/02/17/glidequery-perks-part-3.html)_
