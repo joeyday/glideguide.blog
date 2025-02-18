@@ -2,7 +2,7 @@
 layout: post
 title: 'GlideQuery Perks, Part 3: Pure Functions, Fluent Method Chaining, and Object Re-usability'
 author: Joey
-date: 2025-02-15
+date: 2025-02-17
 categories:
  - glidequery
  - glidequery perks series
@@ -36,11 +36,11 @@ The difference might be subtle or it might jump out at you right away. They're t
 
 In the GlideRecord example, we first instantiate an object and assign it to a variable. From that point on we call methods on the object that cause the object to change. We don't have to assign the output of those method calls to any new variable, because each time we add a new query the object itself changes. When we execute the query the object changes again, and each time we iterate to the next record the object changes yet again. And the whole time it remains assigned to the same variable name.
 
-These changes in the object are sometimes referred to as mutations or side effects, and it's considered a best practice by some to avoid them. But aren't variables meant to vary? After all, it's right there in the name "variable". What's really wrong with allowing the GlideRecord object to mutate like this? We saw one extreme (and thankfully uncommon) example in [Part 0](/2023/01/30/glidequery-perks-part-0.html) and [Part 2](/2024/09/07/glidequery-perks-part-2.html) where mutation due to the `next` method caused undesirable behavior, but are there other drawbacks?
+These changes in the object are sometimes called mutations or side effects, and some consider it a best practice to avoid them. But aren't variables meant to vary? After all, it's right there in the name "variable". What's really wrong with allowing the GlideRecord object to mutate like this? We saw one extreme (and thankfully uncommon) example in [Part 0](/2023/01/30/glidequery-perks-part-0.html) and [Part 2](/2024/09/07/glidequery-perks-part-2.html) where mutation due to the `next` method caused undesirable behavior, but are there other drawbacks?
 
 ## GlideQuery objects are immutable
 
-In functional programming there is a design pattern called a pure function. Pure functions always produce the same output given the same input and have no observable side effects. With very few exceptions, the methods involved in using GlideQuery are all pure functions. Each time you call one of the methods, instead of mutating the object, the method leaves the original object unchanged and returns a new object that's like the old object but with the new step applied.
+In functional programming there is a design pattern called a pure function. Pure functions always produce the same output given the same input and have no observable side effects. All GlideQuery objects are immutable, meaning there's no way to change them after they're created. When you call any method on the GlideQuery, instead of mutating the object, the method leaves the original object unchanged and returns a new object that's like the old one but with the new step applied.
 
 This is cumbersome, but it helps to see what's really going on if we rewrite the GlideQuery example above like this:
 
@@ -76,7 +76,7 @@ And notice the indentation convention used here. Indenting each of the chained m
 
 A less obvious but very powerful feature of this pure functional architecture is object re-use. Since the intermediate objects are never mutated, if we do decide to save one by assigning it to a variable, we can go back and re-use it later.
 
-Let's say we want to send an e-mail to everyone in our department who got an above average score on the most recent customer satisfaction survey. In order to do that, we first need to know what the average is. For simplicity, let's assume we've already calculated each team member's score and stored it in a custom field on the Users \[sys_user] table.
+Let's say we want to send an e-mail to everyone in our department who got an above average score on the most recent customer satisfaction survey. In order to do that, we first need to know what the average is. For simplicity, let's assume we've already calculated each team member's score and stored it in a custom field on the User \[`sys_user`] table.
 
 Without GlideQuery, the best way to do this is with GlideAggregate to get the average and then GlideRecord to loop through the users and send the e-mails.
 
@@ -90,7 +90,7 @@ ga.query();
 ga.next();
 let average = ga.getAggregate('AVG', 'u_csat_score');
 
-gr = new GlideRecord('sys_user');
+let gr = new GlideRecord('sys_user');
 gr.addQuery('department', someDepartment);
 gr.addQuery('active', true);
 gr.addNotNullQuery('u_csat_score');
@@ -109,11 +109,11 @@ let query = new GlideQuery('sys_user')
   .where('active', true)
   .whereNotNull('u_csat_score');
 
-let average = query
+let average = query  // using query once
   .avg('u_csat_score')
   .get();
 
-query
+query  // using query a second time
   .where('u_csat_score', '>', average)
   .select(someFields)
   .forEach((user) => {
@@ -121,10 +121,16 @@ query
   });
 ~~~
 
-After calling the `avg` and `get` methods you might think the `query` object is all used up, but since it doesn't mutate like a GlideRecord object we can re-use it—even adding an additional where clause—to send the e-mails.
+After calling the `avg` and `get` methods you might think the `query` object is all used up, but since it doesn't mutate like a GlideRecord object we can re-use it—even adding an additional where clause—to send the e-mails.[^1]
 
-I've also used this in Script Includes where many different methods execute nearly the same query. The query can be assigned to a Script Include property and then re-used across all the methods.
+I've used this in Script Includes where many different methods start by executing nearly the same query. The query can be assigned to a property of the object and then re-used across all the methods. They're also great for enabling more dynamic function behavior since immutable GlideQuery objects can safely be passed around as function arguments. Once you know what's possibile you'll find all sorts of uses for this feature.
 
+## Conclusion
 
+Hopefully I've convinced you GlideQuery's stateless, immutable design is safer tha GlideRecord overall and enables both a more fluid syntax and some handy new use cases. Stay tuned for Part 4 where we'll cover the myriad ways you can process Streams and Optionals.
 
 {% include endmark.html %}
+
+<hr class="footnotes">
+
+[^1]: This is possible in the first place due to GlideQuery being one API, not split into separate APIs for aggregate and normal queries. However, even if our example didn't involve GlideAggregate and instead used GlideRecord twice, the first GlideRecord object couldn't be re-used the way a GlideQuery object can.
