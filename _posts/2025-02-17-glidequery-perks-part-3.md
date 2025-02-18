@@ -40,7 +40,7 @@ These changes in the object are sometimes called mutations or side effects, and 
 
 ## GlideQuery objects are immutable
 
-In functional programming there is a design pattern called a pure function. Pure functions always produce the same output given the same input and have no observable side effects. All GlideQuery objects are immutable, meaning there's no way to change them after they're created. When you call any method on the GlideQuery, instead of mutating the object, the method leaves the original object unchanged and returns a new object that's like the old one but with the new step applied.
+In functional programming there's a design pattern called a pure function. Pure functions always produce the same output given the same input and have no observable side effects. All GlideQuery objects are immutable, meaning there's no way to change them after they're created. All the methods of the GlideQuery <abbr>API</abbr> are pure functions, so, when you call any of them, instead of mutating the object, the method leaves the original object unchanged and returns a new object that's like the old one but with the new step applied.
 
 This is cumbersome, but it helps to see what's really going on if we rewrite the GlideQuery example above like this:
 
