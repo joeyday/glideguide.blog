@@ -36,7 +36,7 @@ The difference might be subtle or it might jump out at you right away. They're t
 
 In the GlideRecord example, we first instantiate an object and assign it to a variable. From that point on we call methods on the object that cause the object to change. We don't have to assign the output of those method calls to any new variable, because each time we add a new query the object itself changes. When we execute the query the object changes again, and each time we iterate to the next record the object changes yet again. And the whole time it remains assigned to the same variable name.
 
-These changes in the object are sometimes called mutations or side effects, and some consider it a best practice to avoid them. But aren't variables meant to vary? After all, it's right there in the name "variable". What's really wrong with allowing the GlideRecord object to mutate like this? We saw one extreme (and thankfully uncommon) example in [Part 0](/2023/01/30/glidequery-perks-part-0.html) and [Part 2](/2024/09/07/glidequery-perks-part-2.html) where mutation due to the `next` method caused undesirable behavior, but are there other drawbacks?
+These changes in the object are sometimes called mutations or side effects, and some consider it best practice to avoid them. But aren't variables meant to vary? After all, it's right there in the name "variable". What's really wrong with allowing the GlideRecord object to mutate like this? We saw one extreme (and thankfully uncommon) example in [Part 0](/2023/01/30/glidequery-perks-part-0.html) and [Part 2](/2024/09/07/glidequery-perks-part-2.html) where mutation due to the `next` method caused undesirable behavior, but are there other drawbacks?
 
 ## GlideQuery objects are immutable
 
@@ -123,7 +123,7 @@ query  // using query a second time
 
 After calling the `avg` and `get` methods you might think the `query` object is all used up, but since it doesn't mutate like a GlideRecord object we can re-use it—even adding an additional where clause—to send the e-mails.[^1]
 
-I've used this in Script Includes where many different methods start by executing nearly the same query. The query can be assigned to a property of the object and then re-used across all the methods. They're also great for enabling more dynamic function behavior since immutable GlideQuery objects can safely be passed around as function arguments. Once you know what's possibile you'll find all sorts of uses for this feature.
+I've used this in Script Includes where many different methods start by executing nearly the same query. The query can be assigned to a property of the object and then re-used across all the methods. They're also great for enabling more dynamic function behavior since immutable GlideQuery objects can safely be passed around as function arguments. Once you know what's possible you'll find all sorts of uses for this feature.
 
 ## Conclusion
 
