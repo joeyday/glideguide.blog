@@ -127,7 +127,7 @@ I've used this in Script Includes where many different methods start by executin
 
 ## Conclusion
 
-Hopefully I've convinced you GlideQuery's stateless, immutable design is safer tha GlideRecord overall and enables both a more fluid syntax and some handy new use cases. Stay tuned for Part 4 where we'll cover the myriad ways you can process Streams and Optionals.{% include endmark.html %}
+Hopefully I've convinced you GlideQuery's stateless, immutable design is safer than GlideRecord overall and enables both a more fluid syntax and some handy new use cases. Stay tuned for Part 4 where we'll cover the myriad ways you can process Streams and Optionals.{% include endmark.html %}
 
 <hr class="footnotes">
 
