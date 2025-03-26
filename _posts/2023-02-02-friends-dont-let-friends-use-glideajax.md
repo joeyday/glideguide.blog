@@ -33,7 +33,7 @@ fetch(endpoint, { headers: { 'X-UserToken': g_ck } }) // user auth token
     return response.json();
   })
   .then((response) => {
-    // Do stuff (e.g. number will be response.result.number)
+    // Do stuff (e.g. number will be response.result[i].number)
     // ...
   });
 ~~~
@@ -69,7 +69,7 @@ xhr.onreadystatechange = function () {
 
   var response = JSON.parse(xhr.responseText);
   
-  // Do stuff (e.g. number will be response.result.number)
+  // Do stuff (e.g. number will be response.result[i].number)
   // ...
 };
 ~~~
