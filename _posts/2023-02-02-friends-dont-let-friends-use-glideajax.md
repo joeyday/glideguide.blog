@@ -15,24 +15,24 @@ categories:
 The preferred way using modern JavaScript is with the [Fetch <abbr>API</abbr>](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). Here's an example to pull the ten oldest Incident records:
 
 ~~~ javascript
-var table = 'incident';
-var params = [
+const table = 'incident';
+const params = [
   'sysparm_query=active=true^ORDERBYsys_created_on',
   'sysparm_fields=number,short_description,description',
   'sysparm_limit=10',
   // 'sysparm_display_value=all', // true for display values, all for both
-];
+].join('&');
 
-var endpoint = '/api/now/table/' + table + '?' + params.join('&');
+const endpoint = `/api/now/table/${table}?${params}`;
 
 fetch(endpoint, { headers: { 'X-UserToken': g_ck } }) // user auth token
-  .then(function (response) {
+  .then((response) => {
     if (!response.ok)
-      throw 'HTTP status ' + response.status + ' on ' + endpoint;
+      throw `HTTP status ${response.status} on ${endpoint}`;
       
     return response.json();
   })
-  .then(function (response) {
+  .then((response) => {
     // Do stuff (e.g. number will be response.result.number)
     // ...
   });
