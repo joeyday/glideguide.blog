@@ -21,9 +21,9 @@ Here's a Script Include that can help you locate hardcoded values in legacy Work
 
 ~~~ javascript
 var HardcodedValuesLocator = function (table, tableQuery) {
-  return (function() {
+  return (function () {
 
-  /////// INITIALIZATION ///////
+    /////// INITIALIZATION ///////
 
     if (typeof tableQuery === 'undefined')
       tableQuery = new GlideQuery();
@@ -42,7 +42,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
     var recordIDs = Object.keys(records);
 
     /////// PUBLIC FUNCTIONS ///////
-    
+
     function findInFlows(flowQuery) {
       flowQuery = flowQuery || new GlideQuery()
         .where('active', true);
@@ -79,25 +79,27 @@ var HardcodedValuesLocator = function (table, tableQuery) {
           return acc.concat(mapping);
         }, []);
 
-      result = result.concat(new GlideQuery('sys_variable_value')
-        .where('document', 'sys_hub_action_instance')
-        .where('document_key', 'IN', Object.keys(actions))
-        .where('variable.reference', table)
-        .whereNotNull('value')
-        .select('value', 'document_key')
-        .map(function (variable) {
-          variable.id = variable.document_key;
-          variable.values = variable.value.split(',');
-          return variable;
-        })
-        .filter(function (variable) {
-          return variable.values.some(function (value) {
-            return Boolean(records[value]);
-          });
-        })
-        .reduce(function (acc, variable) {
-          return acc.concat(variable);
-        }, []);
+      result = result.concat(
+        new GlideQuery('sys_variable_value')
+          .where('document', 'sys_hub_action_instance')
+          .where('document_key', 'IN', Object.keys(actions))
+          .where('variable.reference', table)
+          .whereNotNull('value')
+          .select('value', 'document_key')
+          .map(function (variable) {
+            variable.id = variable.document_key;
+            variable.values = variable.value.split(',');
+            return variable;
+          })
+          .filter(function (variable) {
+            return variable.values.some(function (value) {
+              return Boolean(records[value]);
+            });
+          })
+          .reduce(function (acc, variable) {
+            return acc.concat(variable);
+          }, [])
+      );
 
       function getDisplayValuesWithReferences() {
         return result.reduce(function (acc, mapping) {
@@ -117,7 +119,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
           return acc;
         }, {});
       }
-      
+
       function getSysIds() {
         return result.reduce(function (acc, mapping) {
           var flowId = actions[mapping.id].flow;
@@ -126,7 +128,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
           return acc;
         }, []);
       }
-      
+
       return {
         getDisplayValuesWithReferences: getDisplayValuesWithReferences,
         getSysIds: getSysIds
@@ -135,7 +137,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
 
     function findInWorkflows(workflowVersionQuery) {
       workflowVersionQuery = workflowVersionQuery || new GlideQuery()
-          .where('published', true);
+        .where('published', true);
 
       var workflowVersions = new GlideQuery('wf_workflow_version')
         .where(workflowVersionQuery)
@@ -167,7 +169,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
             return Boolean(records[value]);
           });
         });
-      
+
       function getDisplayValuesWithReferences() {
         return result.reduce(function (acc, variable) {
           var workflow = activities[variable.document_key].workflow_version$DISPLAY.trim();
@@ -186,7 +188,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
           return acc;
         }, {});
       }
-      
+
       function getSysIds() {
         return result.reduce(function (acc, variable) {
           var workflowId = activities[variable.document_key].workflow_version;
@@ -195,7 +197,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
           return acc;
         }, []);
       }
-      
+
       return {
         getDisplayValuesWithReferences: getDisplayValuesWithReferences,
         getSysIds: getSysIds
@@ -208,7 +210,7 @@ var HardcodedValuesLocator = function (table, tableQuery) {
       findInFlows: findInFlows,
       findInWorkflows: findInWorkflows
     };
-  
+
   })();
 };
 ~~~
