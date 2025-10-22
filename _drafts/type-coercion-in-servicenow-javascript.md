@@ -35,8 +35,9 @@ This automatic behavior can make code look clean and concise, but it hides what'
 To make your intent clear and consistent, be explicit about what you're checking:
 
 ~~~ javascript
-if (!current.name.toString()) {
-    // explicitly converts the field value to a string
+if (current.name.toString() === '') {
+    // explicitly converts the GlideElement to a string value
+    // check if the value is equal to an empty string
 }
 ~~~
 
@@ -44,7 +45,7 @@ For this specific type of check ServiceNow has also provided a built-in method t
 
 ~~~ javascript
 if (current.name.nil()) {
-    // safe and readable - uses ServiceNow's built-in check
+    // safe and readable - uses GlideElement's built-in check for an empty value
 }
 ~~~
 
